@@ -1,0 +1,229 @@
+---
+const currentPath = Astro.url.pathname;
+
+// Helper function to check if current path matches nav item
+const isActive = (path: string): boolean => {
+  if (path === '/' && currentPath === '/') return true;
+  if (path !== '/' && currentPath.startsWith(path)) return true;
+  return false;
+};
+
+// Helper function to check if current path is a society page
+const isSocietyActive = (): boolean => {
+  return currentPath.startsWith('/societies/');
+};
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-gray-900/80 backdrop-blur-md border-b border-gray-800">
+  <nav class="container mx-auto px-6 py-4">
+    <div class="flex items-center justify-between">
+      <!-- Logo -->
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-purple-600 rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold text-xl">CS</span>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+            Computer Science
+          </h1>
+          <p class="text-sm text-gray-400">Department</p>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="hidden lg:flex items-center space-x-6">
+        <a href="/" class={`transition-colors duration-200 relative group ${
+          isActive('/') 
+            ? 'text-blue-400' 
+            : 'text-gray-300 hover:text-blue-400'
+        }`}>
+          Home
+          <span class={`absolute -bottom-1 left-0 h-0.5 bg-blue-400 transition-all duration-200 ${
+            isActive('/') ? 'w-full' : 'w-0 group-hover:w-full'
+          }`}></span>
+        </a>
+        <a href="/about" class={`transition-colors duration-200 relative group ${
+          isActive('/about') 
+            ? 'text-blue-400' 
+            : 'text-gray-300 hover:text-blue-400'
+        }`}>
+          About
+          <span class={`absolute -bottom-1 left-0 h-0.5 bg-blue-400 transition-all duration-200 ${
+            isActive('/about') ? 'w-full' : 'w-0 group-hover:w-full'
+          }`}></span>
+        </a>
+        <a href="/academics" class={`transition-colors duration-200 relative group ${
+          isActive('/academics') 
+            ? 'text-blue-400' 
+            : 'text-gray-300 hover:text-blue-400'
+        }`}>
+          Academics
+          <span class={`absolute -bottom-1 left-0 h-0.5 bg-blue-400 transition-all duration-200 ${
+            isActive('/academics') ? 'w-full' : 'w-0 group-hover:w-full'
+          }`}></span>
+        </a>
+        <a href="/news" class={`transition-colors duration-200 relative group ${
+          isActive('/news') 
+            ? 'text-blue-400' 
+            : 'text-gray-300 hover:text-blue-400'
+        }`}>
+          News & Events
+          <span class={`absolute -bottom-1 left-0 h-0.5 bg-blue-400 transition-all duration-200 ${
+            isActive('/news') ? 'w-full' : 'w-0 group-hover:w-full'
+          }`}></span>
+        </a>
+        
+        <!-- Societies Dropdown -->
+        <div class="relative group">
+          <button class={`transition-colors duration-200 flex items-center ${
+            isSocietyActive() 
+              ? 'text-blue-400' 
+              : 'text-gray-300 hover:text-blue-400'
+          }`}>
+            Societies
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="absolute top-full left-0 mt-2 w-48 bg-gray-900 border border-gray-700 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+            <a href="/societies/programming" class={`block px-4 py-2 transition-colors duration-200 ${
+              currentPath === '/societies/programming' 
+                ? 'text-blue-400 bg-gray-800' 
+                : 'text-gray-300 hover:text-blue-400 hover:bg-gray-800'
+            }`}>Programming Society</a>
+            <a href="/societies/cybersecurity" class={`block px-4 py-2 transition-colors duration-200 ${
+              currentPath === '/societies/cybersecurity' 
+                ? 'text-blue-400 bg-gray-800' 
+                : 'text-gray-300 hover:text-blue-400 hover:bg-gray-800'
+            }`}>Cybersecurity Club</a>
+            <a href="/societies/ai" class={`block px-4 py-2 transition-colors duration-200 ${
+              currentPath === '/societies/ai' 
+                ? 'text-blue-400 bg-gray-800' 
+                : 'text-gray-300 hover:text-blue-400 hover:bg-gray-800'
+            }`}>AI Society</a>
+            <a href="/societies/robotics" class={`block px-4 py-2 transition-colors duration-200 ${
+              currentPath === '/societies/robotics' 
+                ? 'text-blue-400 bg-gray-800' 
+                : 'text-gray-300 hover:text-blue-400 hover:bg-gray-800'
+            }`}>Robotics Club</a>
+            <a href="/societies/data-science" class={`block px-4 py-2 transition-colors duration-200 ${
+              currentPath === '/societies/data-science' 
+                ? 'text-blue-400 bg-gray-800' 
+                : 'text-gray-300 hover:text-blue-400 hover:bg-gray-800'
+            }`}>Data Science Society</a>
+            <a href="/societies/web-dev" class={`block px-4 py-2 transition-colors duration-200 rounded-b-lg ${
+              currentPath === '/societies/web-dev' 
+                ? 'text-blue-400 bg-gray-800' 
+                : 'text-gray-300 hover:text-blue-400 hover:bg-gray-800'
+            }`}>Web Dev Club</a>
+          </div>
+        </div>
+        
+        <a href="/resources" class={`transition-colors duration-200 relative group ${
+          isActive('/resources') 
+            ? 'text-blue-400' 
+            : 'text-gray-300 hover:text-blue-400'
+        }`}>
+          Resources
+          <span class={`absolute -bottom-1 left-0 h-0.5 bg-blue-400 transition-all duration-200 ${
+            isActive('/resources') ? 'w-full' : 'w-0 group-hover:w-full'
+          }`}></span>
+        </a>
+        <a href="/contact" class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-4 py-2 rounded-lg transition-all duration-200 transform hover:scale-105">
+          Contact
+        </a>
+      </nav>
+
+      <!-- Mobile menu button -->
+      <button id="mobile-menu-btn" class="lg:hidden text-gray-300 hover:text-blue-400 transition-colors duration-200">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation Menu -->
+    <div id="mobile-menu" class="lg:hidden hidden bg-gray-900/95 backdrop-blur-md border-t border-gray-800">
+      <div class="px-6 py-4 space-y-4">
+        <a href="/" class={`block transition-colors duration-200 ${
+          isActive('/') 
+            ? 'text-blue-400' 
+            : 'text-gray-300 hover:text-blue-400'
+        }`}>Home</a>
+        <a href="/about" class={`block transition-colors duration-200 ${
+          isActive('/about') 
+            ? 'text-blue-400' 
+            : 'text-gray-300 hover:text-blue-400'
+        }`}>About</a>
+        <a href="/academics" class={`block transition-colors duration-200 ${
+          isActive('/academics') 
+            ? 'text-blue-400' 
+            : 'text-gray-300 hover:text-blue-400'
+        }`}>Academics</a>
+        <a href="/news" class={`block transition-colors duration-200 ${
+          isActive('/news') 
+            ? 'text-blue-400' 
+            : 'text-gray-300 hover:text-blue-400'
+        }`}>News & Events</a>
+        
+        <div class="space-y-2">
+          <div class={`font-medium ${
+            isSocietyActive() 
+              ? 'text-blue-400' 
+              : 'text-gray-300'
+          }`}>Societies</div>
+          <div class="ml-4 space-y-2">
+            <a href="/societies/programming" class={`block transition-colors duration-200 ${
+              currentPath === '/societies/programming' 
+                ? 'text-blue-400' 
+                : 'text-gray-400 hover:text-blue-400'
+            }`}>Programming Society</a>
+            <a href="/societies/cybersecurity" class={`block transition-colors duration-200 ${
+              currentPath === '/societies/cybersecurity' 
+                ? 'text-blue-400' 
+                : 'text-gray-400 hover:text-blue-400'
+            }`}>Cybersecurity Club</a>
+            <a href="/societies/ai" class={`block transition-colors duration-200 ${
+              currentPath === '/societies/ai' 
+                ? 'text-blue-400' 
+                : 'text-gray-400 hover:text-blue-400'
+            }`}>AI Society</a>
+            <a href="/societies/robotics" class={`block transition-colors duration-200 ${
+              currentPath === '/societies/robotics' 
+                ? 'text-blue-400' 
+                : 'text-gray-400 hover:text-blue-400'
+            }`}>Robotics Club</a>
+            <a href="/societies/data-science" class={`block transition-colors duration-200 ${
+              currentPath === '/societies/data-science' 
+                ? 'text-blue-400' 
+                : 'text-gray-400 hover:text-blue-400'
+            }`}>Data Science Society</a>
+            <a href="/societies/web-dev" class={`block transition-colors duration-200 ${
+              currentPath === '/societies/web-dev' 
+                ? 'text-blue-400' 
+                : 'text-gray-400 hover:text-blue-400'
+            }`}>Web Dev Club</a>
+          </div>
+        </div>
+        
+        <a href="/resources" class={`block transition-colors duration-200 ${
+          isActive('/resources') 
+            ? 'text-blue-400' 
+            : 'text-gray-300 hover:text-blue-400'
+        }`}>Resources</a>
+        <a href="/contact" class="block bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-4 py-2 rounded-lg transition-all duration-200 text-center">Contact</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    mobileMenuBtn?.addEventListener('click', () => {
+      mobileMenu?.classList.toggle('hidden');
+    });
+  });
+</script>

@@ -1,0 +1,266 @@
+---
+// Interactive Search Component Island
+interface Props {
+	placeholder?: string;
+	searchType?: 'courses' | 'faculty' | 'resources' | 'news';
+	className?: string;
+}
+
+const { 
+	placeholder = "Search...", 
+	searchType = 'courses',
+	className = "max-w-md"
+} = Astro.props;
+---
+
+<div class={`relative ${className}`}>
+	<div class="relative">
+		<input 
+			type="text" 
+			id={`search-input-${searchType}`}
+			placeholder={placeholder}
+			class="w-full px-4 py-3 pl-12 bg-gray-800/60 backdrop-blur-sm border border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400 transition-all duration-300"
+		>
+		<svg class="w-5 h-5 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+		</svg>
+	</div>
+	<div id={`search-results-${searchType}`} class="absolute top-full left-0 w-full bg-gray-800/95 backdrop-blur-sm border border-gray-700 rounded-xl mt-2 hidden z-50 shadow-2xl max-h-80 overflow-y-auto">
+		<!-- Results will be populated by JavaScript -->
+	</div>
+	<div id={`search-loading-${searchType}`} class="absolute top-full left-0 w-full bg-gray-800/95 backdrop-blur-sm border border-gray-700 rounded-xl mt-2 hidden z-50 p-4">
+		<div class="flex items-center justify-center space-x-2">
+			<div class="w-4 h-4 bg-blue-500 rounded-full animate-pulse"></div>
+			<span class="text-gray-300">Searching...</span>
+		</div>
+	</div>
+</div>
+
+<script define:vars={{ searchType }}>
+	class SearchComponent {
+		constructor(searchType) {
+			this.searchType = searchType;
+			this.searchInput = document.getElementById(`search-input-${searchType}`);
+			this.resultsContainer = document.getElementById(`search-results-${searchType}`);
+			this.loadingContainer = document.getElementById(`search-loading-${searchType}`);
+			this.debounceTimer = null;
+			this.init();
+		}
+
+		init() {
+			this.searchInput?.addEventListener('input', this.debounceSearch.bind(this));
+			this.searchInput?.addEventListener('focus', this.handleFocus.bind(this));
+			document.addEventListener('click', this.handleClickOutside.bind(this));
+		}
+
+		debounceSearch(e) {
+			clearTimeout(this.debounceTimer);
+			this.debounceTimer = setTimeout(() => {
+				this.handleSearch(e);
+			}, 300);
+		}
+
+		async handleSearch(e) {
+			const query = e.target.value.trim();
+			
+			if (query.length < 2) {
+				this.hideResults();
+				return;
+			}
+
+			this.showLoading();
+			
+			try {
+				const results = await this.fetchResults(query);
+				this.hideLoading();
+				this.displayResults(results, query);
+			} catch (error) {
+				this.hideLoading();
+				this.displayError();
+			}
+		}
+
+		async fetchResults(query) {
+			// Simulate API delay
+			await new Promise(resolve => setTimeout(resolve, 500));
+
+			// Mock data - replace with actual search logic/API
+			const mockData = {
+				courses: [
+					{ title: 'Data Structures & Algorithms', code: 'CS201', credits: 3, semester: 'Fall 2025' },
+					{ title: 'Database Systems', code: 'CS301', credits: 4, semester: 'Spring 2026' },
+					{ title: 'Data Mining & Analytics', code: 'CS401', credits: 3, semester: 'Fall 2025' },
+					{ title: 'Computer Networks', code: 'CS302', credits: 3, semester: 'Spring 2026' },
+					{ title: 'Software Engineering', code: 'CS303', credits: 4, semester: 'Fall 2025' }
+				],
+				faculty: [
+					{ name: 'Dr. Sarah Johnson', department: 'AI & Machine Learning', email: 'sarah.johnson@uni.edu', office: 'CS-201' },
+					{ name: 'Prof. Michael Chen', department: 'Software Engineering', email: 'michael.chen@uni.edu', office: 'CS-305' },
+					{ name: 'Dr. Emily Rodriguez', department: 'Cybersecurity', email: 'emily.rodriguez@uni.edu', office: 'CS-408' },
+					{ name: 'Prof. David Kim', department: 'Data Science', email: 'david.kim@uni.edu', office: 'CS-502' }
+				],
+				resources: [
+					{ title: 'Python Programming Complete Guide', type: 'PDF', size: '2.5 MB', downloads: 1250 },
+					{ title: 'Web Development Bootcamp', type: 'Video Series', size: '4.2 GB', downloads: 850 },
+					{ title: 'Machine Learning Algorithms Cheat Sheet', type: 'PDF', size: '1.1 MB', downloads: 2100 },
+					{ title: 'Database Design Best Practices', type: 'eBook', size: '5.8 MB', downloads: 640 }
+				],
+				news: [
+					{ title: 'CS Department Wins National AI Competition', date: '2025-08-15', category: 'Achievement' },
+					{ title: 'New Cybersecurity Lab Opens This Fall', date: '2025-08-10', category: 'Facilities' },
+					{ title: 'Guest Lecture: Future of Quantum Computing', date: '2025-08-20', category: 'Events' },
+					{ title: 'Summer Internship Program Results', date: '2025-08-05', category: 'Students' }
+				]
+			};
+
+			return mockData[this.searchType]?.filter(item => 
+				Object.values(item).some(value => 
+					value.toString().toLowerCase().includes(query.toLowerCase())
+				)
+			) || [];
+		}
+
+		displayResults(results, query) {
+			if (results.length === 0) {
+				this.resultsContainer.innerHTML = `
+					<div class="p-4 text-center">
+						<div class="text-gray-400 mb-2">No results found for "${query}"</div>
+						<div class="text-sm text-gray-500">Try adjusting your search terms</div>
+					</div>
+				`;
+			} else {
+				this.resultsContainer.innerHTML = results.map(result => {
+					return this.renderResultItem(result);
+				}).join('');
+
+				// Add click handlers to results
+				this.resultsContainer.querySelectorAll('.search-result-item').forEach(item => {
+					item.addEventListener('click', () => {
+						this.handleResultClick(item.dataset.result);
+					});
+				});
+			}
+			
+			this.showResults();
+		}
+
+		renderResultItem(result) {
+			switch (this.searchType) {
+				case 'courses':
+					return `
+						<div class="search-result-item p-4 hover:bg-gray-700/50 cursor-pointer border-b border-gray-700 last:border-b-0 transition-colors" data-result='${JSON.stringify(result)}'>
+							<div class="flex justify-between items-start">
+								<div>
+									<div class="font-semibold text-white mb-1">${result.title}</div>
+									<div class="text-sm text-blue-400">${result.code} • ${result.credits} Credits</div>
+									<div class="text-xs text-gray-400 mt-1">${result.semester}</div>
+								</div>
+								<div class="text-xs text-green-400 bg-green-400/10 px-2 py-1 rounded">
+									Course
+								</div>
+							</div>
+						</div>
+					`;
+				case 'faculty':
+					return `
+						<div class="search-result-item p-4 hover:bg-gray-700/50 cursor-pointer border-b border-gray-700 last:border-b-0 transition-colors" data-result='${JSON.stringify(result)}'>
+							<div class="flex justify-between items-start">
+								<div>
+									<div class="font-semibold text-white mb-1">${result.name}</div>
+									<div class="text-sm text-blue-400">${result.department}</div>
+									<div class="text-xs text-gray-400 mt-1">${result.email} • ${result.office}</div>
+								</div>
+								<div class="text-xs text-purple-400 bg-purple-400/10 px-2 py-1 rounded">
+									Faculty
+								</div>
+							</div>
+						</div>
+					`;
+				case 'resources':
+					return `
+						<div class="search-result-item p-4 hover:bg-gray-700/50 cursor-pointer border-b border-gray-700 last:border-b-0 transition-colors" data-result='${JSON.stringify(result)}'>
+							<div class="flex justify-between items-start">
+								<div>
+									<div class="font-semibold text-white mb-1">${result.title}</div>
+									<div class="text-sm text-blue-400">${result.type} • ${result.size}</div>
+									<div class="text-xs text-gray-400 mt-1">${result.downloads} downloads</div>
+								</div>
+								<div class="text-xs text-orange-400 bg-orange-400/10 px-2 py-1 rounded">
+									Resource
+								</div>
+							</div>
+						</div>
+					`;
+				case 'news':
+					return `
+						<div class="search-result-item p-4 hover:bg-gray-700/50 cursor-pointer border-b border-gray-700 last:border-b-0 transition-colors" data-result='${JSON.stringify(result)}'>
+							<div class="flex justify-between items-start">
+								<div>
+									<div class="font-semibold text-white mb-1">${result.title}</div>
+									<div class="text-sm text-blue-400">${result.date}</div>
+								</div>
+								<div class="text-xs text-cyan-400 bg-cyan-400/10 px-2 py-1 rounded">
+									${result.category}
+								</div>
+							</div>
+						</div>
+					`;
+				default:
+					return '';
+			}
+		}
+
+		handleResultClick(resultData) {
+			const result = JSON.parse(resultData);
+			console.log('Selected:', result);
+			// You can implement navigation or modal opening here
+			this.hideResults();
+			this.searchInput.value = '';
+		}
+
+		displayError() {
+			this.resultsContainer.innerHTML = `
+				<div class="p-4 text-center">
+					<div class="text-red-400 mb-2">Search failed</div>
+					<div class="text-sm text-gray-500">Please try again</div>
+				</div>
+			`;
+			this.showResults();
+		}
+
+		showLoading() {
+			this.hideResults();
+			this.loadingContainer?.classList.remove('hidden');
+		}
+
+		hideLoading() {
+			this.loadingContainer?.classList.add('hidden');
+		}
+
+		showResults() {
+			this.hideLoading();
+			this.resultsContainer?.classList.remove('hidden');
+		}
+
+		hideResults() {
+			this.resultsContainer?.classList.add('hidden');
+		}
+
+		handleFocus() {
+			if (this.searchInput.value.trim().length >= 2) {
+				this.showResults();
+			}
+		}
+
+		handleClickOutside(e) {
+			if (!this.searchInput?.contains(e.target) && 
+				!this.resultsContainer?.contains(e.target) &&
+				!this.loadingContainer?.contains(e.target)) {
+				this.hideResults();
+			}
+		}
+	}
+
+	// Initialize the search component
+	new SearchComponent(searchType);
+</script>

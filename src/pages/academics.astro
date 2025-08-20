@@ -1,0 +1,478 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+---
+
+<Layout>
+  <Header />
+  <main class="pt-24">
+    <!-- Hero Section -->
+    <section class="py-20 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950"></div>
+      <div class="absolute inset-0 grid-pattern opacity-10"></div>
+      
+      <div class="container mx-auto px-6 relative z-10 text-center">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">
+          <span class="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+            Academics
+          </span>
+        </h1>
+        <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+          Comprehensive programs designed to prepare you for success in the ever-evolving world of technology
+        </p>
+      </div>
+    </section>
+
+    <!-- Programs Overview -->
+    <section class="py-20">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold mb-6">
+            <span class="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+              Our Programs
+            </span>
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Bachelor's Program -->
+          <div class="group bg-gradient-to-br from-gray-800/50 to-gray-900/80 backdrop-blur-sm border border-gray-700 rounded-2xl p-8 transform hover:scale-105 transition-all duration-500 hover:border-blue-500/50">
+            <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+              </svg>
+            </div>
+            
+            <h3 class="text-2xl font-bold text-white mb-4">Bachelor of Science</h3>
+            <p class="text-gray-300 mb-6 leading-relaxed">
+              Comprehensive 4-year program covering fundamentals of computer science, programming, algorithms, and system design.
+            </p>
+            
+            <div class="space-y-3 mb-6">
+              <div class="flex items-center text-sm text-gray-400">
+                <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
+                120 Credit Hours
+              </div>
+              <div class="flex items-center text-sm text-gray-400">
+                <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
+                8 Semesters
+              </div>
+              <div class="flex items-center text-sm text-gray-400">
+                <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
+                Capstone Project
+              </div>
+            </div>
+            
+            <button class="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 py-3 rounded-xl font-semibold transition-all duration-300 transform group-hover:scale-105">
+              Learn More
+            </button>
+          </div>
+
+          <!-- Master's Program -->
+          <div class="group bg-gradient-to-br from-gray-800/50 to-gray-900/80 backdrop-blur-sm border border-gray-700 rounded-2xl p-8 transform hover:scale-105 transition-all duration-500 hover:border-purple-500/50">
+            <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+              </svg>
+            </div>
+            
+            <h3 class="text-2xl font-bold text-white mb-4">Master of Science</h3>
+            <p class="text-gray-300 mb-6 leading-relaxed">
+              Advanced 2-year program with specializations in AI, cybersecurity, data science, and software engineering.
+            </p>
+            
+            <div class="space-y-3 mb-6">
+              <div class="flex items-center text-sm text-gray-400">
+                <span class="w-2 h-2 bg-purple-400 rounded-full mr-3"></span>
+                36 Credit Hours
+              </div>
+              <div class="flex items-center text-sm text-gray-400">
+                <span class="w-2 h-2 bg-purple-400 rounded-full mr-3"></span>
+                4 Semesters
+              </div>
+              <div class="flex items-center text-sm text-gray-400">
+                <span class="w-2 h-2 bg-purple-400 rounded-full mr-3"></span>
+                Thesis/Project Option
+              </div>
+            </div>
+            
+            <button class="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 py-3 rounded-xl font-semibold transition-all duration-300 transform group-hover:scale-105">
+              Learn More
+            </button>
+          </div>
+
+          <!-- PhD Program -->
+          <div class="group bg-gradient-to-br from-gray-800/50 to-gray-900/80 backdrop-blur-sm border border-gray-700 rounded-2xl p-8 transform hover:scale-105 transition-all duration-500 hover:border-cyan-500/50">
+            <div class="w-16 h-16 bg-gradient-to-br from-cyan-400 to-cyan-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+              </svg>
+            </div>
+            
+            <h3 class="text-2xl font-bold text-white mb-4">Doctor of Philosophy</h3>
+            <p class="text-gray-300 mb-6 leading-relaxed">
+              Research-focused doctoral program for developing expertise in cutting-edge computer science fields.
+            </p>
+            
+            <div class="space-y-3 mb-6">
+              <div class="flex items-center text-sm text-gray-400">
+                <span class="w-2 h-2 bg-cyan-400 rounded-full mr-3"></span>
+                72+ Credit Hours
+              </div>
+              <div class="flex items-center text-sm text-gray-400">
+                <span class="w-2 h-2 bg-cyan-400 rounded-full mr-3"></span>
+                4-6 Years
+              </div>
+              <div class="flex items-center text-sm text-gray-400">
+                <span class="w-2 h-2 bg-cyan-400 rounded-full mr-3"></span>
+                Dissertation Required
+              </div>
+            </div>
+            
+            <button class="w-full bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 py-3 rounded-xl font-semibold transition-all duration-300 transform group-hover:scale-105">
+              Learn More
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Course Categories -->
+    <section class="py-20 bg-gradient-to-b from-gray-950 to-gray-900">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold mb-6">
+            <span class="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+              Course Categories
+            </span>
+          </h2>
+          <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+            Our curriculum is structured across key areas of computer science
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6 hover:border-blue-400 transition-all duration-300 group">
+            <div class="text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">💻</div>
+            <h3 class="text-lg font-semibold text-white mb-3">Core Programming</h3>
+            <ul class="space-y-2 text-sm text-gray-400">
+              <li>• Data Structures</li>
+              <li>• Algorithms</li>
+              <li>• Object-Oriented Programming</li>
+              <li>• Database Systems</li>
+            </ul>
+          </div>
+
+          <div class="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6 hover:border-purple-400 transition-all duration-300 group">
+            <div class="text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">🧠</div>
+            <h3 class="text-lg font-semibold text-white mb-3">Artificial Intelligence</h3>
+            <ul class="space-y-2 text-sm text-gray-400">
+              <li>• Machine Learning</li>
+              <li>• Deep Learning</li>
+              <li>• Natural Language Processing</li>
+              <li>• Computer Vision</li>
+            </ul>
+          </div>
+
+          <div class="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6 hover:border-green-400 transition-all duration-300 group">
+            <div class="text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">🔧</div>
+            <h3 class="text-lg font-semibold text-white mb-3">Systems & Networks</h3>
+            <ul class="space-y-2 text-sm text-gray-400">
+              <li>• Operating Systems</li>
+              <li>• Computer Networks</li>
+              <li>• Distributed Systems</li>
+              <li>• Cloud Computing</li>
+            </ul>
+          </div>
+
+          <div class="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6 hover:border-red-400 transition-all duration-300 group">
+            <div class="text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">🔐</div>
+            <h3 class="text-lg font-semibold text-white mb-3">Security & Ethics</h3>
+            <ul class="space-y-2 text-sm text-gray-400">
+              <li>• Cybersecurity</li>
+              <li>• Cryptography</li>
+              <li>• Computer Ethics</li>
+              <li>• Privacy Protection</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Labs & Facilities -->
+    <section class="py-20">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold mb-6">
+            <span class="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+              Labs & Facilities
+            </span>
+          </h2>
+          <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+            State-of-the-art facilities equipped with the latest technology
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- AI Lab -->
+          <div class="group bg-gradient-to-br from-gray-800/60 to-gray-900/60 backdrop-blur-sm border border-gray-700 rounded-2xl p-8 hover:border-blue-500/50 transition-all duration-500">
+            <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-4">AI & Machine Learning Lab</h3>
+            <p class="text-gray-300 mb-6">High-performance computing cluster with GPU acceleration for deep learning research and development.</p>
+            <div class="space-y-2">
+              <div class="flex items-center text-sm text-gray-400">
+                <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
+                50 High-spec workstations
+              </div>
+              <div class="flex items-center text-sm text-gray-400">
+                <span class="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
+                NVIDIA RTX 4090 GPUs
+              </div>
+            </div>
+          </div>
+
+          <!-- Cybersecurity Lab -->
+          <div class="group bg-gradient-to-br from-gray-800/60 to-gray-900/60 backdrop-blur-sm border border-gray-700 rounded-2xl p-8 hover:border-red-500/50 transition-all duration-500">
+            <div class="w-16 h-16 bg-gradient-to-br from-red-400 to-red-600 rounded-xl flex items-center justify-center mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-4">Cybersecurity Lab</h3>
+            <p class="text-gray-300 mb-6">Isolated network environment for penetration testing, digital forensics, and security research.</p>
+            <div class="space-y-2">
+              <div class="flex items-center text-sm text-gray-400">
+                <span class="w-2 h-2 bg-red-400 rounded-full mr-3"></span>
+                Isolated test networks
+              </div>
+              <div class="flex items-center text-sm text-gray-400">
+                <span class="w-2 h-2 bg-red-400 rounded-full mr-3"></span>
+                Industry-grade tools
+              </div>
+            </div>
+          </div>
+
+          <!-- Software Engineering Lab -->
+          <div class="group bg-gradient-to-br from-gray-800/60 to-gray-900/60 backdrop-blur-sm border border-gray-700 rounded-2xl p-8 hover:border-green-500/50 transition-all duration-500">
+            <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-4">Software Engineering Lab</h3>
+            <p class="text-gray-300 mb-6">Collaborative development environment with version control, CI/CD, and project management tools.</p>
+            <div class="space-y-2">
+              <div class="flex items-center text-sm text-gray-400">
+                <span class="w-2 h-2 bg-green-400 rounded-full mr-3"></span>
+                40 Development stations
+              </div>
+              <div class="flex items-center text-sm text-gray-400">
+                <span class="w-2 h-2 bg-green-400 rounded-full mr-3"></span>
+                Enterprise software
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile App Lab -->
+          <div class="group bg-gradient-to-br from-gray-800/60 to-gray-900/60 backdrop-blur-sm border border-gray-700 rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-500">
+            <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl flex items-center justify-center mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-4">Mobile Development Lab</h3>
+            <p class="text-gray-300 mb-6">iOS and Android development environment with device testing labs and emulators.</p>
+            <div class="space-y-2">
+              <div class="flex items-center text-sm text-gray-400">
+                <span class="w-2 h-2 bg-purple-400 rounded-full mr-3"></span>
+                Mac & PC workstations
+              </div>
+              <div class="flex items-center text-sm text-gray-400">
+                <span class="w-2 h-2 bg-purple-400 rounded-full mr-3"></span>
+                100+ test devices
+              </div>
+            </div>
+          </div>
+
+          <!-- Robotics Lab -->
+          <div class="group bg-gradient-to-br from-gray-800/60 to-gray-900/60 backdrop-blur-sm border border-gray-700 rounded-2xl p-8 hover:border-orange-500/50 transition-all duration-500">
+            <div class="w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-4">Robotics Lab</h3>
+            <p class="text-gray-300 mb-6">Hands-on robotics development with Arduino, Raspberry Pi, and advanced robotic platforms.</p>
+            <div class="space-y-2">
+              <div class="flex items-center text-sm text-gray-400">
+                <span class="w-2 h-2 bg-orange-400 rounded-full mr-3"></span>
+                Various robot platforms
+              </div>
+              <div class="flex items-center text-sm text-gray-400">
+                <span class="w-2 h-2 bg-orange-400 rounded-full mr-3"></span>
+                3D printing facility
+              </div>
+            </div>
+          </div>
+
+          <!-- VR/AR Lab -->
+          <div class="group bg-gradient-to-br from-gray-800/60 to-gray-900/60 backdrop-blur-sm border border-gray-700 rounded-2xl p-8 hover:border-pink-500/50 transition-all duration-500">
+            <div class="w-16 h-16 bg-gradient-to-br from-pink-400 to-pink-600 rounded-xl flex items-center justify-center mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-4">VR/AR Lab</h3>
+            <p class="text-gray-300 mb-6">Immersive technology development with VR headsets, AR devices, and 3D modeling tools.</p>
+            <div class="space-y-2">
+              <div class="flex items-center text-sm text-gray-400">
+                <span class="w-2 h-2 bg-pink-400 rounded-full mr-3"></span>
+                VR/AR headsets
+              </div>
+              <div class="flex items-center text-sm text-gray-400">
+                <span class="w-2 h-2 bg-pink-400 rounded-full mr-3"></span>
+                Motion capture system
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Academic Calendar -->
+    <section class="py-20 bg-gradient-to-b from-gray-900 to-gray-950">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold mb-6">
+            <span class="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              Academic Calendar 2025
+            </span>
+          </h2>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Fall Semester -->
+            <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-8">
+              <h3 class="text-2xl font-bold text-blue-400 mb-6 flex items-center">
+                <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                Fall Semester 2025
+              </h3>
+              <div class="space-y-4">
+                <div class="flex justify-between items-center border-b border-gray-700 pb-3">
+                  <span class="text-gray-300">Classes Begin</span>
+                  <span class="text-blue-400 font-medium">Aug 25</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-gray-700 pb-3">
+                  <span class="text-gray-300">Mid-term Exams</span>
+                  <span class="text-blue-400 font-medium">Oct 14-18</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-gray-700 pb-3">
+                  <span class="text-gray-300">Thanksgiving Break</span>
+                  <span class="text-blue-400 font-medium">Nov 25-29</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-gray-300">Final Exams</span>
+                  <span class="text-blue-400 font-medium">Dec 9-13</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Spring Semester -->
+            <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-8">
+              <h3 class="text-2xl font-bold text-purple-400 mb-6 flex items-center">
+                <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                Spring Semester 2026
+              </h3>
+              <div class="space-y-4">
+                <div class="flex justify-between items-center border-b border-gray-700 pb-3">
+                  <span class="text-gray-300">Classes Begin</span>
+                  <span class="text-purple-400 font-medium">Jan 13</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-gray-700 pb-3">
+                  <span class="text-gray-300">Spring Break</span>
+                  <span class="text-purple-400 font-medium">Mar 9-13</span>
+                </div>
+                <div class="flex justify-between items-center border-b border-gray-700 pb-3">
+                  <span class="text-gray-300">Mid-term Exams</span>
+                  <span class="text-purple-400 font-medium">Mar 16-20</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-gray-300">Final Exams</span>
+                  <span class="text-purple-400 font-medium">May 4-8</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Summer Programs -->
+          <div class="mt-8 bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-8">
+            <h3 class="text-2xl font-bold text-cyan-400 mb-6 flex items-center">
+              <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+              </svg>
+              Summer Programs 2026
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div class="text-center">
+                <h4 class="text-lg font-semibold text-white mb-2">Summer Session I</h4>
+                <p class="text-gray-400 text-sm">May 19 - Jun 27</p>
+                <p class="text-cyan-400 text-sm">6-week intensive courses</p>
+              </div>
+              <div class="text-center">
+                <h4 class="text-lg font-semibold text-white mb-2">Summer Session II</h4>
+                <p class="text-gray-400 text-sm">Jul 7 - Aug 15</p>
+                <p class="text-cyan-400 text-sm">6-week intensive courses</p>
+              </div>
+              <div class="text-center">
+                <h4 class="text-lg font-semibold text-white mb-2">Research Internships</h4>
+                <p class="text-gray-400 text-sm">Jun 1 - Aug 31</p>
+                <p class="text-cyan-400 text-sm">Full-time research opportunities</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  // Smooth scrolling and animations
+  document.addEventListener('DOMContentLoaded', () => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const element = entry.target as HTMLElement;
+          element.style.opacity = '1';
+          element.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observe all sections
+    document.querySelectorAll('section').forEach(section => {
+      const element = section as HTMLElement;
+      element.style.opacity = '0';
+      element.style.transform = 'translateY(30px)';
+      element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(section);
+    });
+  });
+</script>

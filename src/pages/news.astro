@@ -1,0 +1,413 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+---
+
+<Layout>
+  <Header />
+  <main class="pt-24">
+    <!-- Hero Section -->
+    <section class="py-20 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950"></div>
+      <div class="absolute inset-0 grid-pattern opacity-10"></div>
+      
+      <div class="container mx-auto px-6 relative z-10 text-center">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">
+          <span class="bg-gradient-to-r from-green-400 to-blue-600 bg-clip-text text-transparent">
+            News & Events
+          </span>
+        </h1>
+        <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+          Stay updated with the latest happenings, achievements, and upcoming events in our department
+        </p>
+      </div>
+    </section>
+
+    <!-- Featured News -->
+    <section class="py-20">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold mb-6">
+            <span class="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+              Featured News
+            </span>
+          </h2>
+        </div>
+
+        <!-- Main Featured Article -->
+        <div class="mb-16">
+          <div class="bg-gradient-to-br from-gray-800/60 to-gray-900/60 backdrop-blur-sm border border-gray-700 rounded-2xl overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+              <!-- Image placeholder -->
+              <div class="bg-gradient-to-br from-blue-500/20 to-purple-600/20 p-12 flex items-center justify-center min-h-80">
+                <div class="text-center">
+                  <div class="w-24 h-24 bg-gradient-to-br from-blue-400 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
+                  </div>
+                  <p class="text-blue-300 font-medium">AI Research Breakthrough</p>
+                </div>
+              </div>
+              
+              <!-- Content -->
+              <div class="p-8 lg:p-12">
+                <div class="flex items-center space-x-4 mb-4">
+                  <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-sm font-medium">Research</span>
+                  <span class="text-gray-400 text-sm">August 15, 2025</span>
+                </div>
+                
+                <h3 class="text-3xl font-bold text-white mb-4">
+                  Department Develops Revolutionary AI Algorithm for Medical Diagnosis
+                </h3>
+                
+                <p class="text-gray-300 text-lg leading-relaxed mb-6">
+                  Our research team, led by Prof. Michael Chen, has developed a groundbreaking AI algorithm 
+                  that can diagnose rare diseases with 98% accuracy. This breakthrough could revolutionize 
+                  medical diagnosis and save countless lives.
+                </p>
+                
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full"></div>
+                    <div>
+                      <p class="text-white font-medium text-sm">Prof. Michael Chen</p>
+                      <p class="text-gray-400 text-xs">AI Research Lab</p>
+                    </div>
+                  </div>
+                  <button class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-6 py-2 rounded-lg transition-all duration-300 transform hover:scale-105">
+                    Read More
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- News Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- News Item 1 -->
+          <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 hover:border-green-500/50 transition-all duration-300 transform hover:scale-105">
+            <div class="flex items-center space-x-3 mb-4">
+              <span class="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-sm font-medium">Achievement</span>
+              <span class="text-gray-400 text-sm">Aug 10, 2025</span>
+            </div>
+            
+            <h4 class="text-xl font-bold text-white mb-3">
+              Students Win International Programming Contest
+            </h4>
+            
+            <p class="text-gray-300 text-sm leading-relaxed mb-4">
+              Our programming team secured first place in the ACM International Collegiate Programming Contest, 
+              beating teams from over 100 universities worldwide.
+            </p>
+            
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-2">
+                <div class="w-6 h-6 bg-gradient-to-br from-green-400 to-green-600 rounded-full"></div>
+                <span class="text-green-300 text-sm font-medium">Programming Society</span>
+              </div>
+              <button class="text-blue-400 hover:text-blue-300 transition-colors text-sm font-medium">
+                Read More →
+              </button>
+            </div>
+          </div>
+
+          <!-- News Item 2 -->
+          <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 hover:border-purple-500/50 transition-all duration-300 transform hover:scale-105">
+            <div class="flex items-center space-x-3 mb-4">
+              <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm font-medium">Partnership</span>
+              <span class="text-gray-400 text-sm">Aug 8, 2025</span>
+            </div>
+            
+            <h4 class="text-xl font-bold text-white mb-3">
+              New Partnership with Tech Giants Announced
+            </h4>
+            
+            <p class="text-gray-300 text-sm leading-relaxed mb-4">
+              We've partnered with Google, Microsoft, and Amazon to provide internship opportunities 
+              and collaborative research projects for our students.
+            </p>
+            
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-2">
+                <div class="w-6 h-6 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full"></div>
+                <span class="text-purple-300 text-sm font-medium">Industry Relations</span>
+              </div>
+              <button class="text-blue-400 hover:text-blue-300 transition-colors text-sm font-medium">
+                Read More →
+              </button>
+            </div>
+          </div>
+
+          <!-- News Item 3 -->
+          <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 hover:border-orange-500/50 transition-all duration-300 transform hover:scale-105">
+            <div class="flex items-center space-x-3 mb-4">
+              <span class="bg-orange-500/20 text-orange-300 px-3 py-1 rounded-full text-sm font-medium">Innovation</span>
+              <span class="text-gray-400 text-sm">Aug 5, 2025</span>
+            </div>
+            
+            <h4 class="text-xl font-bold text-white mb-3">
+              Quantum Computing Lab Opens New Research Facility
+            </h4>
+            
+            <p class="text-gray-300 text-sm leading-relaxed mb-4">
+              Our new $5M quantum computing facility is now operational, featuring state-of-the-art 
+              quantum computers and research equipment.
+            </p>
+            
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-2">
+                <div class="w-6 h-6 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full"></div>
+                <span class="text-orange-300 text-sm font-medium">Research</span>
+              </div>
+              <button class="text-blue-400 hover:text-blue-300 transition-colors text-sm font-medium">
+                Read More →
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Upcoming Events -->
+    <section class="py-20 bg-gradient-to-b from-gray-950 to-gray-900">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold mb-6">
+            <span class="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+              Upcoming Events
+            </span>
+          </h2>
+          <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+            Join us for exciting events, workshops, and conferences
+          </p>
+        </div>
+
+        <div class="max-w-4xl mx-auto space-y-6">
+          <!-- Event 1 -->
+          <div class="bg-gradient-to-br from-gray-800/60 to-gray-900/60 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 hover:border-blue-500/50 transition-all duration-300">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+              <div class="flex-1 mb-4 md:mb-0">
+                <div class="flex items-center space-x-4 mb-3">
+                  <div class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-lg font-medium">
+                    Aug 25
+                  </div>
+                  <span class="text-blue-400 font-medium">Workshop</span>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2">
+                  Introduction to Machine Learning Workshop
+                </h3>
+                <p class="text-gray-300 mb-3">
+                  A hands-on workshop covering the fundamentals of machine learning, neural networks, 
+                  and practical applications using Python and TensorFlow.
+                </p>
+                <div class="flex items-center space-x-4 text-sm text-gray-400">
+                  <div class="flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    2:00 PM - 5:00 PM
+                  </div>
+                  <div class="flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                    </svg>
+                    AI Lab, Room 301
+                  </div>
+                </div>
+              </div>
+              <div class="flex space-x-3">
+                <button class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-6 py-2 rounded-lg transition-all duration-300">
+                  Register
+                </button>
+                <button class="border border-gray-600 hover:border-blue-400 px-6 py-2 rounded-lg transition-all duration-300">
+                  Learn More
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event 2 -->
+          <div class="bg-gradient-to-br from-gray-800/60 to-gray-900/60 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 hover:border-purple-500/50 transition-all duration-300">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+              <div class="flex-1 mb-4 md:mb-0">
+                <div class="flex items-center space-x-4 mb-3">
+                  <div class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-lg font-medium">
+                    Sep 5
+                  </div>
+                  <span class="text-purple-400 font-medium">Conference</span>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2">
+                  Annual Computer Science Symposium
+                </h3>
+                <p class="text-gray-300 mb-3">
+                  Join industry leaders, researchers, and students for presentations on the latest 
+                  developments in AI, cybersecurity, and quantum computing.
+                </p>
+                <div class="flex items-center space-x-4 text-sm text-gray-400">
+                  <div class="flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    9:00 AM - 6:00 PM
+                  </div>
+                  <div class="flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                    </svg>
+                    Main Auditorium
+                  </div>
+                </div>
+              </div>
+              <div class="flex space-x-3">
+                <button class="bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 px-6 py-2 rounded-lg transition-all duration-300">
+                  Register
+                </button>
+                <button class="border border-gray-600 hover:border-purple-400 px-6 py-2 rounded-lg transition-all duration-300">
+                  Learn More
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event 3 -->
+          <div class="bg-gradient-to-br from-gray-800/60 to-gray-900/60 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 hover:border-green-500/50 transition-all duration-300">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+              <div class="flex-1 mb-4 md:mb-0">
+                <div class="flex items-center space-x-4 mb-3">
+                  <div class="bg-green-500/20 text-green-300 px-3 py-1 rounded-lg font-medium">
+                    Sep 15
+                  </div>
+                  <span class="text-green-400 font-medium">Competition</span>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2">
+                  Hackathon 2025: Code for Good
+                </h3>
+                <p class="text-gray-300 mb-3">
+                  48-hour hackathon focused on developing solutions for social and environmental challenges. 
+                  Open to all students with exciting prizes and mentorship opportunities.
+                </p>
+                <div class="flex items-center space-x-4 text-sm text-gray-400">
+                  <div class="flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    48 Hours
+                  </div>
+                  <div class="flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                    </svg>
+                    Student Center
+                  </div>
+                </div>
+              </div>
+              <div class="flex space-x-3">
+                <button class="bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 px-6 py-2 rounded-lg transition-all duration-300">
+                  Register
+                </button>
+                <button class="border border-gray-600 hover:border-green-400 px-6 py-2 rounded-lg transition-all duration-300">
+                  Learn More
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-12">
+          <button class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105">
+            View All Events
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Achievements -->
+    <section class="py-20">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold mb-6">
+            <span class="bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
+              Recent Achievements
+            </span>
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="text-center group">
+            <div class="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Best CS Program</h3>
+            <p class="text-gray-400 text-sm">Ranked #1 regionally by TechEd Magazine</p>
+          </div>
+
+          <div class="text-center group">
+            <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">$2.5M Grant</h3>
+            <p class="text-gray-400 text-sm">NSF funding for quantum computing research</p>
+          </div>
+
+          <div class="text-center group">
+            <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Innovation Award</h3>
+            <p class="text-gray-400 text-sm">IEEE recognition for breakthrough AI algorithm</p>
+          </div>
+
+          <div class="text-center group">
+            <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">98% Job Rate</h3>
+            <p class="text-gray-400 text-sm">Graduate employment within 6 months</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  // Smooth scrolling and animations
+  document.addEventListener('DOMContentLoaded', () => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const element = entry.target as HTMLElement;
+          element.style.opacity = '1';
+          element.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observe all sections
+    document.querySelectorAll('section').forEach(section => {
+      const element = section as HTMLElement;
+      element.style.opacity = '0';
+      element.style.transform = 'translateY(30px)';
+      element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(section);
+    });
+  });
+</script>
