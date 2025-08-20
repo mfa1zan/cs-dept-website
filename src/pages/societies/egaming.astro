@@ -1,0 +1,125 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import '../../styles/global.css';
+---
+
+<Layout>
+  <Header />
+  <main class="pt-24">
+    <!-- Hero Section -->
+    <section class="py-20 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950"></div>
+      <div class="absolute inset-0 grid-pattern opacity-10"></div>
+      
+      <div class="container mx-auto px-6 relative z-10 text-center">
+        <div class="w-24 h-24 bg-gradient-to-br from-blue-400 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+          <span class="text-4xl">🎮</span>
+        </div>
+        
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">
+          <span class="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+            E-Gaming Society
+          </span>
+        </h1>
+        <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+          Uniting gamers through competition, strategy, and fun
+        </p>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-20">
+      <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">
+              <span class="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+                About Our Society
+              </span>
+            </h2>
+            <p class="text-gray-300 text-lg leading-relaxed mb-6">
+              The E-Gaming Society brings together passionate gamers from all backgrounds to compete, 
+              learn, and have fun. We organize tournaments, gaming sessions, and explore the 
+              technical aspects of game development.
+            </p>
+            <p class="text-gray-400 leading-relaxed mb-8">
+              Whether you're into competitive esports, casual gaming, or interested in game 
+              development, our society provides the perfect platform to connect with fellow gamers.
+            </p>
+
+            <!-- Key Features -->
+            <div class="space-y-4">
+              <div class="flex items-center space-x-3">
+                <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
+                <span class="text-gray-300">Competitive Tournaments</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <div class="w-2 h-2 bg-purple-400 rounded-full"></div>
+                <span class="text-gray-300">Gaming Workshops</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
+                <span class="text-gray-300">Game Development Projects</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <div class="w-2 h-2 bg-purple-400 rounded-full"></div>
+                <span class="text-gray-300">Community Events</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative">
+            <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-2xl p-8 backdrop-blur-sm border border-gray-700">
+              <h3 class="text-2xl font-bold text-white mb-6">Level Up With Us!</h3>
+              <p class="text-gray-300 mb-6">
+                Ready to take your gaming to the next level? Join our community of dedicated gamers and competitors.
+              </p>
+              <button class="bg-gradient-to-r from-blue-400 to-purple-600 hover:from-blue-500 hover:to-purple-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
+                Join the Game
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Games Section -->
+    <section class="py-20 bg-gradient-to-br from-gray-900 to-gray-950">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold mb-6">
+            <span class="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+              Popular Games
+            </span>
+          </h2>
+          <p class="text-gray-300 max-w-2xl mx-auto">
+            Discover the games our community loves to play and compete in
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6">
+            <div class="text-3xl mb-4">⚔️</div>
+            <h3 class="text-xl font-bold text-white mb-3">Strategy Games</h3>
+            <p class="text-gray-400">Chess, DOTA 2, League of Legends, and tactical games</p>
+          </div>
+
+          <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6">
+            <div class="text-3xl mb-4">🎯</div>
+            <h3 class="text-xl font-bold text-white mb-3">FPS Games</h3>
+            <p class="text-gray-400">Counter-Strike, Valorant, and competitive shooters</p>
+          </div>
+
+          <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6">
+            <div class="text-3xl mb-4">🏆</div>
+            <h3 class="text-xl font-bold text-white mb-3">Tournament Play</h3>
+            <p class="text-gray-400">Regular competitions and inter-university tournaments</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

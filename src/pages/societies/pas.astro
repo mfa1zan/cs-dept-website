@@ -1,0 +1,125 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import '../../styles/global.css';
+---
+
+<Layout>
+  <Header />
+  <main class="pt-24">
+    <!-- Hero Section -->
+    <section class="py-20 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950"></div>
+      <div class="absolute inset-0 grid-pattern opacity-10"></div>
+      
+      <div class="container mx-auto px-6 relative z-10 text-center">
+        <div class="w-24 h-24 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6">
+          <span class="text-4xl">🎭</span>
+        </div>
+        
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">
+          <span class="bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
+            Performing Arts Society
+          </span>
+        </h1>
+        <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+          Showcasing talent through drama, music, and expression
+        </p>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-20">
+      <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">
+              <span class="bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
+                About Our Society
+              </span>
+            </h2>
+            <p class="text-gray-300 text-lg leading-relaxed mb-6">
+              The Performing Arts Society celebrates creativity and artistic expression through various 
+              forms of performance. We provide a platform for students to explore theater, music, 
+              dance, and other performing arts while building confidence and skills.
+            </p>
+            <p class="text-gray-400 leading-relaxed mb-8">
+              Whether you're an experienced performer or just starting your artistic journey, 
+              our society welcomes all who wish to express themselves through the arts.
+            </p>
+
+            <!-- Key Features -->
+            <div class="space-y-4">
+              <div class="flex items-center space-x-3">
+                <div class="w-2 h-2 bg-purple-400 rounded-full"></div>
+                <span class="text-gray-300">Theater Productions</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <div class="w-2 h-2 bg-pink-400 rounded-full"></div>
+                <span class="text-gray-300">Musical Performances</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <div class="w-2 h-2 bg-purple-400 rounded-full"></div>
+                <span class="text-gray-300">Dance Workshops</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <div class="w-2 h-2 bg-pink-400 rounded-full"></div>
+                <span class="text-gray-300">Creative Writing</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative">
+            <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-2xl p-8 backdrop-blur-sm border border-gray-700">
+              <h3 class="text-2xl font-bold text-white mb-6">Express Your Art!</h3>
+              <p class="text-gray-300 mb-6">
+                Ready to showcase your talent and explore new forms of artistic expression? Join our creative community.
+              </p>
+              <button class="bg-gradient-to-r from-purple-400 to-pink-600 hover:from-purple-500 hover:to-pink-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
+                Join the Show
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Arts Section -->
+    <section class="py-20 bg-gradient-to-br from-gray-900 to-gray-950">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold mb-6">
+            <span class="bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
+              Our Art Forms
+            </span>
+          </h2>
+          <p class="text-gray-300 max-w-2xl mx-auto">
+            Explore the diverse range of performing arts we celebrate and practice
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6">
+            <div class="text-3xl mb-4">🎭</div>
+            <h3 class="text-xl font-bold text-white mb-3">Theater & Drama</h3>
+            <p class="text-gray-400">Stage plays, monologues, and dramatic performances</p>
+          </div>
+
+          <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6">
+            <div class="text-3xl mb-4">🎵</div>
+            <h3 class="text-xl font-bold text-white mb-3">Music & Vocals</h3>
+            <p class="text-gray-400">Concerts, choir performances, and musical showcases</p>
+          </div>
+
+          <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6">
+            <div class="text-3xl mb-4">💃</div>
+            <h3 class="text-xl font-bold text-white mb-3">Dance & Movement</h3>
+            <p class="text-gray-400">Traditional and contemporary dance performances</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

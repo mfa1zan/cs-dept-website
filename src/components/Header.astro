@@ -85,37 +85,42 @@ const isSocietyActive = (): boolean => {
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
             </svg>
           </button>
-          <div class="absolute top-full left-0 mt-2 w-48 bg-gray-900 border border-gray-700 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-            <a href="/societies/programming" class={`block px-4 py-2 transition-colors duration-200 ${
-              currentPath === '/societies/programming' 
+          <div class="absolute top-full left-0 mt-2 w-64 bg-gray-900 border border-gray-700 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+            <a href="/societies/ps" class={`block px-4 py-2 transition-colors duration-200 ${
+              currentPath === '/societies/ps' 
                 ? 'text-blue-400 bg-gray-800' 
                 : 'text-gray-300 hover:text-blue-400 hover:bg-gray-800'
             }`}>Programming Society</a>
-            <a href="/societies/cybersecurity" class={`block px-4 py-2 transition-colors duration-200 ${
-              currentPath === '/societies/cybersecurity' 
+            <a href="/societies/cms" class={`block px-4 py-2 transition-colors duration-200 ${
+              currentPath === '/societies/cms' 
                 ? 'text-blue-400 bg-gray-800' 
                 : 'text-gray-300 hover:text-blue-400 hover:bg-gray-800'
-            }`}>Cybersecurity Club</a>
-            <a href="/societies/ai" class={`block px-4 py-2 transition-colors duration-200 ${
-              currentPath === '/societies/ai' 
+            }`}>Computing Media Society</a>
+            <a href="/societies/egaming" class={`block px-4 py-2 transition-colors duration-200 ${
+              currentPath === '/societies/egaming' 
                 ? 'text-blue-400 bg-gray-800' 
                 : 'text-gray-300 hover:text-blue-400 hover:bg-gray-800'
-            }`}>AI Society</a>
-            <a href="/societies/robotics" class={`block px-4 py-2 transition-colors duration-200 ${
-              currentPath === '/societies/robotics' 
+            }`}>E-Gaming Society</a>
+            <a href="/societies/ems" class={`block px-4 py-2 transition-colors duration-200 ${
+              currentPath === '/societies/ems' 
                 ? 'text-blue-400 bg-gray-800' 
                 : 'text-gray-300 hover:text-blue-400 hover:bg-gray-800'
-            }`}>Robotics Club</a>
-            <a href="/societies/data-science" class={`block px-4 py-2 transition-colors duration-200 ${
-              currentPath === '/societies/data-science' 
+            }`}>Event Management Society</a>
+            <a href="/societies/pas" class={`block px-4 py-2 transition-colors duration-200 ${
+              currentPath === '/societies/pas' 
                 ? 'text-blue-400 bg-gray-800' 
                 : 'text-gray-300 hover:text-blue-400 hover:bg-gray-800'
-            }`}>Data Science Society</a>
-            <a href="/societies/web-dev" class={`block px-4 py-2 transition-colors duration-200 rounded-b-lg ${
-              currentPath === '/societies/web-dev' 
+            }`}>Performing Arts Society</a>
+            <a href="/societies/sports" class={`block px-4 py-2 transition-colors duration-200 ${
+              currentPath === '/societies/sports' 
                 ? 'text-blue-400 bg-gray-800' 
                 : 'text-gray-300 hover:text-blue-400 hover:bg-gray-800'
-            }`}>Web Dev Club</a>
+            }`}>Sports Society</a>
+            <a href="/societies/blood-donation" class={`block px-4 py-2 transition-colors duration-200 rounded-b-lg ${
+              currentPath === '/societies/blood-donation' 
+                ? 'text-blue-400 bg-gray-800' 
+                : 'text-gray-300 hover:text-blue-400 hover:bg-gray-800'
+            }`}>Blood Donation & Welfare Society</a>
           </div>
         </div>
         
@@ -173,36 +178,41 @@ const isSocietyActive = (): boolean => {
               : 'text-gray-300'
           }`}>Societies</div>
           <div class="ml-4 space-y-2">
-            <a href="/societies/programming" class={`block transition-colors duration-200 ${
-              currentPath === '/societies/programming' 
+            <a href="/societies/ps" class={`block transition-colors duration-200 ${
+              currentPath === '/societies/ps' 
                 ? 'text-blue-400' 
                 : 'text-gray-400 hover:text-blue-400'
             }`}>Programming Society</a>
-            <a href="/societies/cybersecurity" class={`block transition-colors duration-200 ${
-              currentPath === '/societies/cybersecurity' 
+            <a href="/societies/cms" class={`block transition-colors duration-200 ${
+              currentPath === '/societies/cms' 
                 ? 'text-blue-400' 
                 : 'text-gray-400 hover:text-blue-400'
-            }`}>Cybersecurity Club</a>
-            <a href="/societies/ai" class={`block transition-colors duration-200 ${
-              currentPath === '/societies/ai' 
+            }`}>Computing Media Society</a>
+            <a href="/societies/egaming" class={`block transition-colors duration-200 ${
+              currentPath === '/societies/egaming' 
                 ? 'text-blue-400' 
                 : 'text-gray-400 hover:text-blue-400'
-            }`}>AI Society</a>
-            <a href="/societies/robotics" class={`block transition-colors duration-200 ${
-              currentPath === '/societies/robotics' 
+            }`}>E-Gaming Society</a>
+            <a href="/societies/ems" class={`block transition-colors duration-200 ${
+              currentPath === '/societies/ems' 
                 ? 'text-blue-400' 
                 : 'text-gray-400 hover:text-blue-400'
-            }`}>Robotics Club</a>
-            <a href="/societies/data-science" class={`block transition-colors duration-200 ${
-              currentPath === '/societies/data-science' 
+            }`}>Event Management Society</a>
+            <a href="/societies/pas" class={`block transition-colors duration-200 ${
+              currentPath === '/societies/pas' 
                 ? 'text-blue-400' 
                 : 'text-gray-400 hover:text-blue-400'
-            }`}>Data Science Society</a>
-            <a href="/societies/web-dev" class={`block transition-colors duration-200 ${
-              currentPath === '/societies/web-dev' 
+            }`}>Performing Arts Society</a>
+            <a href="/societies/sports" class={`block transition-colors duration-200 ${
+              currentPath === '/societies/sports' 
                 ? 'text-blue-400' 
                 : 'text-gray-400 hover:text-blue-400'
-            }`}>Web Dev Club</a>
+            }`}>Sports Society</a>
+            <a href="/societies/blood-donation" class={`block transition-colors duration-200 ${
+              currentPath === '/societies/blood-donation' 
+                ? 'text-blue-400' 
+                : 'text-gray-400 hover:text-blue-400'
+            }`}>Blood Donation & Welfare Society</a>
           </div>
         </div>
         
