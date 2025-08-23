@@ -75,58 +75,36 @@ const isSocietyActive = (): boolean => {
         
         <!-- Societies Dropdown -->
         <div class="relative group">
-          <button class={`transition-colors duration-200 flex items-center ${
-            isSocietyActive() 
-              ? 'text-blue-400' 
-              : 'text-gray-300 hover:text-blue-400'
-          }`}>
+          <button class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-4 py-2 rounded-lg transition-all duration-200 transform hover:scale-105 flex items-center">
             Societies
-            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
             </svg>
           </button>
-          <div class="absolute top-full left-0 mt-2 w-64 bg-gray-900 border border-gray-700 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-            <a href="/societies/ps" class={`block px-4 py-2 transition-colors duration-200 ${
-              currentPath === '/societies/ps' 
-                ? 'text-blue-400 bg-gray-800' 
-                : 'text-gray-300 hover:text-blue-400 hover:bg-gray-800'
+          <div class="absolute top-full right-0 mt-2 w-64 bg-gray-900 border border-gray-700 rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+            <a href="/societies/ps" class={`block px-4 py-2 transition-colors duration-200 hover:bg-gray-800 text-gray-300 hover:text-blue-400 ${
+              currentPath === '/societies/ps' ? 'text-blue-400 bg-gray-800' : ''
             }`}>Programming Society</a>
-            <a href="/societies/cms" class={`block px-4 py-2 transition-colors duration-200 ${
-              currentPath === '/societies/cms' 
-                ? 'text-blue-400 bg-gray-800' 
-                : 'text-gray-300 hover:text-blue-400 hover:bg-gray-800'
+            <a href="/societies/cms" class={`block px-4 py-2 transition-colors duration-200 hover:bg-gray-800 text-gray-300 hover:text-blue-400 ${
+              currentPath === '/societies/cms' ? 'text-blue-400 bg-gray-800' : ''
             }`}>Computing Media Society</a>
-            <a href="/societies/egaming" class={`block px-4 py-2 transition-colors duration-200 ${
-              currentPath === '/societies/egaming' 
-                ? 'text-blue-400 bg-gray-800' 
-                : 'text-gray-300 hover:text-blue-400 hover:bg-gray-800'
+            <a href="/societies/egaming" class={`block px-4 py-2 transition-colors duration-200 hover:bg-gray-800 text-gray-300 hover:text-blue-400 ${
+              currentPath === '/societies/egaming' ? 'text-blue-400 bg-gray-800' : ''
             }`}>E-Gaming Society</a>
-            <a href="/societies/ems" class={`block px-4 py-2 transition-colors duration-200 ${
-              currentPath === '/societies/ems' 
-                ? 'text-blue-400 bg-gray-800' 
-                : 'text-gray-300 hover:text-blue-400 hover:bg-gray-800'
+            <a href="/societies/ems" class={`block px-4 py-2 transition-colors duration-200 hover:bg-gray-800 text-gray-300 hover:text-blue-400 ${
+              currentPath === '/societies/ems' ? 'text-blue-400 bg-gray-800' : ''
             }`}>Event Management Society</a>
-            <a href="/societies/pas" class={`block px-4 py-2 transition-colors duration-200 ${
-              currentPath === '/societies/pas' 
-                ? 'text-blue-400 bg-gray-800' 
-                : 'text-gray-300 hover:text-blue-400 hover:bg-gray-800'
+            <a href="/societies/pas" class={`block px-4 py-2 transition-colors duration-200 hover:bg-gray-800 text-gray-300 hover:text-blue-400 ${
+              currentPath === '/societies/pas' ? 'text-blue-400 bg-gray-800' : ''
             }`}>Performing Arts Society</a>
-            <a href="/societies/sports" class={`block px-4 py-2 transition-colors duration-200 ${
-              currentPath === '/societies/sports' 
-                ? 'text-blue-400 bg-gray-800' 
-                : 'text-gray-300 hover:text-blue-400 hover:bg-gray-800'
+            <a href="/societies/sports" class={`block px-4 py-2 transition-colors duration-200 hover:bg-gray-800 text-gray-300 hover:text-blue-400 ${
+              currentPath === '/societies/sports' ? 'text-blue-400 bg-gray-800' : ''
             }`}>Sports Society</a>
-            <a href="/societies/blood-donation" class={`block px-4 py-2 transition-colors duration-200 rounded-b-lg ${
-              currentPath === '/societies/blood-donation' 
-                ? 'text-blue-400 bg-gray-800' 
-                : 'text-gray-300 hover:text-blue-400 hover:bg-gray-800'
+            <a href="/societies/blood-donation" class={`block px-4 py-2 transition-colors duration-200 rounded-b-lg hover:bg-gray-800 text-gray-300 hover:text-blue-400 ${
+              currentPath === '/societies/blood-donation' ? 'text-blue-400 bg-gray-800' : ''
             }`}>Blood Donation & Welfare Society</a>
           </div>
         </div>
-        
-        <a href="/contact" class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-4 py-2 rounded-lg transition-all duration-200 transform hover:scale-105">
-          Contact
-        </a>
       </nav>
 
       <!-- Mobile menu button -->
@@ -161,52 +139,38 @@ const isSocietyActive = (): boolean => {
             : 'text-gray-300 hover:text-blue-400'
         }`}>News & Events</a>
         
+        <!-- Societies Dropdown -->
         <div class="space-y-2">
-          <div class={`font-medium ${
-            isSocietyActive() 
-              ? 'text-blue-400' 
-              : 'text-gray-300'
-          }`}>Societies</div>
-          <div class="ml-4 space-y-2">
-            <a href="/societies/ps" class={`block transition-colors duration-200 ${
-              currentPath === '/societies/ps' 
-                ? 'text-blue-400' 
-                : 'text-gray-400 hover:text-blue-400'
+          <button id="mobile-societies-toggle" class="block bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-4 py-2 rounded-lg transition-all duration-200 text-center w-full flex items-center justify-center">
+            Societies
+            <svg id="mobile-dropdown-arrow" class="w-4 h-4 ml-2 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div id="mobile-societies-dropdown" class="ml-4 space-y-2 hidden">
+            <a href="/societies/ps" class={`block transition-colors duration-200 text-gray-400 hover:text-blue-400 ${
+              currentPath === '/societies/ps' ? 'text-blue-400' : ''
             }`}>Programming Society</a>
-            <a href="/societies/cms" class={`block transition-colors duration-200 ${
-              currentPath === '/societies/cms' 
-                ? 'text-blue-400' 
-                : 'text-gray-400 hover:text-blue-400'
+            <a href="/societies/cms" class={`block transition-colors duration-200 text-gray-400 hover:text-blue-400 ${
+              currentPath === '/societies/cms' ? 'text-blue-400' : ''
             }`}>Computing Media Society</a>
-            <a href="/societies/egaming" class={`block transition-colors duration-200 ${
-              currentPath === '/societies/egaming' 
-                ? 'text-blue-400' 
-                : 'text-gray-400 hover:text-blue-400'
+            <a href="/societies/egaming" class={`block transition-colors duration-200 text-gray-400 hover:text-blue-400 ${
+              currentPath === '/societies/egaming' ? 'text-blue-400' : ''
             }`}>E-Gaming Society</a>
-            <a href="/societies/ems" class={`block transition-colors duration-200 ${
-              currentPath === '/societies/ems' 
-                ? 'text-blue-400' 
-                : 'text-gray-400 hover:text-blue-400'
+            <a href="/societies/ems" class={`block transition-colors duration-200 text-gray-400 hover:text-blue-400 ${
+              currentPath === '/societies/ems' ? 'text-blue-400' : ''
             }`}>Event Management Society</a>
-            <a href="/societies/pas" class={`block transition-colors duration-200 ${
-              currentPath === '/societies/pas' 
-                ? 'text-blue-400' 
-                : 'text-gray-400 hover:text-blue-400'
+            <a href="/societies/pas" class={`block transition-colors duration-200 text-gray-400 hover:text-blue-400 ${
+              currentPath === '/societies/pas' ? 'text-blue-400' : ''
             }`}>Performing Arts Society</a>
-            <a href="/societies/sports" class={`block transition-colors duration-200 ${
-              currentPath === '/societies/sports' 
-                ? 'text-blue-400' 
-                : 'text-gray-400 hover:text-blue-400'
+            <a href="/societies/sports" class={`block transition-colors duration-200 text-gray-400 hover:text-blue-400 ${
+              currentPath === '/societies/sports' ? 'text-blue-400' : ''
             }`}>Sports Society</a>
-            <a href="/societies/blood-donation" class={`block transition-colors duration-200 ${
-              currentPath === '/societies/blood-donation' 
-                ? 'text-blue-400' 
-                : 'text-gray-400 hover:text-blue-400'
+            <a href="/societies/blood-donation" class={`block transition-colors duration-200 text-gray-400 hover:text-blue-400 ${
+              currentPath === '/societies/blood-donation' ? 'text-blue-400' : ''
             }`}>Blood Donation & Welfare Society</a>
           </div>
         </div>
-        
-        <a href="/contact" class="block bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-4 py-2 rounded-lg transition-all duration-200 text-center">Contact</a>
       </div>
     </div>
   </nav>
@@ -219,6 +183,16 @@ const isSocietyActive = (): boolean => {
     
     mobileMenuBtn?.addEventListener('click', () => {
       mobileMenu?.classList.toggle('hidden');
+    });
+
+    // Handle mobile societies dropdown
+    const mobileSocietiesToggle = document.getElementById('mobile-societies-toggle');
+    const mobileSocietiesDropdown = document.getElementById('mobile-societies-dropdown');
+    const mobileDropdownArrow = document.getElementById('mobile-dropdown-arrow');
+    
+    mobileSocietiesToggle?.addEventListener('click', () => {
+      mobileSocietiesDropdown?.classList.toggle('hidden');
+      mobileDropdownArrow?.classList.toggle('rotate-180');
     });
   });
 </script>
