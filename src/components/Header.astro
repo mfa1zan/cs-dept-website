@@ -124,16 +124,6 @@ const isSocietyActive = (): boolean => {
           </div>
         </div>
         
-        <a href="/resources" class={`transition-colors duration-200 relative group ${
-          isActive('/resources') 
-            ? 'text-blue-400' 
-            : 'text-gray-300 hover:text-blue-400'
-        }`}>
-          Resources
-          <span class={`absolute -bottom-1 left-0 h-0.5 bg-blue-400 transition-all duration-200 ${
-            isActive('/resources') ? 'w-full' : 'w-0 group-hover:w-full'
-          }`}></span>
-        </a>
         <a href="/contact" class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-4 py-2 rounded-lg transition-all duration-200 transform hover:scale-105">
           Contact
         </a>
@@ -216,11 +206,6 @@ const isSocietyActive = (): boolean => {
           </div>
         </div>
         
-        <a href="/resources" class={`block transition-colors duration-200 ${
-          isActive('/resources') 
-            ? 'text-blue-400' 
-            : 'text-gray-300 hover:text-blue-400'
-        }`}>Resources</a>
         <a href="/contact" class="block bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-4 py-2 rounded-lg transition-all duration-200 text-center">Contact</a>
       </div>
     </div>

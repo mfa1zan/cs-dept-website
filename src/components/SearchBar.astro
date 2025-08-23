@@ -2,7 +2,7 @@
 // Interactive Search Component Island
 interface Props {
 	placeholder?: string;
-	searchType?: 'courses' | 'faculty' | 'resources' | 'news';
+	searchType?: 'courses' | 'faculty' | 'news';
 	className?: string;
 }
 
@@ -99,12 +99,6 @@ const {
 					{ name: 'Dr. Emily Rodriguez', department: 'Cybersecurity', email: 'emily.rodriguez@uni.edu', office: 'CS-408' },
 					{ name: 'Prof. David Kim', department: 'Data Science', email: 'david.kim@uni.edu', office: 'CS-502' }
 				],
-				resources: [
-					{ title: 'Python Programming Complete Guide', type: 'PDF', size: '2.5 MB', downloads: 1250 },
-					{ title: 'Web Development Bootcamp', type: 'Video Series', size: '4.2 GB', downloads: 850 },
-					{ title: 'Machine Learning Algorithms Cheat Sheet', type: 'PDF', size: '1.1 MB', downloads: 2100 },
-					{ title: 'Database Design Best Practices', type: 'eBook', size: '5.8 MB', downloads: 640 }
-				],
 				news: [
 					{ title: 'CS Department Wins National AI Competition', date: '2025-08-15', category: 'Achievement' },
 					{ title: 'New Cybersecurity Lab Opens This Fall', date: '2025-08-10', category: 'Facilities' },
@@ -172,21 +166,6 @@ const {
 								</div>
 								<div class="text-xs text-purple-400 bg-purple-400/10 px-2 py-1 rounded">
 									Faculty
-								</div>
-							</div>
-						</div>
-					`;
-				case 'resources':
-					return `
-						<div class="search-result-item p-4 hover:bg-gray-700/50 cursor-pointer border-b border-gray-700 last:border-b-0 transition-colors" data-result='${JSON.stringify(result)}'>
-							<div class="flex justify-between items-start">
-								<div>
-									<div class="font-semibold text-white mb-1">${result.title}</div>
-									<div class="text-sm text-blue-400">${result.type} • ${result.size}</div>
-									<div class="text-xs text-gray-400 mt-1">${result.downloads} downloads</div>
-								</div>
-								<div class="text-xs text-orange-400 bg-orange-400/10 px-2 py-1 rounded">
-									Resource
 								</div>
 							</div>
 						</div>
