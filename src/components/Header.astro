@@ -52,14 +52,14 @@ const isSocietyActive = (): boolean => {
             isActive('/about') ? 'w-full' : 'w-0 group-hover:w-full'
           }`}></span>
         </a>
-        <a href="/academics" class={`transition-colors duration-200 relative group ${
-          isActive('/academics') 
+        <a href="/calendar" class={`transition-colors duration-200 relative group ${
+          isActive('/calendar') 
             ? 'text-blue-400' 
             : 'text-gray-300 hover:text-blue-400'
         }`}>
-          Academics
+          Calendar
           <span class={`absolute -bottom-1 left-0 h-0.5 bg-blue-400 transition-all duration-200 ${
-            isActive('/academics') ? 'w-full' : 'w-0 group-hover:w-full'
+            isActive('/calendar') ? 'w-full' : 'w-0 group-hover:w-full'
           }`}></span>
         </a>
         <a href="/news" class={`transition-colors duration-200 relative group ${
@@ -160,11 +160,11 @@ const isSocietyActive = (): boolean => {
             ? 'text-blue-400' 
             : 'text-gray-300 hover:text-blue-400'
         }`}>About</a>
-        <a href="/academics" class={`block transition-colors duration-200 ${
-          isActive('/academics') 
+        <a href="/calendar" class={`block transition-colors duration-200 ${
+          isActive('/calendar') 
             ? 'text-blue-400' 
             : 'text-gray-300 hover:text-blue-400'
-        }`}>Academics</a>
+        }`}>Calendar</a>
         <a href="/news" class={`block transition-colors duration-200 ${
           isActive('/news') 
             ? 'text-blue-400' 
