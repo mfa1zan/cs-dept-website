@@ -127,72 +127,74 @@ const recentNews = sortedNews.slice(0, 6);
         )}
 
         <!-- News Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {recentNews.length > 0 ? recentNews.map((article: CollectionEntry<'news'>) => (
-            <div class={`bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 hover:border-${
-              article.data.category === 'research' ? 'blue-500/50' :
-              article.data.category === 'achievement' ? 'green-500/50' :
-              article.data.category === 'partnership' ? 'purple-500/50' :
-              article.data.category === 'event' ? 'orange-500/50' :
-              'gray-500/50'
-            } transition-all duration-300 transform hover:scale-105`}>
-              <div class="flex items-center space-x-3 mb-4">
-                <span class={`px-3 py-1 rounded-full text-sm font-medium ${
-                  article.data.category === 'research' ? 'bg-blue-500/20 text-blue-300' :
-                  article.data.category === 'achievement' ? 'bg-green-500/20 text-green-300' :
-                  article.data.category === 'partnership' ? 'bg-purple-500/20 text-purple-300' :
-                  article.data.category === 'event' ? 'bg-orange-500/20 text-orange-300' :
-                  'bg-gray-500/20 text-gray-300'
-                }`}>
-                  {article.data.category.charAt(0).toUpperCase() + article.data.category.slice(1)}
-                </span>
-                <span class="text-gray-400 text-sm">
-                  {article.data.publishDate.toLocaleDateString('en-US', { 
-                    month: 'short', 
-                    day: 'numeric', 
-                    year: 'numeric' 
-                  })}
-                </span>
-              </div>
-              
-              <h4 class="text-xl font-bold text-white mb-3">
-                {article.data.title}
-              </h4>
-              
-              <p class="text-gray-300 text-sm leading-relaxed mb-4">
-                {article.data.description}
-              </p>
-              
-              <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-2">
-                  <div class={`w-6 h-6 bg-gradient-to-br rounded-full ${
-                    article.data.category === 'research' ? 'from-blue-400 to-blue-600' :
-                    article.data.category === 'achievement' ? 'from-green-400 to-green-600' :
-                    article.data.category === 'partnership' ? 'from-purple-400 to-purple-600' :
-                    article.data.category === 'event' ? 'from-orange-400 to-orange-600' :
-                    'from-gray-400 to-gray-600'
-                  }`}></div>
-                  <span class={`text-sm font-medium ${
-                    article.data.category === 'research' ? 'text-blue-300' :
-                    article.data.category === 'achievement' ? 'text-green-300' :
-                    article.data.category === 'partnership' ? 'text-purple-300' :
-                    article.data.category === 'event' ? 'text-orange-300' :
-                    'text-gray-300'
+        {recentNews.length > 0 ? (
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {recentNews.map((article: CollectionEntry<'news'>) => (
+              <div class={`bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 hover:border-${
+                article.data.category === 'research' ? 'blue-500/50' :
+                article.data.category === 'achievement' ? 'green-500/50' :
+                article.data.category === 'partnership' ? 'purple-500/50' :
+                article.data.category === 'event' ? 'orange-500/50' :
+                'gray-500/50'
+              } transition-all duration-300 transform hover:scale-105`}>
+                <div class="flex items-center space-x-3 mb-4">
+                  <span class={`px-3 py-1 rounded-full text-sm font-medium ${
+                    article.data.category === 'research' ? 'bg-blue-500/20 text-blue-300' :
+                    article.data.category === 'achievement' ? 'bg-green-500/20 text-green-300' :
+                    article.data.category === 'partnership' ? 'bg-purple-500/20 text-purple-300' :
+                    article.data.category === 'event' ? 'bg-orange-500/20 text-orange-300' :
+                    'bg-gray-500/20 text-gray-300'
                   }`}>
-                    {article.data.author || 'CS Department'}
+                    {article.data.category.charAt(0).toUpperCase() + article.data.category.slice(1)}
+                  </span>
+                  <span class="text-gray-400 text-sm">
+                    {article.data.publishDate.toLocaleDateString('en-US', { 
+                      month: 'short', 
+                      day: 'numeric', 
+                      year: 'numeric' 
+                    })}
                   </span>
                 </div>
-                <a href={`/news/${article.slug}`} class="text-blue-400 hover:text-blue-300 transition-colors text-sm font-medium">
-                  Read More →
-                </a>
+                
+                <h4 class="text-xl font-bold text-white mb-3">
+                  {article.data.title}
+                </h4>
+                
+                <p class="text-gray-300 text-sm leading-relaxed mb-4">
+                  {article.data.description}
+                </p>
+                
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center space-x-2">
+                    <div class={`w-6 h-6 bg-gradient-to-br rounded-full ${
+                      article.data.category === 'research' ? 'from-blue-400 to-blue-600' :
+                      article.data.category === 'achievement' ? 'from-green-400 to-green-600' :
+                      article.data.category === 'partnership' ? 'from-purple-400 to-purple-600' :
+                      article.data.category === 'event' ? 'from-orange-400 to-orange-600' :
+                      'from-gray-400 to-gray-600'
+                    }`}></div>
+                    <span class={`text-sm font-medium ${
+                      article.data.category === 'research' ? 'text-blue-300' :
+                      article.data.category === 'achievement' ? 'text-green-300' :
+                      article.data.category === 'partnership' ? 'text-purple-300' :
+                      article.data.category === 'event' ? 'text-orange-300' :
+                      'text-gray-300'
+                    }`}>
+                      {article.data.author || 'CS Department'}
+                    </span>
+                  </div>
+                  <a href={`/news/${article.slug}`} class="text-blue-400 hover:text-blue-300 transition-colors text-sm font-medium">
+                    Read More →
+                  </a>
+                </div>
               </div>
-            </div>
-          )) : (
-            <div class="text-center py-12">
-              <p class="text-gray-400 text-lg">No recent news articles available.</p>
-            </div>
-          )}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div class="text-center py-12 col-span-full">
+            <p class="text-gray-400 text-lg">No recent news articles available.</p>
+          </div>
+        )}
       </div>
     </section>
 
