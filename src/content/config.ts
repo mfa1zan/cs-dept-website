@@ -29,6 +29,10 @@ const eventsCollection = defineCollection({
     image: z.string().optional(),
     organizer: z.string().optional(),
     capacity: z.number().optional(),
+    // New field for society association
+    society: z.enum(['cms', 'pas', 'ps', 'sports', 'egaming', 'ems', 'blood-donation']).optional(),
+    // Alternative field for custom organizers
+    organizingBody: z.string().optional(),
   }),
 });
 

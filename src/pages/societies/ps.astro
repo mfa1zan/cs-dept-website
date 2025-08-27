@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import SocietyEvents from '../../components/SocietyEvents.astro';
 import '../../styles/global.css';
 ---
 
@@ -353,6 +354,16 @@ import '../../styles/global.css';
         </div>
       </div>
     </section>
+
+    <!-- Society Events -->
+    <SocietyEvents 
+      society="ps" 
+      gradientColors={{
+        from: "from-green-400",
+        to: "to-blue-600"
+      }}
+      accentColor="green"
+    />
   </main>
   <Footer />
 </Layout>
