@@ -1,0 +1,38 @@
+import { defineCollection, z } from 'astro:content';
+
+const newsCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    publishDate: z.date(),
+    category: z.enum(['research', 'achievement', 'event', 'partnership', 'announcement']),
+    featured: z.boolean().default(false),
+    image: z.string().optional(),
+    author: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+  }),
+});
+
+const eventsCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    date: z.date(),
+    time: z.string(),
+    endTime: z.string().optional(),
+    location: z.string(),
+    type: z.enum(['workshop', 'conference', 'competition', 'seminar', 'hackathon', 'meetup']),
+    registrationRequired: z.boolean().default(false),
+    registrationLink: z.string().url().optional(),
+    image: z.string().optional(),
+    organizer: z.string().optional(),
+    capacity: z.number().optional(),
+  }),
+});
+
+export const collections = {
+  'news': newsCollection,
+  'events': eventsCollection,
+};
