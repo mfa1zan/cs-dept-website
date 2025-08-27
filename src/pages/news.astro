@@ -128,7 +128,7 @@ const recentNews = sortedNews.slice(0, 6);
 
         <!-- News Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {recentNews.map((article: CollectionEntry<'news'>) => (
+          {recentNews.length > 0 ? recentNews.map((article: CollectionEntry<'news'>) => (
             <div class={`bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 hover:border-${
               article.data.category === 'research' ? 'blue-500/50' :
               article.data.category === 'achievement' ? 'green-500/50' :
@@ -187,7 +187,11 @@ const recentNews = sortedNews.slice(0, 6);
                 </a>
               </div>
             </div>
-          ))}
+          )) : (
+            <div class="text-gray-400">
+              No recent news articles available.
+            </div>
+          )}
         </div>
       </div>
     </section>
