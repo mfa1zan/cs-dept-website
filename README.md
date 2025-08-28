@@ -2,17 +2,26 @@
 
 This is the official website for the Computer Science Department, built with Astro. This site serves as a hub for department news, events, society activities, and program information.
 
+## 🆕 Latest Features
+
+- **Custom Form Fields**: Add event-specific registration fields directly in markdown
+- **Smart Form Validation**: Automatic validation for required fields and data types  
+- **Enhanced Event Management**: Streamlined event creation with custom registration
+- **AI Content Generation**: Use LLMs to quickly generate events with custom forms
+
 ## 📚 Table of Contents
 
 - [CS Department Website](#cs-department-website)
+  - [🆕 Latest Features](#-latest-features)
   - [📚 Table of Contents](#-table-of-contents)
   - [🏗️ How the Website Works](#️-how-the-website-works)
     - [Project Structure](#project-structure)
   - [📰 Adding News Articles](#-adding-news-articles)
   - [🎉 Adding Events](#-adding-events)
-  - [📋 Adding Registration Forms](#-adding-registration-forms)
+  - [📋 Registration Forms & Custom Fields](#-registration-forms--custom-fields)
     - [Basic Registration](#basic-registration)
-    - [Custom Registration Forms](#custom-registration-forms)
+    - [Custom Form Fields 🆕](#custom-form-fields-)
+    - [Form Submission](#form-submission)
   - [🔧 Using MDX for Enhanced Content](#-using-mdx-for-enhanced-content)
     - [When to Use MDX:](#when-to-use-mdx)
     - [MDX Example:](#mdx-example)
@@ -143,25 +152,94 @@ Detailed description of your event...
 - `ems`: Electronic & Media Society
 - `blood-donation`: Blood Donation Society
 
-## 📋 Adding Registration Forms
+## 📋 Registration Forms & Custom Fields
 
-Events can have custom registration forms. The website includes a flexible registration component that automatically generates forms based on your requirements.
+Events can have custom registration forms with fields tailored to each event's needs. The website includes a flexible registration system that automatically generates forms.
 
 ### Basic Registration
-For simple registration, just add `registrationRequired: true` and `registrationLink` to your event frontmatter.
+For simple registration with a standard form, add these fields to your event frontmatter:
+```yaml
+registrationRequired: true
+formSubmitUrl: "https://your-backend.com/register"  # Optional custom endpoint
+```
 
-### Custom Registration Forms
-You can customize registration forms by modifying the `RegistrationForm.astro` component or creating event-specific forms.
+### Custom Form Fields 🆕
+You can now add custom form fields directly in your event markdown! The system automatically includes required default fields (Full Name, Email, Phone, Student ID, Gender) and adds your custom fields.
 
-**Default Form Fields:**
-- Full Name (required)
-- Email Address (required)
-- Phone Number (required)
-- Student ID (optional)
-- Academic Year (dropdown)
-- Relevant Experience (textarea)
+**Example Event with Custom Fields:**
+```yaml
+---
+title: "Advanced React Workshop"
+# ... other event fields
+customFormFields:
+  - name: "reactExperience"
+    label: "React Experience Level"
+    type: "select"
+    required: true
+    options:
+      - "Complete Beginner"
+      - "Basic (< 1 year)"
+      - "Intermediate (1-3 years)" 
+      - "Advanced (3+ years)"
+  
+  - name: "projectGoals"
+    label: "What do you want to build?"
+    type: "textarea"
+    required: true
+    placeholder: "Describe your project goals..."
+  
+  - name: "laptopOS"
+    label: "Laptop Operating System"
+    type: "select"
+    required: true
+    options: ["Windows", "macOS", "Linux", "I need a lab computer"]
+---
+```
 
-To customize fields for specific events, you can modify the component or create variations.
+**Supported Field Types:**
+- `text`: Single-line text input
+- `email`: Email validation
+- `tel`: Phone number input  
+- `number`: Numeric input
+- `select`: Dropdown menu (requires `options` array)
+- `textarea`: Multi-line text area
+
+**Field Properties:**
+- `name`: Unique identifier (required)
+- `label`: Display text (required)
+- `type`: Field type (required)
+- `required`: Whether field is mandatory (default: false)
+- `placeholder`: Helper text
+- `options`: Array of choices for select fields
+
+**Default Required Fields (Always Included):**
+1. Full Name
+2. Email Address
+3. Phone Number
+4. Student ID  
+5. Gender (Male/Female)
+
+### Form Submission
+Forms submit to either:
+- Custom endpoint: Set `formSubmitUrl` in event frontmatter
+- Default endpoint: Built-in form handler
+
+**Submitted Data Structure:**
+```json
+{
+  "fullName": "John Doe",
+  "email": "john@example.com",
+  "studentId": "CS123456",
+  "gender": "Male",
+  "reactExperience": "Intermediate (1-3 years)",
+  "projectGoals": "Build a portfolio website",
+  "laptopOS": "macOS",
+  "eventId": "advanced-react-workshop",
+  "submittedAt": "2025-08-28T15:30:00.000Z"
+}
+```
+
+For detailed examples and advanced usage, see [CUSTOM_FORMS.md](./CUSTOM_FORMS.md).
 
 ## 🔧 Using MDX for Enhanced Content
 
@@ -260,10 +338,21 @@ endTime: "5:00 PM"  # Optional
 location: "Specific room/building location"
 type: "workshop"  # Choose: workshop, conference, competition, seminar, hackathon, meetup
 registrationRequired: true
-registrationLink: "https://forms.example.com"  # If registration needed
+formSubmitUrl: "https://example.com/register"  # Optional custom endpoint
 organizer: "Department/Society Name"
 society: "ps"  # Optional: cms, pas, ps, sports, egaming, ems, blood-donation
 capacity: 50  # Optional
+customFormFields:  # Optional: Add event-specific registration fields
+  - name: "experience"
+    label: "Experience Level"
+    type: "select"
+    required: true
+    options: ["Beginner", "Intermediate", "Advanced"]
+  - name: "goals"
+    label: "Learning Goals"
+    type: "textarea"
+    required: false
+    placeholder: "What do you hope to achieve?"
 ---
 
 Event details to include:
@@ -277,7 +366,7 @@ Content requirements:
 - Detailed event description
 - Clear agenda with timeline
 - Learning objectives or outcomes
-- Registration instructions
+- Registration form fields relevant to the event
 - Contact information for questions
 ```
 
@@ -302,8 +391,14 @@ Event details:
 - Time: 6:00 PM - 8:00 PM  
 - Location: CS Lab 101
 - Capacity: 30 people maximum
-- Registration required
+- Registration required with custom fields
 - Target: Complete beginners to programming
+
+Custom registration fields needed:
+- Programming experience level (dropdown)
+- Laptop availability (yes/no dropdown)
+- Learning goals (optional text area)
+- Dietary restrictions for refreshments (optional text)
 
 Include hands-on coding exercises and laptop requirements in the description.
 ```
@@ -359,16 +454,21 @@ All commands are run from the project root:
 - **Write in Markdown or MDX**: Use `.md` for simple content, `.mdx` for interactive elements
 - **Use descriptive filenames**: `ai-workshop-2025.md` not `event1.md`
 - **Include all required fields**: Check the examples above
+- **Add custom form fields**: Use `customFormFields` for event-specific registration
 - **Optimize images**: Keep image files under 1MB
 - **Test your content**: Always run `bun dev` to preview changes
-- **Leverage AI tools**: Use LLMs to help generate initial content, then customize
+- **Leverage AI tools**: Use LLMs to help generate initial content with custom forms
 - **Review AI content**: Always verify and edit AI-generated content for accuracy
+- **Validate form fields**: Ensure field names are unique and types are correct
 
 ## 🆘 Need Help?
 
 - **Markdown Guide**: [Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
 - **MDX Documentation**: [MDX Guide](https://mdxjs.com/docs/)
 - **Astro Documentation**: [docs.astro.build](https://docs.astro.build)
+- **Custom Form Fields**: [CUSTOM_FORMS.md](./CUSTOM_FORMS.md) - Comprehensive guide with examples
+- **Form Examples**: [FORM_EXAMPLES.md](./FORM_EXAMPLES.md) - Complete real-world examples  
+- **Form Quick Reference**: [FORMS_QUICK_REF.md](./FORMS_QUICK_REF.md) - Developer reference
 - **AI Content Tools**: ChatGPT, Claude, GitHub Copilot, or other LLMs
 - **Ask Questions**: Reach out to the web development team
 
