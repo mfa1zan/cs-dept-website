@@ -3,7 +3,6 @@ import { getCollection, type CollectionEntry, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import EventRegistration from '../../components/EventRegistration.astro';
 import '../../styles/global.css';
 
 export async function getStaticPaths() {
@@ -149,14 +148,14 @@ const isUpcoming = entry.data.date >= new Date();
           </div>
           
           <!-- Registration Form for events without registrationLink -->
-          {isUpcoming && entry.data.registrationRequired && !entry.data.registrationLink && (
+          <!-- {isUpcoming && entry.data.registrationRequired && !entry.data.registrationLink && (
             <EventRegistration
               eventTitle={entry.data.title}
               eventType={entry.data.type}
               eventId={entry.id}
               submitUrl="https://example.com/register"
             />
-          )}
+          )} -->
         </div>
       </div>
     </section>
