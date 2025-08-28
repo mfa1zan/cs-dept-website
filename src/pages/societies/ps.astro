@@ -3,7 +3,13 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import SocietyEvents from '../../components/SocietyEvents.astro';
+import { getSocietyById } from '../../utils/societyData';
 import '../../styles/global.css';
+
+const society = getSocietyById('ps');
+if (!society) {
+  throw new Error('Programming Society data not found');
+}
 ---
 
 <Layout>
@@ -15,19 +21,17 @@ import '../../styles/global.css';
       <div class="absolute inset-0 grid-pattern opacity-10"></div>
       
       <div class="container mx-auto px-6 relative z-10 text-center">
-        <div class="w-24 h-24 bg-gradient-to-br from-green-400 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-          <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-          </svg>
+        <div class={`w-24 h-24 bg-gradient-to-br ${society.color} rounded-full flex items-center justify-center mx-auto mb-6 overflow-hidden`}>
+          <img src={society.logo} alt={`${society.name} Logo`} class="w-16 h-16 object-contain" />
         </div>
         
         <h1 class="text-5xl md:text-6xl font-bold mb-6">
-          <span class="bg-gradient-to-r from-green-400 to-blue-600 bg-clip-text text-transparent">
-            Programming Society
+          <span class={`bg-gradient-to-r ${society.color} bg-clip-text text-transparent`}>
+            {society.name}
           </span>
         </h1>
         <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-          Where passionate coders unite to learn, compete, and build amazing projects together
+          {society.description}
         </p>
       </div>
     </section>
@@ -69,8 +73,8 @@ import '../../styles/global.css';
             <h3 class="text-2xl font-bold text-white mb-6">What We Do</h3>
             <div class="space-y-4">
               <div class="flex items-center space-x-4">
-                <div class="w-8 h-8 bg-gradient-to-br from-green-400 to-green-600 rounded-lg flex items-center justify-center">
-                  <span class="text-white text-sm">💻</span>
+                <div class={`w-8 h-8 bg-gradient-to-br ${society.gradientFrom} to-green-600 rounded-lg flex items-center justify-center overflow-hidden`}>
+                  <img src={society.logo} alt={society.name} class="w-6 h-6 object-contain" />
                 </div>
                 <div>
                   <h4 class="text-white font-semibold">Weekly Coding Sessions</h4>
@@ -79,8 +83,8 @@ import '../../styles/global.css';
               </div>
               
               <div class="flex items-center space-x-4">
-                <div class="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
-                  <span class="text-white text-sm">🏆</span>
+                <div class={`w-8 h-8 bg-gradient-to-br from-blue-400 ${society.gradientTo} rounded-lg flex items-center justify-center overflow-hidden`}>
+                  <img src={society.logo} alt={society.name} class="w-6 h-6 object-contain" />
                 </div>
                 <div>
                   <h4 class="text-white font-semibold">Programming Competitions</h4>
@@ -89,8 +93,8 @@ import '../../styles/global.css';
               </div>
               
               <div class="flex items-center space-x-4">
-                <div class="w-8 h-8 bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg flex items-center justify-center">
-                  <span class="text-white text-sm">🚀</span>
+                <div class="w-8 h-8 bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg flex items-center justify-center overflow-hidden">
+                  <img src={society.logo} alt={society.name} class="w-6 h-6 object-contain" />
                 </div>
                 <div>
                   <h4 class="text-white font-semibold">Tech Workshops</h4>
@@ -117,10 +121,10 @@ import '../../styles/global.css';
     <SocietyEvents 
       society="ps" 
       gradientColors={{
-        from: "from-green-400",
-        to: "to-blue-600"
+        from: society.gradientFrom,
+        to: society.gradientTo
       }}
-      accentColor="green"
+      accentColor={society.accentColor}
     />
 
     <!-- Projects Showcase -->
@@ -138,16 +142,16 @@ import '../../styles/global.css';
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div class="group bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 hover:border-green-500/50 transition-all duration-300 transform hover:scale-105">
-            <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-lg flex items-center justify-center mb-4">
-              <span class="text-white text-lg">🎮</span>
+          <div class={`group bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 hover:border-${society.accentColor}-500/50 transition-all duration-300 transform hover:scale-105`}>
+            <div class={`w-12 h-12 bg-gradient-to-br ${society.gradientFrom} to-green-600 rounded-lg flex items-center justify-center mb-4 overflow-hidden`}>
+              <img src={society.logo} alt={society.name} class="w-8 h-8 object-contain" />
             </div>
             <h3 class="text-xl font-bold text-white mb-3">Retro Game Engine</h3>
             <p class="text-gray-300 text-sm mb-4">
               A 2D game engine built in C++ with OpenGL, featuring physics simulation and sprite animation.
             </p>
             <div class="flex items-center justify-between">
-              <span class="text-green-400 text-sm font-medium">JavaScript, WebGL</span>
+              <span class={`text-${society.accentColor}-400 text-sm font-medium`}>JavaScript, WebGL</span>
               <button class="text-blue-400 hover:text-blue-300 transition-colors text-sm">
                 View Code →
               </button>
@@ -155,8 +159,8 @@ import '../../styles/global.css';
           </div>
 
           <div class="group bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 hover:border-blue-500/50 transition-all duration-300 transform hover:scale-105">
-            <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center mb-4">
-              <span class="text-white text-lg">📱</span>
+            <div class={`w-12 h-12 bg-gradient-to-br from-blue-400 ${society.gradientTo} rounded-lg flex items-center justify-center mb-4 overflow-hidden`}>
+              <img src={society.logo} alt={society.name} class="w-8 h-8 object-contain" />
             </div>
             <h3 class="text-xl font-bold text-white mb-3">Study Buddy App</h3>
             <p class="text-gray-300 text-sm mb-4">

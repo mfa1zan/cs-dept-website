@@ -2,7 +2,13 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import { getSocietyById } from '../../utils/societyData';
 import '../../styles/global.css';
+
+const society = getSocietyById('sports');
+if (!society) {
+  throw new Error('Sports Society data not found');
+}
 ---
 
 <Layout>
@@ -14,17 +20,17 @@ import '../../styles/global.css';
       <div class="absolute inset-0 grid-pattern opacity-10"></div>
       
       <div class="container mx-auto px-6 relative z-10 text-center">
-        <div class="w-24 h-24 bg-gradient-to-br from-orange-400 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-6">
-          <span class="text-4xl">🏏</span>
+        <div class={`w-24 h-24 bg-gradient-to-br ${society.color} rounded-full flex items-center justify-center mx-auto mb-6 overflow-hidden`}>
+          <img src={society.logo} alt={`${society.name} Logo`} class="w-16 h-16 object-contain" />
         </div>
         
         <h1 class="text-5xl md:text-6xl font-bold mb-6">
-          <span class="bg-gradient-to-r from-orange-400 to-yellow-600 bg-clip-text text-transparent">
-            Sports Society
+          <span class={`bg-gradient-to-r ${society.color} bg-clip-text text-transparent`}>
+            {society.name}
           </span>
         </h1>
         <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-          Promoting teamwork, fitness, and the spirit of competition
+          {society.description}
         </p>
       </div>
     </section>
@@ -101,19 +107,25 @@ import '../../styles/global.css';
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6">
-            <div class="text-3xl mb-4">⚽</div>
+            <div class="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg flex items-center justify-center mb-4 overflow-hidden">
+              <img src="/uos_footer_logo.jpg" alt="Sports Society" class="w-8 h-8 object-contain" />
+            </div>
             <h3 class="text-xl font-bold text-white mb-3">Outdoor Sports</h3>
             <p class="text-gray-400">Cricket, football, volleyball, and athletics</p>
           </div>
 
           <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6">
-            <div class="text-3xl mb-4">🏓</div>
+            <div class="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg flex items-center justify-center mb-4 overflow-hidden">
+              <img src="/uos_footer_logo.jpg" alt="Sports Society" class="w-8 h-8 object-contain" />
+            </div>
             <h3 class="text-xl font-bold text-white mb-3">Indoor Sports</h3>
             <p class="text-gray-400">Table tennis, badminton, chess, and carrom</p>
           </div>
 
           <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6">
-            <div class="text-3xl mb-4">💪</div>
+            <div class="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg flex items-center justify-center mb-4 overflow-hidden">
+              <img src="/uos_footer_logo.jpg" alt="Sports Society" class="w-8 h-8 object-contain" />
+            </div>
             <h3 class="text-xl font-bold text-white mb-3">Fitness Programs</h3>
             <p class="text-gray-400">Gym training, yoga, and wellness activities</p>
           </div>

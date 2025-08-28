@@ -4,7 +4,13 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
+import { getSocietyById } from '../../utils/societyData';
 import '../../styles/global.css';
+
+const society = getSocietyById('cms');
+if (!society) {
+  throw new Error('Computing Media Society data not found');
+}
 
 // Fetch events related to CMS society
 const allEvents = await getCollection('events');
@@ -35,17 +41,17 @@ const pastCmsEvents = cmsEvents
       <div class="absolute inset-0 grid-pattern opacity-10"></div>
       
       <div class="container mx-auto px-6 relative z-10 text-center">
-        <div class="w-24 h-24 bg-gradient-to-br from-cyan-400 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-6">
-          <span class="text-4xl">🎥</span>
+        <div class={`w-24 h-24 bg-gradient-to-br ${society.color} rounded-full flex items-center justify-center mx-auto mb-6 overflow-hidden`}>
+          <img src={society.logo} alt={`${society.name} Logo`} class="w-16 h-16 object-contain" />
         </div>
         
         <h1 class="text-5xl md:text-6xl font-bold mb-6">
-          <span class="bg-gradient-to-r from-cyan-400 to-teal-600 bg-clip-text text-transparent">
-            Computing Media Society
+          <span class={`bg-gradient-to-r ${society.color} bg-clip-text text-transparent`}>
+            {society.name}
           </span>
         </h1>
         <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-          Exploring the intersection of technology and media through creative projects
+          {society.description}
         </p>
       </div>
     </section>
@@ -56,7 +62,7 @@ const pastCmsEvents = cmsEvents
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
             <h2 class="text-3xl md:text-4xl font-bold mb-6">
-              <span class="bg-gradient-to-r from-cyan-400 to-teal-600 bg-clip-text text-transparent">
+              <span class={`bg-gradient-to-r ${society.color} bg-clip-text text-transparent`}>
                 About Our Society
               </span>
             </h2>
@@ -122,19 +128,25 @@ const pastCmsEvents = cmsEvents
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6">
-            <div class="text-3xl mb-4">🎬</div>
+            <div class={`w-12 h-12 bg-gradient-to-br ${society.color} rounded-lg flex items-center justify-center mb-4 overflow-hidden`}>
+              <img src={society.logo} alt={society.name} class="w-8 h-8 object-contain" />
+            </div>
             <h3 class="text-xl font-bold text-white mb-3">Video Production</h3>
             <p class="text-gray-400">Create professional videos, documentaries, and multimedia content</p>
           </div>
 
           <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6">
-            <div class="text-3xl mb-4">🎨</div>
+            <div class={`w-12 h-12 bg-gradient-to-br ${society.color} rounded-lg flex items-center justify-center mb-4 overflow-hidden`}>
+              <img src={society.logo} alt={society.name} class="w-8 h-8 object-contain" />
+            </div>
             <h3 class="text-xl font-bold text-white mb-3">Digital Design</h3>
             <p class="text-gray-400">Master graphic design, UI/UX, and digital art techniques</p>
           </div>
 
           <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6">
-            <div class="text-3xl mb-4">💻</div>
+            <div class={`w-12 h-12 bg-gradient-to-br ${society.color} rounded-lg flex items-center justify-center mb-4 overflow-hidden`}>
+              <img src={society.logo} alt={society.name} class="w-8 h-8 object-contain" />
+            </div>
             <h3 class="text-xl font-bold text-white mb-3">Interactive Media</h3>
             <p class="text-gray-400">Build interactive websites, games, and multimedia applications</p>
           </div>

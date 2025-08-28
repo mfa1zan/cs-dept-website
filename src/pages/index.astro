@@ -5,67 +5,8 @@ import Hero from '../components/Hero.astro';
 import Footer from '../components/Footer.astro';
 import ScrollAnimator from '../components/ScrollAnimator.astro';
 import HeaderController from '../components/HeaderController.astro';
+import { societies } from '../utils/societyData';
 import '../styles/global.css';
-
-// Society data
-const societies = [
-	{
-		name: 'Programming Society',
-		description: 'Where passionate coders unite to learn, compete, and build amazing projects together',
-		icon: '💻',
-		color: 'from-green-400 to-blue-600',
-		borderColor: 'hover:border-green-500/50',
-		link: '/societies/ps'
-	},
-	{
-		name: 'Computing Media Society',
-		description: 'Exploring the intersection of technology and media through creative projects.',
-		icon: '🎥',
-		color: 'from-cyan-400 to-teal-600',
-		borderColor: 'hover:border-cyan-500/50',
-		link: '/societies/cms'
-	},
-	{
-		name: 'Event Management Society',
-		description: 'Crafting unforgettable experiences with precision and flair.',
-		icon: '🦺',
-		color: 'from-red-400 to-orange-600',
-		borderColor: 'hover:border-red-500/50',
-		link: '/societies/ems'
-	},
-	{
-		name: 'E-Gaming Society',
-		description: 'Uniting gamers through competition, strategy, and fun.',
-		icon: '🎮',
-		color: 'from-blue-400 to-purple-600',
-		borderColor: 'hover:border-blue-500/50',
-		link: '/societies/egaming'
-	},
-	{
-		name: 'Sports Society',
-		description: 'Promoting teamwork, fitness, and the spirit of competition.',
-		icon: '🏏',
-		color: 'from-orange-400 to-yellow-600',
-		borderColor: 'hover:border-orange-500/50',
-		link: '/societies/sports'
-	},
-	{
-		name: 'Performing Arts Society',
-		description: 'Showcasing talent through drama, music, and expression.',
-		icon: '🎭',
-		color: 'from-purple-400 to-pink-600',
-		borderColor: 'hover:border-purple-500/50',
-		link: '/societies/pas'
-	},
-	{
-		name: 'Blood Donation & Welfare Society',
-		description: 'Saving lives and serving humanity with compassion.',
-		icon: '🩸',
-		color: 'from-cyan-400 to-teal-600',
-		borderColor: 'hover:border-cyan-500/50',
-		link: '/societies/blood-donation'
-	}
-];
 ---
 
 <Layout>
@@ -163,8 +104,8 @@ const societies = [
 				<div class="flex flex-wrap gap-8 justify-center">
 					{societies.map((society) => (
 						<a href={society.link} class={`group bg-gradient-to-br from-gray-800/50 to-gray-900/80 backdrop-blur-sm border border-gray-700 rounded-2xl p-8 transform hover:scale-105 transition-all duration-500 ${society.borderColor} cursor-pointer flex-shrink-0 w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]`}>
-							<div class={`w-16 h-16 bg-gradient-to-br ${society.color} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 text-2xl`}>
-								{society.icon}
+							<div class={`w-16 h-16 bg-gradient-to-br ${society.color} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 overflow-hidden`}>
+								<img src={society.logo} alt={`${society.name} logo`} class="w-12 h-12 object-contain" />
 							</div>
 							
 							<h3 class="text-2xl font-bold text-white mb-4">{society.name}</h3>
