@@ -18,7 +18,7 @@ This is the official website for the Computer Science Department, built with Ast
     - [Project Structure](#project-structure)
   - [📰 Adding News Articles](#-adding-news-articles)
   - [🎉 Adding Events](#-adding-events)
-  - [📋 Registration Forms & Custom Fields](#-registration-forms--custom-fields)
+  - [📋 Registration Forms \& Custom Fields](#-registration-forms--custom-fields)
     - [Basic Registration](#basic-registration)
     - [Custom Form Fields 🆕](#custom-form-fields-)
     - [Form Submission](#form-submission)
@@ -144,13 +144,13 @@ Detailed description of your event...
 - `meetup`: Society gatherings, informal meetings
 
 **Society Codes:**
-- `cms`: Computer & Mathematical Society
-- `pas`: Programming & Algorithms Society  
+- `cms`: Computing Media Society
+- `pas`: Performing Arts Society
 - `ps`: Programming Society
 - `sports`: Sports Society
 - `egaming`: E-Gaming Society
-- `ems`: Electronic & Media Society
-- `blood-donation`: Blood Donation Society
+- `ems`: Event Management Society
+- `blood-donation`: Blood Donation & Welfare Society
 
 ## 📋 Registration Forms & Custom Fields
 
