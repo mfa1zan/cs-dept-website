@@ -24,7 +24,6 @@ const upcomingEvents = eventEntries
   .sort((a: CollectionEntry<'events'>, b: CollectionEntry<'events'>) => 
     a.data.date.getTime() - b.data.date.getTime()
   )
-  .slice(0, 3);
 
 // Get recent news for grid display
 const recentNews = sortedNews.slice(0, 6);
@@ -115,7 +114,7 @@ const recentNews = sortedNews.slice(0, 6);
                             <p class="text-gray-400 text-xs">Author</p>
                           </div>
                         </div>
-                        <a href={`/news/${article.slug}`} class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-6 py-2 rounded-lg transition-all duration-300 transform hover:scale-105">
+                        <a href={`/news/${article.id}`} class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-6 py-2 rounded-lg transition-all duration-300 transform hover:scale-105">
                           Read More
                         </a>
                       </div>
@@ -183,7 +182,7 @@ const recentNews = sortedNews.slice(0, 6);
                       {article.data.author || 'CS Department'}
                     </span>
                   </div>
-                  <a href={`/news/${article.slug}`} class="text-blue-400 hover:text-blue-300 transition-colors text-sm font-medium">
+                  <a href={`/news/${article.id}`} class="text-blue-400 hover:text-blue-300 transition-colors text-sm font-medium">
                     Read More →
                   </a>
                 </div>
@@ -282,7 +281,7 @@ const recentNews = sortedNews.slice(0, 6);
                       Register
                     </a>
                   )}
-                  <a href={`/events/${event.slug}`} class={`border px-6 py-2 rounded-lg transition-all duration-300 ${
+                  <a href={`/events/${event.id}`} class={`border px-6 py-2 rounded-lg transition-all duration-300 ${
                     event.data.type === 'workshop' ? 'border-gray-600 hover:border-blue-400' :
                     event.data.type === 'conference' ? 'border-gray-600 hover:border-purple-400' :
                     event.data.type === 'hackathon' ? 'border-gray-600 hover:border-green-400' :
