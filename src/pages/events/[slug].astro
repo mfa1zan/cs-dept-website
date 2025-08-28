@@ -3,6 +3,9 @@ import { getCollection, type CollectionEntry, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import EventRegistration from '../../components/EventRegistration.astro';
+import RegistrationForm from '../../components/RegistrationForm.astro';
+import { createRegistrationForm, createFormWithDefaults } from '../../utils/registrationForm';
 import '../../styles/global.css';
 
 export async function getStaticPaths() {
@@ -22,6 +25,34 @@ const { Content } = await render(entry);
 
 // Check if event is upcoming
 const isUpcoming = entry.data.date >= new Date();
+
+// Prepare registration form
+let registrationProps = null;
+if (isUpcoming && entry.data.registrationRequired && !entry.data.registrationLink) {
+  if (entry.data.customFormFields && entry.data.customFormFields.length > 0) {
+    // Use custom fields with required defaults
+    const allFields = createFormWithDefaults(entry.data.customFormFields);
+    
+    registrationProps = {
+      eventTitle: entry.data.title,
+      eventId: entry.id,
+      submitUrl: entry.data.formSubmitUrl || 'https://example.com/register',
+      gradientColors: { from: 'from-blue-500', to: 'to-purple-600' },
+      accentColor: 'blue',
+      fields: allFields
+    };
+  } else {
+    // Use preset form
+    registrationProps = createRegistrationForm(
+      entry.data.title,
+      entry.data.type as keyof typeof import('../../utils/registrationForm').FORM_FIELD_PRESETS,
+      {
+        eventId: entry.id,
+        submitUrl: entry.data.formSubmitUrl || 'https://example.com/register',
+      }
+    );
+  }
+}
 ---
 
 <Layout title={entry.data.title}>
@@ -148,14 +179,11 @@ const isUpcoming = entry.data.date >= new Date();
           </div>
           
           <!-- Registration Form for events without registrationLink -->
-          <!-- {isUpcoming && entry.data.registrationRequired && !entry.data.registrationLink && (
-            <EventRegistration
-              eventTitle={entry.data.title}
-              eventType={entry.data.type}
-              eventId={entry.id}
-              submitUrl="https://example.com/register"
-            />
-          )} -->
+          {registrationProps && (
+            <div class="mt-16">
+              <RegistrationForm {...registrationProps} />
+            </div>
+          )}
         </div>
       </div>
     </section>
