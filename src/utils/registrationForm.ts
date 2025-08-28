@@ -30,7 +30,8 @@ export const FORM_FIELD_PRESETS = {
     { name: 'fullName', label: 'Full Name', type: 'text', required: true, placeholder: 'Enter your full name' },
     { name: 'email', label: 'Email Address', type: 'email', required: true, placeholder: 'Enter your email address' },
     { name: 'phone', label: 'Phone Number', type: 'tel', required: true, placeholder: 'Enter your phone number' },
-    { name: 'studentId', label: 'Student ID', type: 'text', required: false, placeholder: 'Enter your student ID (if applicable)' },
+    { name: 'studentId', label: 'Student ID', type: 'text', required: true, placeholder: 'Enter your student ID' },
+    { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Male', 'Female'] },
     { name: 'year', label: 'Academic Year', type: 'select', required: false, options: ['First Year', 'Second Year', 'Third Year', 'Fourth Year', 'Graduate', 'Other'] },
     { name: 'experience', label: 'Relevant Experience', type: 'textarea', required: false, placeholder: 'Tell us about your relevant experience or expectations...' }
   ] as FormField[],
@@ -40,6 +41,8 @@ export const FORM_FIELD_PRESETS = {
     { name: 'fullName', label: 'Full Name', type: 'text', required: true, placeholder: 'Enter your full name' },
     { name: 'email', label: 'Email Address', type: 'email', required: true, placeholder: 'Enter your email address' },
     { name: 'phone', label: 'Phone Number', type: 'tel', required: true, placeholder: 'Enter your phone number' },
+    { name: 'studentId', label: 'Student ID', type: 'text', required: true, placeholder: 'Enter your student ID' },
+    { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Male', 'Female'] },
     { name: 'experience', label: 'Experience Level', type: 'select', required: true, options: ['Beginner', 'Intermediate', 'Advanced'] },
     { name: 'expectations', label: 'What do you hope to learn?', type: 'textarea', required: false, placeholder: 'Tell us what you hope to gain from this workshop...' }
   ] as FormField[],
@@ -49,6 +52,8 @@ export const FORM_FIELD_PRESETS = {
     { name: 'fullName', label: 'Full Name', type: 'text', required: true, placeholder: 'Enter your full name' },
     { name: 'email', label: 'Email Address', type: 'email', required: true, placeholder: 'Enter your email address' },
     { name: 'phone', label: 'Phone Number', type: 'tel', required: true, placeholder: 'Enter your phone number' },
+    { name: 'studentId', label: 'Student ID', type: 'text', required: true, placeholder: 'Enter your student ID' },
+    { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Male', 'Female'] },
     { name: 'teamName', label: 'Team Name', type: 'text', required: false, placeholder: 'Enter your team name (leave blank if individual)' },
     { name: 'skillLevel', label: 'Programming Experience', type: 'select', required: true, options: ['Beginner', 'Intermediate', 'Advanced', 'Expert'] },
     { name: 'technologies', label: 'Preferred Technologies', type: 'textarea', required: false, placeholder: 'List technologies you\'re comfortable with...' },
@@ -61,6 +66,7 @@ export const FORM_FIELD_PRESETS = {
     { name: 'fullName', label: 'Full Name', type: 'text', required: true, placeholder: 'Enter your full name' },
     { name: 'email', label: 'Email Address', type: 'email', required: true, placeholder: 'Enter your email address' },
     { name: 'studentId', label: 'Student ID', type: 'text', required: true, placeholder: 'Enter your student ID' },
+    { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Male', 'Female'] },
     { name: 'year', label: 'Academic Year', type: 'select', required: true, options: ['First Year', 'Second Year', 'Third Year', 'Fourth Year', 'Graduate'] },
     { name: 'interests', label: 'Areas of Interest', type: 'textarea', required: false, placeholder: 'Tell us about your interests and goals...' }
   ] as FormField[],
@@ -70,6 +76,8 @@ export const FORM_FIELD_PRESETS = {
     { name: 'fullName', label: 'Full Name', type: 'text', required: true, placeholder: 'Enter your full name' },
     { name: 'email', label: 'Email Address', type: 'email', required: true, placeholder: 'Enter your email address' },
     { name: 'phone', label: 'Phone Number', type: 'tel', required: true, placeholder: 'Enter your phone number' },
+    { name: 'studentId', label: 'Student ID', type: 'text', required: true, placeholder: 'Enter your student ID' },
+    { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Male', 'Female'] },
     { name: 'organization', label: 'Organization/Institution', type: 'text', required: false, placeholder: 'Your company or university' },
     { name: 'jobTitle', label: 'Job Title/Position', type: 'text', required: false, placeholder: 'Your current position' },
     { name: 'interests', label: 'Sessions of Interest', type: 'textarea', required: false, placeholder: 'Which sessions or topics are you most interested in?' },
@@ -82,6 +90,7 @@ export const FORM_FIELD_PRESETS = {
     { name: 'email', label: 'Email Address', type: 'email', required: true, placeholder: 'Enter your email address' },
     { name: 'phone', label: 'Phone Number', type: 'tel', required: true, placeholder: 'Enter your phone number' },
     { name: 'studentId', label: 'Student ID', type: 'text', required: true, placeholder: 'Enter your student ID' },
+    { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Male', 'Female'] },
     { name: 'teamMembers', label: 'Team Members', type: 'textarea', required: false, placeholder: 'List other team members (name, email) if participating as a team...' },
     { name: 'experience', label: 'Relevant Experience', type: 'textarea', required: false, placeholder: 'Tell us about your relevant experience...' },
     { name: 'category', label: 'Competition Category', type: 'select', required: true, options: ['Individual', 'Team (2-3 members)', 'Team (4+ members)'] }

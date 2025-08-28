@@ -28,7 +28,8 @@ const {
     { name: 'fullName', label: 'Full Name', type: 'text', required: true, placeholder: 'Enter your full name' },
     { name: 'email', label: 'Email Address', type: 'email', required: true, placeholder: 'Enter your email address' },
     { name: 'phone', label: 'Phone Number', type: 'tel', required: true, placeholder: 'Enter your phone number' },
-    { name: 'studentId', label: 'Student ID', type: 'text', required: false, placeholder: 'Enter your student ID (if applicable)' },
+    { name: 'studentId', label: 'Student ID', type: 'text', required: true, placeholder: 'Enter your student ID' },
+    { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Male', 'Female'] },
     { name: 'year', label: 'Academic Year', type: 'select', required: false, options: ['First Year', 'Second Year', 'Third Year', 'Fourth Year', 'Graduate', 'Other'] },
     { name: 'experience', label: 'Relevant Experience', type: 'textarea', required: false, placeholder: 'Tell us about your relevant experience or expectations...' }
   ]
