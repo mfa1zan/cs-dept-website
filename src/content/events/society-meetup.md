@@ -7,10 +7,38 @@ endTime: "8:00 PM"
 location: "Conference Room A, Computer Science Building"
 type: "meetup"
 registrationRequired: true
-registrationLink: "https://example.com/society-meetup"
 organizer: "Programming Society"
 society: "ps"
 capacity: 50
+formSubmitUrl: "https://example.com/society-meetup-register"
+customFormFields:
+  - name: "membershipStatus"
+    label: "Are you a Programming Society member?"
+    type: "select"
+    required: true
+    options:
+      - "Yes, current member"
+      - "No, interested in joining"
+      - "No, just attending this event"
+  - name: "projectToShare"
+    label: "Do you have a project to showcase?"
+    type: "textarea"
+    required: false
+    placeholder: "Brief description of your project (optional)"
+  - name: "topicsOfInterest"
+    label: "Topics you'd like to discuss"
+    type: "textarea"
+    required: false
+    placeholder: "Any specific programming topics or technologies you're interested in discussing..."
+  - name: "networkingInterest"
+    label: "Networking Preference"
+    type: "select"
+    required: false
+    options:
+      - "Very interested in networking"
+      - "Open to meeting new people"
+      - "Prefer to listen and learn"
+      - "Just here for the content"
 ---
 
 # Programming Society Meetup
