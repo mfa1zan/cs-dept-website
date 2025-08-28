@@ -23,6 +23,65 @@ export interface RegistrationFormProps {
   fields?: FormField[];
 }
 
+/**
+ * Creates a form with default required fields plus custom fields
+ * This ensures all forms have the standard required fields (name, email, phone, studentId, gender)
+ */
+export function createFormWithDefaults(customFields: FormField[] = []): FormField[] {
+  const defaultRequiredFields: FormField[] = [
+    { name: 'fullName', label: 'Full Name', type: 'text', required: true, placeholder: 'Enter your full name' },
+    { name: 'email', label: 'Email Address', type: 'email', required: true, placeholder: 'Enter your email address' },
+    { name: 'phone', label: 'Phone Number', type: 'tel', required: true, placeholder: 'Enter your phone number' },
+    { name: 'studentId', label: 'Student ID', type: 'text', required: true, placeholder: 'Enter your student ID' },
+    { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Male', 'Female'] },
+  ];
+
+  // Filter out any custom fields that have the same name as default fields
+  const filteredCustomFields = customFields.filter(
+    customField => !defaultRequiredFields.some(defaultField => defaultField.name === customField.name)
+  );
+
+  return [...defaultRequiredFields, ...filteredCustomFields];
+}
+
+/**
+ * Helper to validate custom form field definitions
+ */
+export function validateCustomFields(fields: FormField[]): { isValid: boolean; errors: string[] } {
+  const errors: string[] = [];
+  const fieldNames = new Set<string>();
+
+  fields.forEach((field, index) => {
+    // Check for duplicate names
+    if (fieldNames.has(field.name)) {
+      errors.push(`Duplicate field name "${field.name}" at index ${index}`);
+    } else {
+      fieldNames.add(field.name);
+    }
+
+    // Validate field name format
+    if (!/^[a-zA-Z][a-zA-Z0-9_]*$/.test(field.name)) {
+      errors.push(`Invalid field name "${field.name}" at index ${index}. Names must start with a letter and contain only letters, numbers, and underscores.`);
+    }
+
+    // Validate select fields have options
+    if (field.type === 'select' && (!field.options || field.options.length === 0)) {
+      errors.push(`Select field "${field.name}" must have options array`);
+    }
+
+    // Validate required field types
+    const validTypes = ['text', 'email', 'tel', 'select', 'textarea', 'number'];
+    if (!validTypes.includes(field.type)) {
+      errors.push(`Invalid field type "${field.type}" for field "${field.name}". Must be one of: ${validTypes.join(', ')}`);
+    }
+  });
+
+  return {
+    isValid: errors.length === 0,
+    errors
+  };
+}
+
 // Pre-defined form field sets for common event types
 export const FORM_FIELD_PRESETS = {
   // Standard event registration
@@ -231,6 +290,8 @@ export default {
   FORM_FIELD_PRESETS,
   COLOR_SCHEMES,
   createRegistrationForm,
+  createFormWithDefaults,
+  validateCustomFields,
   validateFormData,
   formatFormData
 };
