@@ -34,6 +34,16 @@ const eventsCollection = defineCollection({
     society: z.enum(['cms', 'pas', 'ps', 'sports', 'egaming', 'ems', 'blood-donation']).optional(),
     // Alternative field for custom organizers
     organizingBody: z.string().optional(),
+    // New fields for custom registration forms
+    customFormFields: z.array(z.object({
+      name: z.string(),
+      label: z.string(),
+      type: z.enum(['text', 'email', 'tel', 'select', 'textarea', 'number']),
+      required: z.boolean().default(false),
+      placeholder: z.string().optional(),
+      options: z.array(z.string()).optional(), // for select fields
+    })).optional(),
+    formSubmitUrl: z.string().url().optional(),
   }),
 });
 
