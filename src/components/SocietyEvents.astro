@@ -91,7 +91,7 @@ const pastEvents = societyEvents
                     Register
                   </a>
                 )}
-                <a href={`/events/${event.slug}`} class={`border border-gray-600 hover:border-${accentColor}-400 px-6 py-2 rounded-lg transition-all duration-300`}>
+                <a href={`/events/${event.id}`} class={`border border-gray-600 hover:border-${accentColor}-400 px-6 py-2 rounded-lg transition-all duration-300`}>
                   Learn More
                 </a>
               </div>
@@ -153,7 +153,7 @@ const pastEvents = societyEvents
                 <div class={`w-6 h-6 bg-gradient-to-br ${gradientColors.from} ${gradientColors.to} rounded-full`}></div>
                 <span class={`text-${accentColor}-300 text-sm font-medium`}>Society Event</span>
               </div>
-              <a href={`/events/${event.slug}`} class={`text-${accentColor}-400 hover:text-${accentColor}-300 transition-colors text-sm font-medium`}>
+              <a href={`/events/${event.id}`} class={`text-${accentColor}-400 hover:text-${accentColor}-300 transition-colors text-sm font-medium`}>
                 Read More →
               </a>
             </div>
