@@ -209,38 +209,42 @@ const {
     }
 
     private async handleSubmit(e: Event): Promise<void> {
-      e.preventDefault();
-      
-      if (!this.validateForm()) return;
+      // Always validate the form first
+      if (!this.validateForm()) {
+        e.preventDefault();
+        return;
+      }
 
-      this.setLoading(true);
-      this.hideMessages();
-
-      try {
-        const formData = new FormData(this.form);
+      // For testing: allow form to submit normally to see Netlify behavior
+      // Remove this condition to test native form submission locally
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        e.preventDefault();
         
-        // Add timestamp
-        formData.append('submittedAt', new Date().toISOString());
+        this.setLoading(true);
+        this.hideMessages();
 
-        // Submit to Netlify
-        const response = await fetch('/', {
-          method: 'POST',
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams(formData as any).toString()
-        });
+        try {
+          const formData = new FormData(this.form);
+          
+          // Add timestamp
+          formData.append('submittedAt', new Date().toISOString());
 
-        if (response.ok) {
+          // Simulate form submission for development
+          console.log('Form data:', Object.fromEntries(formData));
+          
+          // Simulate network delay
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          
           this.showSuccess();
           this.form.reset();
-        } else {
-          this.showError('Registration failed. Please try again.');
+        } catch (error) {
+          console.error('Registration error:', error);
+          this.showError('Network error. Please check your connection and try again.');
+        } finally {
+          this.setLoading(false);
         }
-      } catch (error) {
-        console.error('Registration error:', error);
-        this.showError('Network error. Please check your connection and try again.');
-      } finally {
-        this.setLoading(false);
       }
+      // For production (Netlify), let the form submit normally
     }
 
     private validateForm(): boolean {
