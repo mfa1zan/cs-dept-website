@@ -1,0 +1,77 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Registration Successful - CS Department">
+  <main class="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex items-center justify-center px-4">
+    <div class="max-w-2xl mx-auto text-center">
+      <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-2xl p-8 backdrop-blur-sm border border-gray-700">
+        <!-- Success Icon -->
+        <div class="mx-auto w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center mb-6">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+
+        <!-- Success Message -->
+        <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">
+          Registration <span class="bg-gradient-to-r from-green-500 to-emerald-600 bg-clip-text text-transparent">Successful!</span>
+        </h1>
+        
+        <p class="text-xl text-gray-300 mb-6">
+          Thank you for registering for our event. We've received your information and will be in touch soon.
+        </p>
+
+        <div class="bg-green-500/10 border border-green-500/20 text-green-300 px-6 py-4 rounded-lg mb-8">
+          <div class="flex items-center justify-center space-x-2">
+            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+            <span>A confirmation email will be sent to your registered email address.</span>
+          </div>
+        </div>
+
+        <!-- Next Steps -->
+        <div class="text-left bg-gray-800/30 rounded-lg p-6 mb-8">
+          <h3 class="text-lg font-semibold text-white mb-4">What happens next?</h3>
+          <ul class="space-y-2 text-gray-300">
+            <li class="flex items-start space-x-2">
+              <span class="text-blue-400 mt-1">•</span>
+              <span>You'll receive a confirmation email with event details</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-blue-400 mt-1">•</span>
+              <span>We'll send you reminders as the event date approaches</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-blue-400 mt-1">•</span>
+              <span>Any additional information will be shared via email</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/" 
+            class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+          >
+            Back to Home
+          </a>
+          <a 
+            href="/events" 
+            class="border border-gray-600 hover:border-gray-500 text-gray-300 hover:text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300"
+          >
+            View More Events
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  body {
+    overflow-x: hidden;
+  }
+</style>

@@ -21,7 +21,7 @@ export interface Props {
 const {
   eventTitle,
   eventId = '',
-  submitUrl = 'https://example.com',
+  submitUrl = '/', // Netlify handles forms at root
   gradientColors = { from: 'from-blue-500', to: 'to-purple-600' },
   accentColor = 'blue',
   fields = [
@@ -46,7 +46,27 @@ const {
     </p>
   </div>
 
-  <form class="registration-form" data-submit-url={submitUrl} data-event-id={eventId}>
+  <form 
+    class="registration-form" 
+    name="event-registration"
+    method="POST" 
+    data-netlify="true"
+    data-netlify-honeypot="bot-field"
+    action="/success"
+    data-submit-url={submitUrl} 
+    data-event-id={eventId}
+  >
+    <!-- Hidden field for Netlify -->
+    <input type="hidden" name="form-name" value="event-registration" />
+    <!-- Honeypot field for spam protection -->
+    <div class="hidden">
+      <label for="bot-field">Don't fill this out if you're human:</label>
+      <input type="text" name="bot-field" />
+    </div>
+    <!-- Hidden field for event information -->
+    <input type="hidden" name="event-title" value={eventTitle} />
+    {eventId && <input type="hidden" name="event-id" value={eventId} />}
+    
     <div class="space-y-6">
       {fields.map((field) => (
         <div class="form-group">
@@ -198,31 +218,22 @@ const {
 
       try {
         const formData = new FormData(this.form);
-        const submitUrl = this.form.dataset.submitUrl || 'https://example.com';
-        const eventId = this.form.dataset.eventId;
-
-        // Add event ID to form data if provided
-        if (eventId) {
-          formData.append('eventId', eventId);
-        }
-
+        
         // Add timestamp
         formData.append('submittedAt', new Date().toISOString());
 
-        const response = await fetch(submitUrl, {
+        // Submit to Netlify
+        const response = await fetch('/', {
           method: 'POST',
-          body: formData,
-          headers: {
-            'Accept': 'application/json',
-          },
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams(formData as any).toString()
         });
 
         if (response.ok) {
           this.showSuccess();
           this.form.reset();
         } else {
-          const errorData = await response.json().catch(() => ({}));
-          this.showError(errorData.message || 'Registration failed. Please try again.');
+          this.showError('Registration failed. Please try again.');
         }
       } catch (error) {
         console.error('Registration error:', error);
