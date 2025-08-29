@@ -14,7 +14,6 @@ export interface FormField {
 export interface RegistrationFormProps {
   eventTitle: string;
   eventId?: string;
-  submitUrl?: string;
   gradientColors?: {
     from: string;
     to: string;
@@ -196,7 +195,6 @@ export function createRegistrationForm(
   eventType: keyof typeof FORM_FIELD_PRESETS,
   options: {
     eventId?: string;
-    submitUrl?: string;
     customFields?: FormField[];
     customColors?: {
       gradientColors?: { from: string; to: string };
@@ -206,7 +204,6 @@ export function createRegistrationForm(
 ): RegistrationFormProps {
   const {
     eventId,
-    submitUrl = 'https://example.com',
     customFields,
     customColors = {}
   } = options;
@@ -218,7 +215,6 @@ export function createRegistrationForm(
   return {
     eventTitle,
     eventId,
-    submitUrl,
     gradientColors: customColors.gradientColors || colors.gradientColors,
     accentColor: customColors.accentColor || colors.accentColor,
     fields

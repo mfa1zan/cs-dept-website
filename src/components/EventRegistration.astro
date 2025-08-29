@@ -7,14 +7,12 @@ export interface Props {
   eventTitle: string;
   eventType?: 'workshop' | 'hackathon' | 'conference' | 'competition' | 'membership' | 'standard' | 'seminar' | 'meetup';
   eventId?: string;
-  submitUrl?: string;
 }
 
 const { 
   eventTitle, 
   eventType = 'workshop', 
-  eventId, 
-  submitUrl = 'https://example.com' 
+  eventId
 } = Astro.props;
 
 // Map event types to registration form presets
@@ -35,7 +33,6 @@ const registrationProps = createRegistrationForm(
   getFormType(eventType),
   {
     eventId: eventId || eventTitle.toLowerCase().replace(/\s+/g, '-'),
-    submitUrl,
   }
 );
 ---

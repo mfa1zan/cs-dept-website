@@ -36,7 +36,6 @@ if (isUpcoming && entry.data.registrationRequired && !entry.data.registrationLin
     registrationProps = {
       eventTitle: entry.data.title,
       eventId: entry.id,
-      submitUrl: entry.data.formSubmitUrl || 'https://example.com/register',
       gradientColors: { from: 'from-blue-500', to: 'to-purple-600' },
       accentColor: 'blue',
       fields: allFields
@@ -48,7 +47,6 @@ if (isUpcoming && entry.data.registrationRequired && !entry.data.registrationLin
       entry.data.type as keyof typeof import('../../utils/registrationForm').FORM_FIELD_PRESETS,
       {
         eventId: entry.id,
-        submitUrl: entry.data.formSubmitUrl || 'https://example.com/register',
       }
     );
   }

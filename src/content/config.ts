@@ -43,7 +43,6 @@ const eventsCollection = defineCollection({
       placeholder: z.string().optional(),
       options: z.array(z.string()).optional(), // for select fields
     })).optional(),
-    formSubmitUrl: z.string().url().optional(),
   }),
 });
 

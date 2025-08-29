@@ -2,7 +2,6 @@
 export interface Props {
   eventTitle: string;
   eventId?: string;
-  submitUrl?: string;
   gradientColors?: {
     from: string;
     to: string;
@@ -21,7 +20,6 @@ export interface Props {
 const {
   eventTitle,
   eventId = '',
-  submitUrl = '/', // Netlify handles forms at root
   gradientColors = { from: 'from-blue-500', to: 'to-purple-600' },
   accentColor = 'blue',
   fields = [
@@ -53,7 +51,6 @@ const {
     data-netlify="true"
     data-netlify-honeypot="bot-field"
     action="/success"
-    data-submit-url={submitUrl} 
     data-event-id={eventId}
   >
     <!-- Hidden field for Netlify -->

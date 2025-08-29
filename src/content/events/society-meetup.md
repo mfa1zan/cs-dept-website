@@ -10,7 +10,6 @@ registrationRequired: true
 organizer: "Programming Society"
 society: "ps"
 capacity: 50
-formSubmitUrl: "https://example.com/society-meetup-register"
 customFormFields:
   - name: "membershipStatus"
     label: "Are you a Programming Society member?"
