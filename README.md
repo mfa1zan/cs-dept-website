@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0c1f2cae-cb76-47c1-8632-86c7644d9257/deploy-status)](https://app.netlify.com/projects/csdeptuos/deploys)
+
 # CS Department Website
 
 This is the official website for the Computer Science Department, built with Astro. This site serves as a hub for department news, events, society activities, and program information.
