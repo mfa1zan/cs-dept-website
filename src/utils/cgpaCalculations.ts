@@ -183,11 +183,12 @@ export function getGradeFromGPA(gpa: number): string {
 }
 
 export function getGPAClassification(cgpa: number): string {
-  if (cgpa >= 3.5) return 'Summa Cum Laude';
-  if (cgpa >= 3.2) return 'Magna Cum Laude';
-  if (cgpa >= 2.8) return 'Cum Laude';
-  if (cgpa >= 2.0) return 'Good Standing';
-  return 'Academic Probation';
+    if (cgpa === 4.0) return '🌟 Perfect Score - Outstanding Achievement! 🌟';
+    if (cgpa >= 3.5) return '🏆 Excellent Performance';
+    if (cgpa >= 3.2) return '✨ Very Good Performance';
+    if (cgpa >= 2.8) return '👍 Good Performance';
+    if (cgpa >= 2.0) return '📘 Satisfactory Performance';
+  return '⚠️ Needs Improvement';
 }
 
 export interface StoredData {

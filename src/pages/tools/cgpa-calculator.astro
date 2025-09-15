@@ -21,11 +21,11 @@ import '../../styles/global.css';
           </p>
         </div>
 
-        <div id="calculator-section" class="bg-gray-900/50 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-800 p-6 lg:p-8 scroll-mt-24">
+        <div id="calculator-section" class="bg-gray-900/50 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-2xl border border-gray-800 p-4 sm:p-6 lg:p-8 scroll-mt-20 md:scroll-mt-24">
           <CGPACalculator />
         </div>
 
-        <div class="mt-12 grid md:grid-cols-3 gap-6">
+        <div class="mt-8 md:mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           <button
             class="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-gray-800 text-left transition-all hover:bg-gray-800/50 hover:border-blue-500/50 hover:transform hover:scale-105 cursor-pointer"
             onclick="document.querySelector('[data-tab=calculator]').click(); document.getElementById('calculator-section').scrollIntoView({ behavior: 'smooth', block: 'start' });">
