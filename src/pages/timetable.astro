@@ -3,6 +3,18 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import '../styles/global.css';
+import fs from 'node:fs';
+
+// Discover all JSON datasets in public/parsed at build time
+const parsedDir = new URL('../../public/parsed/', import.meta.url);
+let datasetFiles: string[] = [];
+try {
+  datasetFiles = fs.readdirSync(parsedDir)
+    .filter(f => f.endsWith('.json'))
+    .sort();
+} catch (e) {
+  datasetFiles = [];
+}
 ---
 
 <!-- Timetable Page -->
@@ -18,9 +30,9 @@ import '../styles/global.css';
         <div class="flex items-center gap-2">
           <label for="dataset" class="text-sm text-gray-300 whitespace-nowrap">Dataset:</label>
           <select id="dataset" class="bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <option value="full_parsed1.json" selected>full_parsed1</option>
-            <option value="full_parsed2.json">full_parsed2</option>
-            <option value="full_parsed3.json">full_parsed3</option>
+            {datasetFiles.map((f, i) => (
+              <option value={f} selected={i===0}>{f.replace(/\.json$/,'')}</option>
+            ))}
           </select>
         </div>
         <div class="flex-1 relative">
@@ -34,6 +46,7 @@ import '../styles/global.css';
         <div id="day-filters" class="flex flex-wrap justify-center gap-2"></div>
         <div id="semester-filters" class="flex flex-wrap justify-center gap-2"></div>
         <div id="program-filters" class="flex flex-wrap justify-center gap-2"></div>
+          <div id="section-filters" class="flex flex-wrap justify-center gap-2"></div>
         <div class="pt-2 flex flex-wrap justify-center gap-3">
           <button id="clear-filters" class="px-4 py-1.5 rounded-md text-xs font-medium bg-gray-800 text-gray-300 hover:bg-red-600/40 hover:text-red-200 border border-gray-700 hover:border-red-500 transition">Clear Filters</button>
         </div>
@@ -122,12 +135,14 @@ import '../styles/global.css';
   const dayFiltersEl = document.getElementById('day-filters') as HTMLElement | null;
   const semesterFiltersEl = document.getElementById('semester-filters') as HTMLElement | null;
   const programFiltersEl = document.getElementById('program-filters') as HTMLElement | null;
+  const sectionFiltersEl = document.getElementById('section-filters') as HTMLElement | null;
 
   let rawData: Record<string, any> = {}; // initial nested data
   let flat: FlatRecord[] = []; // flattened records array
   const activeDays = new Set<string>();
   const activeSemesters = new Set<string>();
   const activePrograms = new Set<string>();
+  const activeSections = new Set<string>();
 
   const DAY_ORDER = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
 
@@ -221,6 +236,7 @@ import '../styles/global.css';
     if(dayFiltersEl) dayFiltersEl.innerHTML='';
     if(semesterFiltersEl) semesterFiltersEl.innerHTML='';
     if(programFiltersEl) programFiltersEl.innerHTML='';
+    if(sectionFiltersEl) sectionFiltersEl.innerHTML='';
 
     const days = [...new Set(flat.map(r=>r.day))].sort((a,b)=>DAY_ORDER.indexOf(a)-DAY_ORDER.indexOf(b));
     const semesters = [...new Set(flat.map(r=>r.semester).filter(v=>v!=null))].sort((a,b)=> (Number(a) as number) - (Number(b) as number));
@@ -229,6 +245,11 @@ import '../styles/global.css';
   days.forEach(d=> makeButton(d, dayFiltersEl, activeDays));
   semesters.forEach(s=> makeButton(String(s), semesterFiltersEl, activeSemesters, `Semester ${s}`));
   programs.forEach(p=> makeButton(p, programFiltersEl, activePrograms));
+  // Sections: only show if multiple distinct non-empty sections exist
+  const sections = [...new Set(flat.map(r=>r.section).filter(Boolean))].sort();
+  if(sections.length > 1) {
+    sections.forEach(sec => makeButton(sec, sectionFiltersEl, activeSections));
+  }
   }
 
   function recordMatches(rec: FlatRecord, q: string): boolean {
@@ -242,6 +263,7 @@ import '../styles/global.css';
       if(activeDays.size && !activeDays.has(r.day)) return false;
       if(activeSemesters.size && !activeSemesters.has(String(r.semester))) return false;
       if(activePrograms.size && !activePrograms.has(r.program)) return false;
+      if(activeSections.size && !activeSections.has(r.section)) return false;
       return true;
     });
   }
@@ -276,6 +298,7 @@ import '../styles/global.css';
     if(activeDays.size) params.set('days', [...activeDays].join('|'));
     if(activeSemesters.size) params.set('sem', [...activeSemesters].join('|'));
     if(activePrograms.size) params.set('prog', [...activePrograms].join('|'));
+  if(activeSections.size) params.set('sec', [...activeSections].join('|'));
     if(sortKey) params.set('sort', sortKey);
     if(sortDir===-1) params.set('dir','desc');
   // grouping removed
@@ -290,6 +313,7 @@ import '../styles/global.css';
     const days = params.get('days'); if(days) days.split('|').forEach(d=>activeDays.add(d));
     const sem = params.get('sem'); if(sem) sem.split('|').forEach(s=>activeSemesters.add(s));
     const prog = params.get('prog'); if(prog) prog.split('|').forEach(p=>activePrograms.add(p));
+  const sec = params.get('sec'); if(sec) sec.split('|').forEach(s=>activeSections.add(s));
     const sk = params.get('sort') as keyof FlatRecord | 'day' | null; if(sk) sortKey = sk;
     const sd = params.get('dir'); if(sd==='desc') sortDir = -1;
   // grouping removed
@@ -351,6 +375,7 @@ import '../styles/global.css';
 
   function clearAll(){
     activeDays.clear(); activeSemesters.clear(); activePrograms.clear();
+    activeSections.clear();
     if(searchInput) searchInput.value='';
     buildFilters();
     render();
