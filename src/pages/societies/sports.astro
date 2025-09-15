@@ -24,12 +24,15 @@ if (!society) {
 
       <div class="container mx-auto px-6 relative z-10 text-center">
         <div
-          class={`w-24 h-24 bg-gradient-to-br ${society.color} rounded-full flex items-center justify-center mx-auto mb-6 overflow-hidden`}
+          class={`w-32 h-32 md:w-40 md:h-40 rounded-full p-4 flex items-center justify-center mx-auto mb-8 overflow-hidden bg-white/5 ring-1 ring-white/10 backdrop-blur-sm`}
         >
           <img
             src={society.logo}
             alt={`${society.name} Logo`}
-            class="w-16 h-16 object-contain"
+            class="w-full h-full object-contain"
+            loading="lazy"
+            width="160"
+            height="160"
           />
         </div>
 

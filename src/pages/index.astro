@@ -157,12 +157,16 @@ import '../styles/global.css';
                 class={`group bg-gradient-to-br from-gray-800/50 to-gray-900/80 backdrop-blur-sm border border-gray-700 rounded-2xl p-8 transform hover:scale-105 transition-all duration-500 ${society.borderColor} cursor-pointer flex-shrink-0 w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.333rem)]`}
               >
                 <div
-                  class={`w-16 h-16 bg-gradient-to-br ${society.color} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 overflow-hidden`}
+                  class={`w-24 h-24 md:w-40 md:h-24 rounded-2xl p-3 flex items-center justify-center mb-6 overflow-hidden bg-white/5 ring-1 ring-white/10 group-hover:ring-white/25 group-hover:scale-[1.03] transition`}
                 >
                   <img
                     src={society.logo}
                     alt={`${society.name} logo`}
-                    class="w-12 h-12 object-contain"
+                    class="w-full h-full object-contain"
+                    loading="lazy"
+                    width="160"
+                    height="96"
+                    sizes="(min-width: 768px) 160px, 96px"
                   />
                 </div>
 
