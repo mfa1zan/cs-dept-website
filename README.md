@@ -7,9 +7,12 @@ This is the official website for the Computer Science Department, built with Ast
 ## 🆕 Latest Features
 
 - **Custom Form Fields**: Add event-specific registration fields directly in markdown
-- **Smart Form Validation**: Automatic validation for required fields and data types  
+- **Smart Form Validation**: Automatic validation for required fields and data types
 - **Enhanced Event Management**: Streamlined event creation with custom registration
 - **AI Content Generation**: Use LLMs to quickly generate events with custom forms
+- **Interactive Timetable**: New `/timetable` page with instant search, multi-dataset switching, and day / semester / program filters
+
+> Timetable quick use: Go to `/timetable`, pick a dataset (e.g. `full_parsed2`), optionally click day / semester / program pills to narrow, and just start typing — results update on every key press across all fields (course, code, teacher, room, etc.).
 
 ## 📚 Table of Contents
 
@@ -63,6 +66,7 @@ cs-dept-website/
 │   │   └── news/            # News article markdown files
 │   ├── layouts/             # Page templates
 │   ├── pages/               # Website pages
+│   │   ├── timetable.astro  # Interactive searchable timetable (new)
 │   │   ├── events/          # Event detail pages
 │   │   ├── news/            # News article pages
 │   │   └── societies/       # Society pages
@@ -80,14 +84,14 @@ To add a new news article:
 
 ```markdown
 ---
-title: "Your Article Title"
-description: "Brief summary of the article"
-publishDate: 2025-08-28  # Format: YYYY-MM-DD
-category: "announcement"  # Options: research, achievement, event, partnership, announcement
-featured: false          # Set to true for homepage feature
-author: "Your Name"
-image: "/path/to/image.jpg"  # Optional
-tags: ["tag1", "tag2"]   # Optional
+title: 'Your Article Title'
+description: 'Brief summary of the article'
+publishDate: 2025-08-28 # Format: YYYY-MM-DD
+category: 'announcement' # Options: research, achievement, event, partnership, announcement
+featured: false # Set to true for homepage feature
+author: 'Your Name'
+image: '/path/to/image.jpg' # Optional
+tags: ['tag1', 'tag2'] # Optional
 ---
 
 # Your Article Content
@@ -96,6 +100,7 @@ Write your article content here using Markdown...
 ```
 
 **Category Options:**
+
 - `research`: Research publications, discoveries
 - `achievement`: Student/faculty achievements, awards
 - `event`: Department events, seminars
@@ -112,19 +117,19 @@ To add a new event:
 
 ```markdown
 ---
-title: "Event Name"
-description: "Brief description of the event"
-date: 2025-09-15        # Event date (YYYY-MM-DD)
-time: "2:00 PM"         # Start time
-endTime: "5:00 PM"      # End time (optional)
-location: "Room 101, CS Building"
-type: "workshop"        # Options: workshop, conference, competition, seminar, hackathon, meetup
+title: 'Event Name'
+description: 'Brief description of the event'
+date: 2025-09-15 # Event date (YYYY-MM-DD)
+time: '2:00 PM' # Start time
+endTime: '5:00 PM' # End time (optional)
+location: 'Room 101, CS Building'
+type: 'workshop' # Options: workshop, conference, competition, seminar, hackathon, meetup
 registrationRequired: true
-registrationLink: "https://forms.example.com"  # Optional
-organizer: "CS Department"
-society: "ps"           # Optional: cms, pas, ps, sports, egaming, ems, blood-donation
-capacity: 100           # Optional
-image: "/event-image.jpg"  # Optional
+registrationLink: 'https://forms.example.com' # Optional
+organizer: 'CS Department'
+society: 'ps' # Optional: cms, pas, ps, sports, egaming, ems, blood-donation
+capacity: 100 # Optional
+image: '/event-image.jpg' # Optional
 ---
 
 # Event Details
@@ -132,12 +137,14 @@ image: "/event-image.jpg"  # Optional
 Detailed description of your event...
 
 ## Agenda
+
 - 2:00 PM - Opening
 - 3:00 PM - Main session
 - ...
 ```
 
 **Event Types:**
+
 - `workshop`: Hands-on learning sessions
 - `conference`: Academic conferences
 - `competition`: Coding competitions, contests
@@ -146,6 +153,7 @@ Detailed description of your event...
 - `meetup`: Society gatherings, informal meetings
 
 **Society Codes:**
+
 - `cms`: Computing Media Society
 - `pas`: Performing Arts Society
 - `ps`: Programming Society
@@ -159,54 +167,60 @@ Detailed description of your event...
 Events can have custom registration forms with fields tailored to each event's needs. The website includes a flexible registration system that automatically generates forms.
 
 ### Basic Registration
+
 For simple registration with a standard form, add these fields to your event frontmatter:
+
 ```yaml
 registrationRequired: true
-formSubmitUrl: "https://your-backend.com/register"  # Optional custom endpoint
+formSubmitUrl: 'https://your-backend.com/register' # Optional custom endpoint
 ```
 
 ### Custom Form Fields 🆕
+
 You can now add custom form fields directly in your event markdown! The system automatically includes required default fields (Full Name, Email, Phone, Student ID, Gender) and adds your custom fields.
 
 **Example Event with Custom Fields:**
+
 ```yaml
 ---
-title: "Advanced React Workshop"
+title: 'Advanced React Workshop'
 # ... other event fields
 customFormFields:
-  - name: "reactExperience"
-    label: "React Experience Level"
-    type: "select"
+  - name: 'reactExperience'
+    label: 'React Experience Level'
+    type: 'select'
     required: true
     options:
-      - "Complete Beginner"
-      - "Basic (< 1 year)"
-      - "Intermediate (1-3 years)" 
-      - "Advanced (3+ years)"
-  
-  - name: "projectGoals"
-    label: "What do you want to build?"
-    type: "textarea"
+      - 'Complete Beginner'
+      - 'Basic (< 1 year)'
+      - 'Intermediate (1-3 years)'
+      - 'Advanced (3+ years)'
+
+  - name: 'projectGoals'
+    label: 'What do you want to build?'
+    type: 'textarea'
     required: true
-    placeholder: "Describe your project goals..."
-  
-  - name: "laptopOS"
-    label: "Laptop Operating System"
-    type: "select"
+    placeholder: 'Describe your project goals...'
+
+  - name: 'laptopOS'
+    label: 'Laptop Operating System'
+    type: 'select'
     required: true
-    options: ["Windows", "macOS", "Linux", "I need a lab computer"]
+    options: ['Windows', 'macOS', 'Linux', 'I need a lab computer']
 ---
 ```
 
 **Supported Field Types:**
+
 - `text`: Single-line text input
 - `email`: Email validation
-- `tel`: Phone number input  
+- `tel`: Phone number input
 - `number`: Numeric input
 - `select`: Dropdown menu (requires `options` array)
 - `textarea`: Multi-line text area
 
 **Field Properties:**
+
 - `name`: Unique identifier (required)
 - `label`: Display text (required)
 - `type`: Field type (required)
@@ -215,18 +229,22 @@ customFormFields:
 - `options`: Array of choices for select fields
 
 **Default Required Fields (Always Included):**
+
 1. Full Name
 2. Email Address
 3. Phone Number
-4. Student ID  
+4. Student ID
 5. Gender (Male/Female)
 
 ### Form Submission
+
 Forms submit to either:
+
 - Custom endpoint: Set `formSubmitUrl` in event frontmatter
 - Default endpoint: Built-in form handler
 
 **Submitted Data Structure:**
+
 ```json
 {
   "fullName": "John Doe",
@@ -248,18 +266,20 @@ For detailed examples and advanced usage, see [CUSTOM_FORMS.md](./CUSTOM_FORMS.m
 The website supports **MDX** (`.mdx` files), which allows you to use interactive components within your Markdown content. This is useful for:
 
 ### When to Use MDX:
+
 - **Interactive Elements**: Embed forms, buttons, or interactive components
 - **Custom Styling**: Use React components for special layouts
 - **Dynamic Content**: Display data from APIs or databases
 - **Rich Media**: Embed complex visualizations or interactive demos
 
 ### MDX Example:
+
 ```mdx
 ---
-title: "Interactive Workshop Guide"
-description: "A hands-on guide with interactive elements"
+title: 'Interactive Workshop Guide'
+description: 'A hands-on guide with interactive elements'
 publishDate: 2025-08-28
-category: "workshop"
+category: 'workshop'
 ---
 
 import { RegistrationForm } from '../components/RegistrationForm.astro';
@@ -268,16 +288,14 @@ import { RegistrationForm } from '../components/RegistrationForm.astro';
 
 This workshop includes hands-on coding exercises.
 
-<RegistrationForm 
-  eventTitle="Coding Workshop" 
-  eventId="workshop-2025"
-/>
+<RegistrationForm eventTitle="Coding Workshop" eventId="workshop-2025" />
 
 ## Code Example
+
 Here's an interactive example you can try:
 
 function greet(name) {
-  return `Hello, ${name}!`;
+return `Hello, ${name}!`;
 }
 
 Regular Markdown content works normally in MDX files.
@@ -292,8 +310,9 @@ You can leverage AI tools like ChatGPT, Claude, or GitHub Copilot to help create
 ### Generating News Articles:
 
 **Prompt Template for News:**
+
 ```
-Create a news article for a Computer Science department website about [topic]. 
+Create a news article for a Computer Science department website about [topic].
 
 Format the response with proper frontmatter followed by the article content.
 
@@ -318,6 +337,7 @@ Topic: [Describe your news topic here]
 ```
 
 **Example Prompt:**
+
 ```
 Create a news article for a Computer Science department website about a new AI research lab opening. Include details about equipment, research focus, and student opportunities.
 ```
@@ -325,6 +345,7 @@ Create a news article for a Computer Science department website about a new AI r
 ### Generating Events:
 
 **Prompt Template for Events:**
+
 ```
 Create an event listing for a Computer Science department website.
 
@@ -359,7 +380,7 @@ customFormFields:  # Optional: Add event-specific registration fields
 
 Event details to include:
 - Event: [event name and type]
-- Date & Time: [when and duration]  
+- Date & Time: [when and duration]
 - Target Audience: [who should attend]
 - Prerequisites: [any requirements]
 - What to bring: [if applicable]
@@ -385,12 +406,13 @@ Content requirements:
 ### Sample AI Prompts:
 
 **For Workshop Events:**
+
 ```
 Create an event listing for a "Python for Beginners" workshop.
 
 Event details:
 - Date: Next Friday (September 1, 2025)
-- Time: 6:00 PM - 8:00 PM  
+- Time: 6:00 PM - 8:00 PM
 - Location: CS Lab 101
 - Capacity: 30 people maximum
 - Registration required with custom fields
@@ -406,12 +428,13 @@ Include hands-on coding exercises and laptop requirements in the description.
 ```
 
 **For Achievement News:**
+
 ```
 Create a news article about CS student Sarah Ahmed winning first place in the National Cybersecurity Competition.
 
 Details to include:
 - Competition was held at University of Technology
-- She competed against 150+ students nationwide  
+- She competed against 150+ students nationwide
 - Prize was $5000 and internship opportunity
 - Her project focused on network security algorithms
 - Make it inspiring for other students
@@ -419,6 +442,7 @@ Details to include:
 ```
 
 **For Research News:**
+
 ```
 Create a news article about a new research partnership between our CS department and TechCorp Inc.
 
@@ -435,12 +459,24 @@ Partnership details:
 
 All commands are run from the project root:
 
-| Command           | Action                                          |
-| :---------------- | :---------------------------------------------- |
-| `bun install`     | Install dependencies (first time setup)        |
-| `bun dev`         | Start development server at `localhost:4321`   |
-| `bun build`       | Build production site to `./dist/`             |
-| `bun preview`     | Preview production build locally                |
+| Command       | Action                                       |
+| :------------ | :------------------------------------------- |
+| `bun install` | Install dependencies (first time setup)      |
+| `bun dev`     | Start development server at `localhost:4321` |
+| `bun build`   | Build production site to `./dist/`           |
+| `bun preview` | Preview production build locally             |
+
+### Code Quality & Formatting
+
+| Command                | Action                                           |
+| :--------------------- | :----------------------------------------------- |
+| `bun run format`       | Format all files with Prettier                   |
+| `bun run format:check` | Check if files are properly formatted            |
+| `bun run lint`         | Run ESLint to check for code issues              |
+| `bun run lint:fix`     | Fix ESLint issues automatically (where possible) |
+| `bun run check-format` | Run both formatting and linting checks           |
+
+**Note**: Pull requests automatically check code formatting and linting. Make sure to run `bun run format` and `bun run lint:fix` before submitting your changes.
 
 ## 🔧 Quick Start Guide
 
@@ -469,11 +505,11 @@ All commands are run from the project root:
 - **MDX Documentation**: [MDX Guide](https://mdxjs.com/docs/)
 - **Astro Documentation**: [docs.astro.build](https://docs.astro.build)
 - **Custom Form Fields**: [CUSTOM_FORMS.md](./CUSTOM_FORMS.md) - Comprehensive guide with examples
-- **Form Examples**: [FORM_EXAMPLES.md](./FORM_EXAMPLES.md) - Complete real-world examples  
+- **Form Examples**: [FORM_EXAMPLES.md](./FORM_EXAMPLES.md) - Complete real-world examples
 - **Form Quick Reference**: [FORMS_QUICK_REF.md](./FORMS_QUICK_REF.md) - Developer reference
 - **AI Content Tools**: ChatGPT, Claude, GitHub Copilot, or other LLMs
 - **Ask Questions**: Reach out to the web development team
 
 ---
 
-*This website is maintained by CS students for CS students. Contributions and suggestions are always welcome!*
+_This website is maintained by CS students for CS students. Contributions and suggestions are always welcome!_

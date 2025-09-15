@@ -12,22 +12,22 @@ Add custom fields to your event markdown file using the `customFormFields` prope
 
 ```yaml
 ---
-title: "My Workshop"
+title: 'My Workshop'
 # ... other event properties
 customFormFields:
-  - name: "experience"
-    label: "Programming Experience"
-    type: "select"
+  - name: 'experience'
+    label: 'Programming Experience'
+    type: 'select'
     required: true
     options:
-      - "Beginner"
-      - "Intermediate"
-      - "Advanced"
-  - name: "goals"
-    label: "What are your goals?"
-    type: "textarea"
+      - 'Beginner'
+      - 'Intermediate'
+      - 'Advanced'
+  - name: 'goals'
+    label: 'What are your goals?'
+    type: 'textarea'
     required: false
-    placeholder: "Tell us what you hope to achieve..."
+    placeholder: 'Tell us what you hope to achieve...'
 ---
 ```
 
@@ -50,63 +50,69 @@ Each custom field supports the following properties:
 ## Supported Field Types
 
 ### Text Input (`text`)
+
 ```yaml
-- name: "specialRequests"
-  label: "Special Requests"
-  type: "text"
+- name: 'specialRequests'
+  label: 'Special Requests'
+  type: 'text'
   required: false
-  placeholder: "Any special accommodations needed?"
+  placeholder: 'Any special accommodations needed?'
 ```
 
 ### Email (`email`)
+
 ```yaml
-- name: "emergencyContact"
-  label: "Emergency Contact Email"
-  type: "email"
+- name: 'emergencyContact'
+  label: 'Emergency Contact Email'
+  type: 'email'
   required: false
-  placeholder: "emergency@example.com"
+  placeholder: 'emergency@example.com'
 ```
 
 ### Phone Number (`tel`)
+
 ```yaml
-- name: "emergencyPhone"
-  label: "Emergency Contact Phone"
-  type: "tel"
+- name: 'emergencyPhone'
+  label: 'Emergency Contact Phone'
+  type: 'tel'
   required: false
-  placeholder: "+1 (555) 123-4567"
+  placeholder: '+1 (555) 123-4567'
 ```
 
 ### Number (`number`)
+
 ```yaml
-- name: "yearsExperience"
-  label: "Years of Experience"
-  type: "number"
+- name: 'yearsExperience'
+  label: 'Years of Experience'
+  type: 'number'
   required: false
-  placeholder: "0"
+  placeholder: '0'
 ```
 
 ### Dropdown Select (`select`)
+
 ```yaml
-- name: "tshirtSize"
-  label: "T-shirt Size"
-  type: "select"
+- name: 'tshirtSize'
+  label: 'T-shirt Size'
+  type: 'select'
   required: true
   options:
-    - "XS"
-    - "S"
-    - "M"
-    - "L"
-    - "XL"
-    - "XXL"
+    - 'XS'
+    - 'S'
+    - 'M'
+    - 'L'
+    - 'XL'
+    - 'XXL'
 ```
 
 ### Text Area (`textarea`)
+
 ```yaml
-- name: "motivation"
-  label: "Why do you want to attend?"
-  type: "textarea"
+- name: 'motivation'
+  label: 'Why do you want to attend?'
+  type: 'textarea'
   required: true
-  placeholder: "Tell us about your motivation and what you hope to learn..."
+  placeholder: 'Tell us about your motivation and what you hope to learn...'
 ```
 
 ## Complete Example
@@ -115,63 +121,62 @@ Here's a complete event markdown file with custom form fields:
 
 ```yaml
 ---
-title: "Advanced React Workshop"
-description: "Learn advanced React patterns and best practices"
+title: 'Advanced React Workshop'
+description: 'Learn advanced React patterns and best practices'
 date: 2025-09-20
-time: "10:00 AM"
-endTime: "4:00 PM"
-location: "Tech Hub Conference Room"
-type: "workshop"
+time: '10:00 AM'
+endTime: '4:00 PM'
+location: 'Tech Hub Conference Room'
+type: 'workshop'
 registrationRequired: true
-organizer: "Programming Society"
+organizer: 'Programming Society'
 capacity: 30
-formSubmitUrl: "https://your-backend.com/register"
+formSubmitUrl: 'https://your-backend.com/register'
 customFormFields:
-  - name: "reactExperience"
-    label: "React Experience Level"
-    type: "select"
+  - name: 'reactExperience'
+    label: 'React Experience Level'
+    type: 'select'
     required: true
     options:
-      - "Complete Beginner"
-      - "Basic (< 1 year)"
-      - "Intermediate (1-3 years)"
-      - "Advanced (3+ years)"
-  
-  - name: "currentProjects"
-    label: "Current Projects"
-    type: "textarea"
+      - 'Complete Beginner'
+      - 'Basic (< 1 year)'
+      - 'Intermediate (1-3 years)'
+      - 'Advanced (3+ years)'
+
+  - name: 'currentProjects'
+    label: 'Current Projects'
+    type: 'textarea'
     required: false
     placeholder: "Tell us about any React projects you're working on..."
-  
-  - name: "laptopBrand"
-    label: "Laptop Operating System"
-    type: "select"
+
+  - name: 'laptopBrand'
+    label: 'Laptop Operating System'
+    type: 'select'
     required: true
     options:
-      - "Windows"
-      - "macOS"
-      - "Linux"
-      - "I need a lab computer"
-  
-  - name: "learningGoals"
-    label: "Learning Goals"
-    type: "textarea"
-    required: true
-    placeholder: "What specific React concepts do you want to master?"
-  
-  - name: "githubUsername"
-    label: "GitHub Username"
-    type: "text"
-    required: false
-    placeholder: "your-username"
-  
-  - name: "dietaryRestrictions"
-    label: "Dietary Restrictions"
-    type: "text"
-    required: false
-    placeholder: "Any allergies or dietary preferences?"
----
+      - 'Windows'
+      - 'macOS'
+      - 'Linux'
+      - 'I need a lab computer'
 
+  - name: 'learningGoals'
+    label: 'Learning Goals'
+    type: 'textarea'
+    required: true
+    placeholder: 'What specific React concepts do you want to master?'
+
+  - name: 'githubUsername'
+    label: 'GitHub Username'
+    type: 'text'
+    required: false
+    placeholder: 'your-username'
+
+  - name: 'dietaryRestrictions'
+    label: 'Dietary Restrictions'
+    type: 'text'
+    required: false
+    placeholder: 'Any allergies or dietary preferences?'
+---
 # Workshop content goes here...
 ```
 
@@ -190,13 +195,15 @@ Your custom fields will appear after these default fields.
 ## Form Submission
 
 ### Custom Submit URL
+
 You can specify where the form data should be sent using the `formSubmitUrl` property:
 
 ```yaml
-formSubmitUrl: "https://your-backend.com/api/register"
+formSubmitUrl: 'https://your-backend.com/api/register'
 ```
 
 ### Form Data Structure
+
 The submitted form data will include:
 
 - All default field values
@@ -204,6 +211,7 @@ The submitted form data will include:
 - Event metadata (eventId, submittedAt, etc.)
 
 Example submission data:
+
 ```json
 {
   "fullName": "John Doe",
@@ -227,21 +235,25 @@ Example submission data:
 ## Best Practices
 
 ### Field Naming
+
 - Use camelCase for field names: `firstName`, `phoneNumber`, `tshirtSize`
 - Keep names descriptive but concise
 - Avoid spaces and special characters
 
 ### Field Ordering
+
 - Put most important custom fields first
 - Group related fields together
 - Consider the user experience when ordering fields
 
 ### Required vs Optional
+
 - Only mark fields as required if they're truly necessary
 - Provide helpful placeholder text for optional fields
 - Consider privacy implications of required fields
 
 ### Select Options
+
 - Keep option lists concise and relevant
 - Order options logically (alphabetical, by importance, etc.)
 - Consider adding an "Other" option when appropriate
@@ -256,15 +268,19 @@ Example submission data:
 4. **Styling issues**: Custom fields inherit the same styling as default fields
 
 ### Field Name Conflicts
+
 If you use a field name that matches a default field, the default field takes precedence. Avoid these names:
+
 - `fullName`
-- `email` 
+- `email`
 - `phone`
 - `studentId`
 - `gender`
 
 ### Validation
+
 The system automatically validates:
+
 - Required fields are filled
 - Email fields contain valid email addresses
 - Phone fields contain valid phone numbers

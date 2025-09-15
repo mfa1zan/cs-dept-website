@@ -18,43 +18,48 @@ formSubmitUrl: z.string().url().optional(),
 ## Quick Examples
 
 ### Simple Text Field
+
 ```yaml
 customFormFields:
-  - name: "company"
-    label: "Company/Organization"
-    type: "text"
+  - name: 'company'
+    label: 'Company/Organization'
+    type: 'text'
     required: false
-    placeholder: "Your current workplace"
+    placeholder: 'Your current workplace'
 ```
 
 ### Required Select Field
+
 ```yaml
 customFormFields:
-  - name: "experience"
-    label: "Experience Level"
-    type: "select"
+  - name: 'experience'
+    label: 'Experience Level'
+    type: 'select'
     required: true
-    options: ["Beginner", "Intermediate", "Advanced"]
+    options: ['Beginner', 'Intermediate', 'Advanced']
 ```
 
 ### Optional Textarea
+
 ```yaml
 customFormFields:
-  - name: "questions"
-    label: "Questions or Comments"
-    type: "textarea"
+  - name: 'questions'
+    label: 'Questions or Comments'
+    type: 'textarea'
     required: false
-    placeholder: "Any questions about the event?"
+    placeholder: 'Any questions about the event?'
 ```
 
 ## Default Fields (Always Included)
+
 1. Full Name (text, required)
-2. Email Address (email, required)  
+2. Email Address (email, required)
 3. Phone Number (tel, required)
 4. Student ID (text, required)
 5. Gender (select: Male/Female, required)
 
 ## Field Types
+
 - `text`: Single-line text input
 - `email`: Email validation
 - `tel`: Phone number input
@@ -63,6 +68,7 @@ customFormFields:
 - `textarea`: Multi-line text input
 
 ## Processing Flow
+
 1. Event markdown → content schema validation
 2. Default fields + custom fields merged in `createFormWithDefaults()`
 3. Form rendered with all fields

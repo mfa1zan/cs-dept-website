@@ -8,30 +8,30 @@ This file contains complete examples showing the custom form fields feature in a
 
 ```markdown
 ---
-title: "Python Programming Basics"
-description: "Learn Python fundamentals in this beginner-friendly workshop"
+title: 'Python Programming Basics'
+description: 'Learn Python fundamentals in this beginner-friendly workshop'
 date: 2025-09-10
-time: "2:00 PM"
-endTime: "5:00 PM"
-location: "Computer Lab 101"
-type: "workshop"
+time: '2:00 PM'
+endTime: '5:00 PM'
+location: 'Computer Lab 101'
+type: 'workshop'
 registrationRequired: true
-organizer: "Programming Society"
+organizer: 'Programming Society'
 capacity: 25
 customFormFields:
-  - name: "programmingExperience"
-    label: "Programming Experience"
-    type: "select"
+  - name: 'programmingExperience'
+    label: 'Programming Experience'
+    type: 'select'
     required: true
     options:
-      - "Never programmed before"
-      - "Some experience with other languages"
-      - "Basic Python knowledge"
-  - name: "laptopAvailable"
-    label: "Will you bring a laptop?"
-    type: "select" 
+      - 'Never programmed before'
+      - 'Some experience with other languages'
+      - 'Basic Python knowledge'
+  - name: 'laptopAvailable'
+    label: 'Will you bring a laptop?'
+    type: 'select'
     required: true
-    options: ["Yes", "No - need lab computer"]
+    options: ['Yes', 'No - need lab computer']
 ---
 
 # Python Programming Basics
@@ -39,12 +39,14 @@ customFormFields:
 Learn the fundamentals of Python programming in this hands-on workshop perfect for beginners.
 
 ## What You'll Learn
+
 - Python syntax and basic concepts
 - Variables, data types, and operations
 - Control structures (if/else, loops)
 - Functions and basic debugging
 
 ## Requirements
+
 - No prior programming experience needed
 - Laptop recommended (lab computers available)
 - Enthusiasm to learn!
@@ -56,84 +58,84 @@ Learn the fundamentals of Python programming in this hands-on workshop perfect f
 
 ```markdown
 ---
-title: "AI Innovation Hackathon 2025"
-description: "48-hour hackathon focused on AI solutions for real-world problems"
+title: 'AI Innovation Hackathon 2025'
+description: '48-hour hackathon focused on AI solutions for real-world problems'
 date: 2025-10-15
-time: "6:00 PM"
-endTime: "2025-10-17T18:00:00"
-location: "Innovation Hub, Main Campus"
-type: "hackathon"
+time: '6:00 PM'
+endTime: '2025-10-17T18:00:00'
+location: 'Innovation Hub, Main Campus'
+type: 'hackathon'
 registrationRequired: true
-organizer: "CS Department & TechCorp"
+organizer: 'CS Department & TechCorp'
 capacity: 100
-formSubmitUrl: "https://hackathon-backend.example.com/register"
+formSubmitUrl: 'https://hackathon-backend.example.com/register'
 customFormFields:
-  - name: "teamFormation"
-    label: "Team Status"
-    type: "select"
+  - name: 'teamFormation'
+    label: 'Team Status'
+    type: 'select'
     required: true
     options:
-      - "I have a team (2-4 members)"
-      - "I need a team - match me with others"
-      - "I want to participate solo"
-  
-  - name: "aiExperience"
-    label: "AI/ML Experience Level"
-    type: "select"
+      - 'I have a team (2-4 members)'
+      - 'I need a team - match me with others'
+      - 'I want to participate solo'
+
+  - name: 'aiExperience'
+    label: 'AI/ML Experience Level'
+    type: 'select'
     required: true
     options:
-      - "Beginner - basic understanding"
-      - "Intermediate - some projects/courses"
-      - "Advanced - professional experience"
-      - "Expert - research/industry background"
-  
-  - name: "programmingLanguages"
-    label: "Programming Languages (most comfortable)"
-    type: "textarea"
+      - 'Beginner - basic understanding'
+      - 'Intermediate - some projects/courses'
+      - 'Advanced - professional experience'
+      - 'Expert - research/industry background'
+
+  - name: 'programmingLanguages'
+    label: 'Programming Languages (most comfortable)'
+    type: 'textarea'
     required: true
     placeholder: "List languages you're proficient in (e.g., Python, JavaScript, Java...)"
-  
-  - name: "problemDomain"
-    label: "Preferred Problem Domain"
-    type: "select"
+
+  - name: 'problemDomain'
+    label: 'Preferred Problem Domain'
+    type: 'select'
     required: false
     options:
-      - "Healthcare & Medicine"
-      - "Environmental Solutions"
-      - "Education Technology"
-      - "Financial Technology"
-      - "Social Impact"
-      - "No preference - open to all"
-  
-  - name: "specialSkills"
-    label: "Special Skills or Expertise"
-    type: "textarea"
+      - 'Healthcare & Medicine'
+      - 'Environmental Solutions'
+      - 'Education Technology'
+      - 'Financial Technology'
+      - 'Social Impact'
+      - 'No preference - open to all'
+
+  - name: 'specialSkills'
+    label: 'Special Skills or Expertise'
+    type: 'textarea'
     required: false
-    placeholder: "Any special skills, frameworks, or domains you can contribute (UI/UX, data science, cloud platforms, etc.)"
-  
-  - name: "dietaryRestrictions"
-    label: "Dietary Restrictions/Allergies"
-    type: "text"
+    placeholder: 'Any special skills, frameworks, or domains you can contribute (UI/UX, data science, cloud platforms, etc.)'
+
+  - name: 'dietaryRestrictions'
+    label: 'Dietary Restrictions/Allergies'
+    type: 'text'
     required: false
     placeholder: "We'll provide meals throughout the event"
-  
-  - name: "tshirtSize"
-    label: "T-shirt Size"
-    type: "select"
+
+  - name: 'tshirtSize'
+    label: 'T-shirt Size'
+    type: 'select'
     required: true
-    options: ["XS", "S", "M", "L", "XL", "XXL"]
-  
-  - name: "emergencyContact"
-    label: "Emergency Contact Name"
-    type: "text"
+    options: ['XS', 'S', 'M', 'L', 'XL', 'XXL']
+
+  - name: 'emergencyContact'
+    label: 'Emergency Contact Name'
+    type: 'text'
     required: true
-    placeholder: "Full name of emergency contact"
-  
-  - name: "emergencyPhone"
-    label: "Emergency Contact Phone"
-    type: "tel"
+    placeholder: 'Full name of emergency contact'
+
+  - name: 'emergencyPhone'
+    label: 'Emergency Contact Phone'
+    type: 'tel'
     required: true
-    placeholder: "Phone number of emergency contact"
+    placeholder: 'Phone number of emergency contact'
 ---
 
 # AI Innovation Hackathon 2025
@@ -141,25 +143,30 @@ customFormFields:
 Join us for the biggest AI hackathon of the year! 48 hours of intense coding, learning, and innovation.
 
 ## Challenge Themes
+
 1. **Healthcare AI**: Diagnostic tools, treatment optimization, health monitoring
 2. **Climate Tech**: Environmental monitoring, sustainability solutions
 3. **EdTech**: Personalized learning, accessibility tools
 4. **Social Good**: Community impact, accessibility, inclusion
 
 ## Schedule
+
 ### Friday, October 15
+
 - **6:00 PM**: Registration & Welcome
 - **7:00 PM**: Opening Ceremony & Challenge Presentations
 - **8:00 PM**: Team Formation & Networking
 - **9:00 PM**: Hacking Begins!
 
 ### Saturday, October 16
+
 - **8:00 AM**: Breakfast & Mentor Check-ins
 - **12:00 PM**: Lunch & Sponsor Showcases
 - **6:00 PM**: Dinner & Mid-point Demos
 - **All Night**: Hacking Continues
 
 ### Sunday, October 17
+
 - **8:00 AM**: Final Sprint Breakfast
 - **2:00 PM**: Code Freeze & Submission Deadline
 - **3:00 PM**: Project Presentations
@@ -167,6 +174,7 @@ Join us for the biggest AI hackathon of the year! 48 hours of intense coding, le
 - **6:00 PM**: Closing & Networking
 
 ## Prizes
+
 - **1st Place**: $5,000 + Internship opportunities
 - **2nd Place**: $3,000 + Mentorship program
 - **3rd Place**: $2,000 + TechCorp swag package
@@ -174,6 +182,7 @@ Join us for the biggest AI hackathon of the year! 48 hours of intense coding, le
 - **People's Choice**: $500 + Community recognition
 
 ## What's Provided
+
 - Meals and snacks throughout the event
 - Swag bags and t-shirts
 - Mentor support from industry experts
@@ -187,61 +196,61 @@ Join us for the biggest AI hackathon of the year! 48 hours of intense coding, le
 
 ```markdown
 ---
-title: "Future of Technology Conference 2025"
-description: "Annual conference featuring industry leaders and cutting-edge research"
+title: 'Future of Technology Conference 2025'
+description: 'Annual conference featuring industry leaders and cutting-edge research'
 date: 2025-11-20
-time: "9:00 AM"
-endTime: "6:00 PM"
-location: "Grand Auditorium, University Center"
-type: "conference"
+time: '9:00 AM'
+endTime: '6:00 PM'
+location: 'Grand Auditorium, University Center'
+type: 'conference'
 registrationRequired: true
-organizer: "CS Department"
+organizer: 'CS Department'
 capacity: 500
 customFormFields:
-  - name: "attendeeType"
-    label: "Attendee Category"
-    type: "select"
+  - name: 'attendeeType'
+    label: 'Attendee Category'
+    type: 'select'
     required: true
     options:
-      - "Undergraduate Student"
-      - "Graduate Student"
-      - "Faculty/Staff"
-      - "Industry Professional"
-      - "Researcher"
-  
-  - name: "organization"
-    label: "Organization/Company"
-    type: "text"
+      - 'Undergraduate Student'
+      - 'Graduate Student'
+      - 'Faculty/Staff'
+      - 'Industry Professional'
+      - 'Researcher'
+
+  - name: 'organization'
+    label: 'Organization/Company'
+    type: 'text'
     required: false
-    placeholder: "Your university, company, or organization"
-  
-  - name: "jobTitle"
-    label: "Job Title/Position"
-    type: "text"
+    placeholder: 'Your university, company, or organization'
+
+  - name: 'jobTitle'
+    label: 'Job Title/Position'
+    type: 'text'
     required: false
-    placeholder: "Your current role or area of study"
-  
-  - name: "sessionInterests"
-    label: "Sessions of Interest"
-    type: "textarea"
+    placeholder: 'Your current role or area of study'
+
+  - name: 'sessionInterests'
+    label: 'Sessions of Interest'
+    type: 'textarea'
     required: false
-    placeholder: "Which sessions or topics are you most interested in attending?"
-  
-  - name: "networkingInterest"
-    label: "Networking Preference"
-    type: "select"
+    placeholder: 'Which sessions or topics are you most interested in attending?'
+
+  - name: 'networkingInterest'
+    label: 'Networking Preference'
+    type: 'select'
     required: true
     options:
-      - "Very interested in networking opportunities"
-      - "Open to meeting new people"
-      - "Prefer to focus on presentations"
-      - "Attending virtually"
-  
-  - name: "accessibilityNeeds"
-    label: "Accessibility Requirements"
-    type: "textarea"
+      - 'Very interested in networking opportunities'
+      - 'Open to meeting new people'
+      - 'Prefer to focus on presentations'
+      - 'Attending virtually'
+
+  - name: 'accessibilityNeeds'
+    label: 'Accessibility Requirements'
+    type: 'textarea'
     required: false
-    placeholder: "Any accessibility accommodations needed (mobility, hearing, vision, etc.)"
+    placeholder: 'Any accessibility accommodations needed (mobility, hearing, vision, etc.)'
 ---
 
 # Future of Technology Conference 2025
@@ -249,27 +258,33 @@ customFormFields:
 The premier annual conference bringing together students, faculty, and industry leaders to explore the latest in technology innovation.
 
 ## Keynote Speakers
+
 - **Dr. Sarah Chen** - AI Ethics Researcher, Stanford University
 - **Michael Rodriguez** - CTO, TechGiant Inc.
 - **Prof. Amanda Kim** - Quantum Computing Pioneer, MIT
 
 ## Session Tracks
+
 ### Track A: Artificial Intelligence
+
 - Machine Learning in Healthcare
 - Ethical AI Development
 - Natural Language Processing Advances
 
 ### Track B: Cybersecurity
+
 - Zero Trust Architecture
 - Blockchain Security
 - Incident Response Strategies
 
 ### Track C: Emerging Technologies
+
 - Quantum Computing Applications
 - AR/VR in Education
 - IoT and Edge Computing
 
 ## Registration Includes
+
 - Access to all sessions and keynotes
 - Conference materials and swag bag
 - Breakfast, lunch, and networking reception
@@ -291,11 +306,11 @@ When a user submits the Python workshop form above, the data would look like:
   "phone": "+1-555-123-4567",
   "studentId": "CS202401234",
   "gender": "Female",
-  
+
   // Custom fields from the event
   "programmingExperience": "Never programmed before",
   "laptopAvailable": "No - need lab computer",
-  
+
   // System metadata
   "eventId": "python-basics",
   "submittedAt": "2025-08-28T19:30:00.000Z",
@@ -309,7 +324,7 @@ When a user submits the Python workshop form above, the data would look like:
 ```json
 {
   "fullName": "Alex Johnson",
-  "email": "alex.johnson@university.edu", 
+  "email": "alex.johnson@university.edu",
   "phone": "+1-555-987-6543",
   "studentId": "CS202401567",
   "gender": "Male",
