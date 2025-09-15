@@ -1,6 +1,12 @@
 // Utility helpers extracted from timetable.astro
 export const DAY_ORDER = [
-  'Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+  'Sunday',
 ];
 
 export function to12(time24: string | null | undefined): string {
@@ -17,12 +23,17 @@ export function to12(time24: string | null | undefined): string {
 export function abbreviateProgram(program: string): string {
   if (!program) return '';
   const words = program.split(/\s+/).filter(Boolean);
-  const abbr = words.map((w) => w[0]).join('').toUpperCase();
+  const abbr = words
+    .map((w) => w[0])
+    .join('')
+    .toUpperCase();
   if (abbr.length <= 1 && words[0]) return words[0].slice(0, 3).toUpperCase();
   return abbr;
 }
 
-export function shortenSection(section: string): string { return section || ''; }
+export function shortenSection(section: string): string {
+  return section || '';
+}
 
 export interface FlatRecordLike {
   degree?: string | null;
