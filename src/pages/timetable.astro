@@ -42,13 +42,14 @@ try {
       </div>
 
       <!-- Filter Rows -->
-      <div id="filters" class="space-y-3 flex flex-col items-center">
-        <div id="day-filters" class="flex flex-wrap justify-center gap-2"></div>
-        <div id="semester-filters" class="flex flex-wrap justify-center gap-2"></div>
-        <div id="program-filters" class="flex flex-wrap justify-center gap-2"></div>
-          <div id="section-filters" class="flex flex-wrap justify-center gap-2"></div>
-        <div class="pt-2 flex flex-wrap justify-center gap-3">
-          <button id="clear-filters" class="px-4 py-1.5 rounded-md text-xs font-medium bg-gray-800 text-gray-300 hover:bg-red-600/40 hover:text-red-200 border border-gray-700 hover:border-red-500 transition">Clear Filters</button>
+      <div id="filters" class="space-y-2 flex flex-col items-stretch max-w-4xl mx-auto">
+        <div id="day-filters" class="filter-row"></div>
+        <div id="degree-filters" class="filter-row"></div>
+        <div id="program-filters" class="filter-row"></div>
+        <div id="semester-filters" class="filter-row"></div>
+        <div id="section-filters" class="filter-row"></div>
+        <div class="pt-2 flex justify-center">
+          <button id="clear-filters" class="clear-btn">Clear Filters</button>
         </div>
       </div>
     </div>
@@ -136,6 +137,7 @@ try {
   const semesterFiltersEl = document.getElementById('semester-filters') as HTMLElement | null;
   const programFiltersEl = document.getElementById('program-filters') as HTMLElement | null;
   const sectionFiltersEl = document.getElementById('section-filters') as HTMLElement | null;
+  const degreeFiltersEl = document.getElementById('degree-filters') as HTMLElement | null;
 
   let rawData: Record<string, any> = {}; // initial nested data
   let flat: FlatRecord[] = []; // flattened records array
@@ -143,6 +145,7 @@ try {
   const activeSemesters = new Set<string>();
   const activePrograms = new Set<string>();
   const activeSections = new Set<string>();
+  const activeDegrees = new Set<string>();
 
   const DAY_ORDER = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
 
@@ -163,21 +166,28 @@ try {
     // Use displayLabel (e.g., 'Semester 4') for text while keeping raw label for filter set
     btn.textContent = displayLabel || label;
     btn.dataset.filterValue = label;
-    const base = 'px-3 py-1 rounded-full text-xs font-medium border transition';
-    const inactive = 'bg-gray-800 text-gray-300 hover:bg-gradient-to-r hover:from-blue-600/40 hover:to-purple-600/40 hover:text-blue-200 border-gray-700';
-    const activeClasses = ['bg-blue-600','text-white','border-blue-400','shadow','shadow-blue-500/30','bg-gradient-to-r','from-blue-600','to-purple-600'];
+  const base = 'chip';
+  const inactive = 'chip-inactive';
+  // contextual color accent based on row type
+  let accent = '';
+  if(container.id === 'day-filters') accent = 'chip-accent-day';
+  else if(container.id === 'degree-filters') accent = 'chip-accent-degree';
+  else if(container.id === 'program-filters') accent = 'chip-accent-program';
+  else if(container.id === 'semester-filters') accent = 'chip-accent-semester';
+  else if(container.id === 'section-filters') accent = 'chip-accent-section';
+  const activeClasses = ['chip-active'];
     const isActive = set.has(label);
-    btn.className = base + ' ' + (isActive ? (activeClasses.join(' ')) : inactive);
+  btn.className = base + ' ' + accent + ' ' + (isActive ? activeClasses.join(' ') : inactive);
     btn.addEventListener('click', () => {
       const key = btn.dataset.filterValue || label;
       if(set.has(key)) set.delete(key); else set.add(key);
       const active = set.has(key);
       if(active){
         activeClasses.forEach(c=> btn.classList.add(c));
-        btn.classList.remove('bg-gray-800','text-gray-300','hover:bg-gradient-to-r','hover:from-blue-600/40','hover:to-purple-600/40','hover:text-blue-200','border-gray-700');
+        btn.classList.remove('chip-inactive');
       } else {
         activeClasses.forEach(c=> btn.classList.remove(c));
-        btn.classList.add('bg-gray-800','text-gray-300','hover:bg-gradient-to-r','hover:from-blue-600/40','hover:to-purple-600/40','hover:text-blue-200','border-gray-700');
+        btn.classList.add('chip-inactive');
       }
       render();
     });
@@ -234,17 +244,30 @@ try {
 
   function buildFilters(): void {
     if(dayFiltersEl) dayFiltersEl.innerHTML='';
-    if(semesterFiltersEl) semesterFiltersEl.innerHTML='';
-    if(programFiltersEl) programFiltersEl.innerHTML='';
+  if(degreeFiltersEl) degreeFiltersEl.innerHTML='';
+  if(programFiltersEl) programFiltersEl.innerHTML='';
+  if(semesterFiltersEl) semesterFiltersEl.innerHTML='';
     if(sectionFiltersEl) sectionFiltersEl.innerHTML='';
 
     const days = [...new Set(flat.map(r=>r.day))].sort((a,b)=>DAY_ORDER.indexOf(a)-DAY_ORDER.indexOf(b));
     const semesters = [...new Set(flat.map(r=>r.semester).filter(v=>v!=null))].sort((a,b)=> (Number(a) as number) - (Number(b) as number));
     const programs = [...new Set(flat.map(r=>r.program).filter(Boolean))].sort();
+    const degrees = [...new Set(flat.map(r=>r.degree).filter(Boolean))].sort();
 
-  days.forEach(d=> makeButton(d, dayFiltersEl, activeDays));
-  semesters.forEach(s=> makeButton(String(s), semesterFiltersEl, activeSemesters, `Semester ${s}`));
-  programs.forEach(p=> makeButton(p, programFiltersEl, activePrograms));
+    days.forEach(d=> makeButton(d, dayFiltersEl, activeDays));
+    // Degrees row (explicit BS, MS, PhD ordering if present)
+    const DEG_ORDER = ['BS','MS','PhD'];
+    const orderedDegrees = degrees.sort((a,b)=>{
+      const ai = DEG_ORDER.indexOf(a.toUpperCase());
+      const bi = DEG_ORDER.indexOf(b.toUpperCase());
+      if(ai===-1 && bi===-1) return a.localeCompare(b);
+      if(ai===-1) return 1;
+      if(bi===-1) return -1;
+      return ai - bi;
+    });
+    orderedDegrees.forEach(dg=> makeButton(dg, degreeFiltersEl, activeDegrees));
+    programs.forEach(p=> makeButton(p, programFiltersEl, activePrograms));
+    semesters.forEach(s=> makeButton(String(s), semesterFiltersEl, activeSemesters, `Semester ${s}`));
   // Sections: only show if multiple distinct non-empty sections exist
   const sections = [...new Set(flat.map(r=>r.section).filter(Boolean))].sort();
   if(sections.length > 1) {
@@ -264,6 +287,7 @@ try {
       if(activeSemesters.size && !activeSemesters.has(String(r.semester))) return false;
       if(activePrograms.size && !activePrograms.has(r.program)) return false;
       if(activeSections.size && !activeSections.has(r.section)) return false;
+      if(activeDegrees.size && !activeDegrees.has(r.degree)) return false;
       return true;
     });
   }
@@ -299,6 +323,7 @@ try {
     if(activeSemesters.size) params.set('sem', [...activeSemesters].join('|'));
     if(activePrograms.size) params.set('prog', [...activePrograms].join('|'));
   if(activeSections.size) params.set('sec', [...activeSections].join('|'));
+    if(activeDegrees.size) params.set('deg', [...activeDegrees].join('|'));
     if(sortKey) params.set('sort', sortKey);
     if(sortDir===-1) params.set('dir','desc');
   // grouping removed
@@ -314,6 +339,7 @@ try {
     const sem = params.get('sem'); if(sem) sem.split('|').forEach(s=>activeSemesters.add(s));
     const prog = params.get('prog'); if(prog) prog.split('|').forEach(p=>activePrograms.add(p));
   const sec = params.get('sec'); if(sec) sec.split('|').forEach(s=>activeSections.add(s));
+    const deg = params.get('deg'); if(deg) deg.split('|').forEach(d=>activeDegrees.add(d));
     const sk = params.get('sort') as keyof FlatRecord | 'day' | null; if(sk) sortKey = sk;
     const sd = params.get('dir'); if(sd==='desc') sortDir = -1;
   // grouping removed
@@ -376,6 +402,7 @@ try {
   function clearAll(){
     activeDays.clear(); activeSemesters.clear(); activePrograms.clear();
     activeSections.clear();
+    activeDegrees.clear();
     if(searchInput) searchInput.value='';
     buildFilters();
     render();
@@ -397,7 +424,59 @@ try {
   }
 </script>
 
-<style>
+<style is:global>
   /* Optional minor tweaks */
   #results-wrapper table { font-variant-numeric: tabular-nums; }
+  .filter-row { display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center; padding:2px 4px; }
+  .chip { position:relative; cursor:pointer; user-select:none; padding:0.42rem 0.85rem; line-height:1; font-size:0.7rem; letter-spacing:.025em; border:1px solid var(--chip-border,#2e3a45); border-radius:9999px; background:var(--chip-bg,#1d242b); color:var(--chip-fg,#d5dde3); transition:background .16s ease, color .16s ease, border-color .16s ease, box-shadow .16s ease; }
+  .chip:focus-visible { outline:2px solid var(--chip-accent,#3b82f6); outline-offset:1px; }
+  .chip-inactive { opacity:.95; }
+  .chip-inactive:hover { background:var(--chip-bg-hover,#232d36); }
+  .chip-active { background:var(--chip-bg-active,#2d3741); color:var(--chip-fg-active,#ffffff); border-color:var(--chip-accent,#3b82f6); box-shadow:0 0 0 1px var(--chip-accent,#3b82f6),0 2px 6px -2px rgba(0,0,0,.5); }
+  .chip-active:hover { background:var(--chip-bg-active-hover,#31404b); }
+  /* Accent palettes (solid, subtle) */
+  /* Brighter, higher-chroma translucent palettes */
+  .chip-accent-day { 
+    --chip-accent:#58b8ff; 
+    --chip-border:var(--chip-accent);
+    --chip-bg:rgba(88,184,255,0.18); 
+    --chip-bg-hover:rgba(88,184,255,0.28); 
+    --chip-bg-active:rgba(88,184,255,0.45); 
+    --chip-bg-active-hover:rgba(88,184,255,0.60); 
+  }
+  .chip-accent-degree { 
+    --chip-accent:#25dfff; 
+    --chip-border:var(--chip-accent);
+    --chip-bg:rgba(37,223,255,0.18); 
+    --chip-bg-hover:rgba(37,223,255,0.28); 
+    --chip-bg-active:rgba(37,223,255,0.45); 
+    --chip-bg-active-hover:rgba(37,223,255,0.60); 
+  }
+  .chip-accent-program { 
+    --chip-accent:#a38bff; 
+    --chip-border:var(--chip-accent);
+    --chip-bg:rgba(163,139,255,0.18); 
+    --chip-bg-hover:rgba(163,139,255,0.28); 
+    --chip-bg-active:rgba(163,139,255,0.45); 
+    --chip-bg-active-hover:rgba(163,139,255,0.60); 
+  }
+  .chip-accent-semester { 
+    --chip-accent:#27f5b6; 
+    --chip-border:var(--chip-accent);
+    --chip-bg:rgba(39,245,182,0.18); 
+    --chip-bg-hover:rgba(39,245,182,0.28); 
+    --chip-bg-active:rgba(39,245,182,0.45); 
+    --chip-bg-active-hover:rgba(39,245,182,0.60); 
+  }
+  .chip-accent-section { 
+    --chip-accent:#ffc766; 
+    --chip-border:var(--chip-accent);
+    --chip-bg:rgba(255,199,102,0.18); 
+    --chip-bg-hover:rgba(255,199,102,0.28); 
+    --chip-bg-active:rgba(255,199,102,0.45); 
+    --chip-bg-active-hover:rgba(255,199,102,0.60); 
+  }
+  .clear-btn { font-size:0.7rem; letter-spacing:.05em; background:#1f2933; color:#cbd5e1; border:1px solid #334155; padding:.5rem 1rem; border-radius:0.55rem; transition:.18s; }
+  .clear-btn:hover { background:#dc2626; color:#fff; border-color:#ef4444; }
+  #filters { --c-border:#2e3b47; }
 </style>
