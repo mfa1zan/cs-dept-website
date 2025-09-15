@@ -5,25 +5,29 @@ import { createRegistrationForm } from '../utils/registrationForm';
 
 export interface Props {
   eventTitle: string;
-  eventType?: 'workshop' | 'hackathon' | 'conference' | 'competition' | 'membership' | 'standard' | 'seminar' | 'meetup';
+  eventType?:
+    | 'workshop'
+    | 'hackathon'
+    | 'conference'
+    | 'competition'
+    | 'membership'
+    | 'standard'
+    | 'seminar'
+    | 'meetup';
   eventId?: string;
 }
 
-const { 
-  eventTitle, 
-  eventType = 'workshop', 
-  eventId
-} = Astro.props;
+const { eventTitle, eventType = 'workshop', eventId } = Astro.props;
 
 // Map event types to registration form presets
 const getFormType = (type: string) => {
   const typeMap = {
-    'workshop': 'workshop',
-    'hackathon': 'hackathon', 
-    'conference': 'conference',
-    'competition': 'competition',
-    'seminar': 'workshop', // Use workshop preset for seminars
-    'meetup': 'standard'    // Use standard preset for meetups
+    workshop: 'workshop',
+    hackathon: 'hackathon',
+    conference: 'conference',
+    competition: 'competition',
+    seminar: 'workshop', // Use workshop preset for seminars
+    meetup: 'standard', // Use standard preset for meetups
   };
   return (typeMap as any)[type] || 'standard';
 };
@@ -40,17 +44,28 @@ const registrationProps = createRegistrationForm(
 <div class="registration-section my-16">
   <!-- Section Divider -->
   <div class="flex items-center justify-center mb-12">
-    <div class="flex-1 h-px bg-gradient-to-r from-transparent via-gray-600 to-gray-600"></div>
-    <div class="px-6">
-      <div class="w-3 h-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full"></div>
+    <div
+      class="flex-1 h-px bg-gradient-to-r from-transparent via-gray-600 to-gray-600"
+    >
     </div>
-    <div class="flex-1 h-px bg-gradient-to-l from-transparent via-gray-600 to-gray-600"></div>
+    <div class="px-6">
+      <div
+        class="w-3 h-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full"
+      >
+      </div>
+    </div>
+    <div
+      class="flex-1 h-px bg-gradient-to-l from-transparent via-gray-600 to-gray-600"
+    >
+    </div>
   </div>
 
   <!-- Registration Header -->
   <div class="text-center mb-12">
     <h2 class="text-3xl md:text-4xl font-bold mb-4">
-      <span class="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+      <span
+        class="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent"
+      >
         Event Registration
       </span>
     </h2>
@@ -66,29 +81,67 @@ const registrationProps = createRegistrationForm(
 
   <!-- Additional Info -->
   <div class="mt-12 text-center">
-    <div class="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-xl p-6 max-w-2xl mx-auto">
+    <div
+      class="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-xl p-6 max-w-2xl mx-auto"
+    >
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-300">
         <div class="flex items-center space-x-2">
-          <svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          <svg
+            class="w-4 h-4 text-green-400 flex-shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
           <span>Instant confirmation</span>
         </div>
         <div class="flex items-center space-x-2">
-          <svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          <svg
+            class="w-4 h-4 text-green-400 flex-shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
           <span>Event reminders</span>
         </div>
         <div class="flex items-center space-x-2">
-          <svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          <svg
+            class="w-4 h-4 text-green-400 flex-shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
           <span>Digital certificate</span>
         </div>
         <div class="flex items-center space-x-2">
-          <svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          <svg
+            class="w-4 h-4 text-green-400 flex-shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
           <span>Access to resources</span>
         </div>

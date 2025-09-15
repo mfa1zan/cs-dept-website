@@ -15,26 +15,28 @@ export const societies: Society[] = [
   {
     id: 'ps',
     name: 'Programming Society',
-    description: 'Where passionate coders unite to learn, compete, and build amazing projects together',
+    description:
+      'Where passionate coders unite to learn, compete, and build amazing projects together',
     logo: '/uos_footer_logo.jpg',
     color: 'from-green-400 to-blue-600',
     borderColor: 'hover:border-green-500/50',
     link: '/societies/ps',
     accentColor: 'green',
     gradientFrom: 'from-green-400',
-    gradientTo: 'to-blue-600'
+    gradientTo: 'to-blue-600',
   },
   {
     id: 'cms',
     name: 'Computing Media Society',
-    description: 'Exploring the intersection of technology and media through creative projects.',
+    description:
+      'Exploring the intersection of technology and media through creative projects.',
     logo: '/uos_footer_logo.jpg',
     color: 'from-cyan-400 to-teal-600',
     borderColor: 'hover:border-cyan-500/50',
     link: '/societies/cms',
     accentColor: 'cyan',
     gradientFrom: 'from-cyan-400',
-    gradientTo: 'to-teal-600'
+    gradientTo: 'to-teal-600',
   },
   {
     id: 'ems',
@@ -46,7 +48,7 @@ export const societies: Society[] = [
     link: '/societies/ems',
     accentColor: 'red',
     gradientFrom: 'from-red-400',
-    gradientTo: 'to-orange-600'
+    gradientTo: 'to-orange-600',
   },
   {
     id: 'egaming',
@@ -58,7 +60,7 @@ export const societies: Society[] = [
     link: '/societies/egaming',
     accentColor: 'blue',
     gradientFrom: 'from-blue-400',
-    gradientTo: 'to-purple-600'
+    gradientTo: 'to-purple-600',
   },
   {
     id: 'sports',
@@ -70,7 +72,7 @@ export const societies: Society[] = [
     link: '/societies/sports',
     accentColor: 'orange',
     gradientFrom: 'from-orange-400',
-    gradientTo: 'to-yellow-600'
+    gradientTo: 'to-yellow-600',
   },
   {
     id: 'pas',
@@ -82,7 +84,7 @@ export const societies: Society[] = [
     link: '/societies/pas',
     accentColor: 'purple',
     gradientFrom: 'from-purple-400',
-    gradientTo: 'to-pink-600'
+    gradientTo: 'to-pink-600',
   },
   {
     id: 'blood-donation',
@@ -94,14 +96,14 @@ export const societies: Society[] = [
     link: '/societies/blood-donation',
     accentColor: 'red',
     gradientFrom: 'from-red-400',
-    gradientTo: 'to-pink-600'
-  }
+    gradientTo: 'to-pink-600',
+  },
 ];
 
 export function getSocietyById(id: string): Society | undefined {
-  return societies.find(society => society.id === id);
+  return societies.find((society) => society.id === id);
 }
 
 export function getSocietyByLink(link: string): Society | undefined {
-  return societies.find(society => society.link === link);
+  return societies.find((society) => society.link === link);
 }

@@ -7,7 +7,7 @@ import '../../styles/global.css';
 
 export async function getStaticPaths() {
   const newsEntries = await getCollection('news');
-  return newsEntries.map(entry => ({
+  return newsEntries.map((entry) => ({
     params: { slug: entry.id },
     props: { entry },
   }));
@@ -26,37 +26,55 @@ const { Content } = await render(entry);
   <main class="pt-24">
     <!-- Hero Section -->
     <section class="py-20 relative overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950"></div>
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950"
+      >
+      </div>
       <div class="absolute inset-0 grid-pattern opacity-10"></div>
-      
+
       <div class="container mx-auto px-6 relative z-10">
         <div class="max-w-4xl mx-auto">
           <!-- Article Meta -->
           <div class="flex items-center space-x-4 mb-6">
-            <span class={`px-3 py-1 rounded-full text-sm font-medium ${
-              entry.data.category === 'research' ? 'bg-blue-500/20 text-blue-300' :
-              entry.data.category === 'achievement' ? 'bg-green-500/20 text-green-300' :
-              entry.data.category === 'partnership' ? 'bg-purple-500/20 text-purple-300' :
-              entry.data.category === 'event' ? 'bg-orange-500/20 text-orange-300' :
-              'bg-gray-500/20 text-gray-300'
-            }`}>
-              {entry.data.category.charAt(0).toUpperCase() + entry.data.category.slice(1)}
+            <span
+              class={`px-3 py-1 rounded-full text-sm font-medium ${
+                entry.data.category === 'research'
+                  ? 'bg-blue-500/20 text-blue-300'
+                  : entry.data.category === 'achievement'
+                    ? 'bg-green-500/20 text-green-300'
+                    : entry.data.category === 'partnership'
+                      ? 'bg-purple-500/20 text-purple-300'
+                      : entry.data.category === 'event'
+                        ? 'bg-orange-500/20 text-orange-300'
+                        : 'bg-gray-500/20 text-gray-300'
+              }`}
+            >
+              {
+                entry.data.category.charAt(0).toUpperCase() +
+                  entry.data.category.slice(1)
+              }
             </span>
             <span class="text-gray-400">
-              {entry.data.publishDate.toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-              })}
+              {
+                entry.data.publishDate.toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })
+              }
             </span>
-            {entry.data.author && (
-              <span class="text-gray-400">• By {entry.data.author}</span>
-            )}
+            {
+              entry.data.author && (
+                <span class="text-gray-400">• By {entry.data.author}</span>
+              )
+            }
           </div>
 
           <!-- Article Title -->
           <h1 class="text-4xl md:text-5xl font-bold mb-6">
-            <span class="bg-gradient-to-r from-green-400 to-blue-600 bg-clip-text text-transparent">
+            <span
+              class="bg-gradient-to-r from-green-400 to-blue-600 bg-clip-text text-transparent"
+            >
               {entry.data.title}
             </span>
           </h1>
@@ -67,15 +85,17 @@ const { Content } = await render(entry);
           </p>
 
           <!-- Tags -->
-          {entry.data.tags && entry.data.tags.length > 0 && (
-            <div class="flex flex-wrap gap-2 mb-8">
-              {entry.data.tags.map((tag: string) => (
-                <span class="bg-gray-800/60 text-gray-300 px-3 py-1 rounded-full text-sm">
-                  #{tag}
-                </span>
-              ))}
-            </div>
-          )}
+          {
+            entry.data.tags && entry.data.tags.length > 0 && (
+              <div class="flex flex-wrap gap-2 mb-8">
+                {entry.data.tags.map((tag: string) => (
+                  <span class="bg-gray-800/60 text-gray-300 px-3 py-1 rounded-full text-sm">
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            )
+          }
         </div>
       </div>
     </section>
@@ -95,9 +115,21 @@ const { Content } = await render(entry);
     <section class="py-16 bg-gradient-to-b from-gray-950 to-gray-900">
       <div class="container mx-auto px-6">
         <div class="max-w-4xl mx-auto text-center">
-          <a href="/news" class="inline-flex items-center bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          <a
+            href="/news"
+            class="inline-flex items-center bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
+          >
+            <svg
+              class="w-5 h-5 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"></path>
             </svg>
             Back to News
           </a>
@@ -107,5 +139,3 @@ const { Content } = await render(entry);
   </main>
   <Footer />
 </Layout>
-
-

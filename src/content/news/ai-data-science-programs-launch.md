@@ -1,10 +1,10 @@
 ---
-title: "Department Launches Two New Programs: Artificial Intelligence and Data Science"
-description: "Our department proudly announces the launch of two cutting-edge programs in Artificial Intelligence and Data Science, designed to meet the growing demand for skilled professionals in these rapidly evolving fields."
+title: 'Department Launches Two New Programs: Artificial Intelligence and Data Science'
+description: 'Our department proudly announces the launch of two cutting-edge programs in Artificial Intelligence and Data Science, designed to meet the growing demand for skilled professionals in these rapidly evolving fields.'
 publishDate: 2025-08-28
-category: "announcement"
+category: 'announcement'
 featured: true
-author: "Talal"
+author: 'Talal'
 ---
 
 # New AI and Data Science Programs Launched
@@ -18,6 +18,7 @@ These programs have been developed in response to the exponential growth in AI a
 ### Artificial Intelligence Program
 
 #### Core Curriculum
+
 - Machine Learning Fundamentals
 - Deep Learning and Neural Networks
 - Natural Language Processing
@@ -26,6 +27,7 @@ These programs have been developed in response to the exponential growth in AI a
 - Robotics and Autonomous Systems
 
 #### Key Features
+
 - **State-of-the-art Labs**: Equipped with high-performance GPUs and specialized AI hardware
 - **Research Opportunities**: Direct collaboration with faculty on cutting-edge AI research projects
 - **Industry Projects**: Real-world AI implementations with partner companies
@@ -33,6 +35,7 @@ These programs have been developed in response to the exponential growth in AI a
 ### Data Science Program
 
 #### Core Curriculum
+
 - Statistical Analysis and Modeling
 - Big Data Technologies (Hadoop, Spark)
 - Database Management and SQL
@@ -41,6 +44,7 @@ These programs have been developed in response to the exponential growth in AI a
 - Business Intelligence
 
 #### Key Features
+
 - **Real Data**: Work with actual datasets from industry partners
 - **Tools Mastery**: Hands-on experience with Python, R, Tableau, and cloud platforms
 - **Capstone Projects**: End-to-end data science projects solving real business problems
@@ -50,6 +54,7 @@ These programs have been developed in response to the exponential growth in AI a
 Graduates from these programs will be prepared for high-demand roles including:
 
 ### AI Program Graduates
+
 - Machine Learning Engineer
 - AI Research Scientist
 - Computer Vision Specialist
@@ -57,6 +62,7 @@ Graduates from these programs will be prepared for high-demand roles including:
 - AI Product Manager
 
 ### Data Science Program Graduates
+
 - Data Scientist
 - Business Intelligence Analyst
 - Data Engineer

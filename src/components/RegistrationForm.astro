@@ -23,31 +23,85 @@ const {
   gradientColors = { from: 'from-blue-500', to: 'to-purple-600' },
   accentColor = 'blue',
   fields = [
-    { name: 'fullName', label: 'Full Name', type: 'text', required: true, placeholder: 'Enter your full name' },
-    { name: 'email', label: 'Email Address', type: 'email', required: true, placeholder: 'Enter your email address' },
-    { name: 'phone', label: 'Phone Number', type: 'tel', required: true, placeholder: 'Enter your phone number' },
-    { name: 'studentId', label: 'Student ID', type: 'text', required: true, placeholder: 'Enter your student ID' },
-    { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Male', 'Female'] },
-    { name: 'year', label: 'Academic Year', type: 'select', required: false, options: ['First Year', 'Second Year', 'Third Year', 'Fourth Year', 'Graduate', 'Other'] },
-    { name: 'experience', label: 'Relevant Experience', type: 'textarea', required: false, placeholder: 'Tell us about your relevant experience or expectations...' }
-  ]
+    {
+      name: 'fullName',
+      label: 'Full Name',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter your full name',
+    },
+    {
+      name: 'email',
+      label: 'Email Address',
+      type: 'email',
+      required: true,
+      placeholder: 'Enter your email address',
+    },
+    {
+      name: 'phone',
+      label: 'Phone Number',
+      type: 'tel',
+      required: true,
+      placeholder: 'Enter your phone number',
+    },
+    {
+      name: 'studentId',
+      label: 'Student ID',
+      type: 'text',
+      required: true,
+      placeholder: 'Enter your student ID',
+    },
+    {
+      name: 'gender',
+      label: 'Gender',
+      type: 'select',
+      required: true,
+      options: ['Male', 'Female'],
+    },
+    {
+      name: 'year',
+      label: 'Academic Year',
+      type: 'select',
+      required: false,
+      options: [
+        'First Year',
+        'Second Year',
+        'Third Year',
+        'Fourth Year',
+        'Graduate',
+        'Other',
+      ],
+    },
+    {
+      name: 'experience',
+      label: 'Relevant Experience',
+      type: 'textarea',
+      required: false,
+      placeholder: 'Tell us about your relevant experience or expectations...',
+    },
+  ],
 } = Astro.props;
 ---
 
-<div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-2xl p-8 backdrop-blur-sm border border-gray-700">
+<div
+  class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-2xl p-8 backdrop-blur-sm border border-gray-700"
+>
   <div class="text-center mb-8">
     <h3 class="text-2xl md:text-3xl font-bold text-white mb-4">
-      Register for <span class={`bg-gradient-to-r ${gradientColors.from} ${gradientColors.to} bg-clip-text text-transparent`}>{eventTitle}</span>
+      Register for <span
+        class={`bg-gradient-to-r ${gradientColors.from} ${gradientColors.to} bg-clip-text text-transparent`}
+        >{eventTitle}</span
+      >
     </h3>
     <p class="text-gray-300">
       Fill out the form below to secure your spot at this event.
     </p>
   </div>
 
-  <form 
-    class="registration-form" 
+  <form
+    class="registration-form"
     name="event-registration"
-    method="POST" 
+    method="POST"
     data-netlify="true"
     data-netlify-honeypot="bot-field"
     action="/success"
@@ -63,52 +117,59 @@ const {
     <!-- Hidden field for event information -->
     <input type="hidden" name="event-title" value={eventTitle} />
     {eventId && <input type="hidden" name="event-id" value={eventId} />}
-    
+
     <div class="space-y-6">
-      {fields.map((field) => (
-        <div class="form-group">
-          <label for={field.name} class="block text-sm font-medium text-gray-300 mb-2">
-            {field.label}
-            {field.required && <span class={`text-${accentColor}-400 ml-1`}>*</span>}
-          </label>
-          
-          {field.type === 'textarea' ? (
-            <textarea
-              id={field.name}
-              name={field.name}
-              required={field.required}
-              placeholder={field.placeholder}
-              rows="4"
-              class="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400 transition-all duration-300 backdrop-blur-sm resize-none"
-            ></textarea>
-          ) : field.type === 'select' ? (
-            <select
-              id={field.name}
-              name={field.name}
-              required={field.required}
-              class="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all duration-300 backdrop-blur-sm"
+      {
+        fields.map((field) => (
+          <div class="form-group">
+            <label
+              for={field.name}
+              class="block text-sm font-medium text-gray-300 mb-2"
             >
-              <option value="" disabled selected class="text-gray-400">
-                {field.placeholder || `Select ${field.label.toLowerCase()}`}
-              </option>
-              {field.options?.map((option) => (
-                <option value={option} class="text-white bg-gray-800">
-                  {option}
+              {field.label}
+              {field.required && (
+                <span class={`text-${accentColor}-400 ml-1`}>*</span>
+              )}
+            </label>
+
+            {field.type === 'textarea' ? (
+              <textarea
+                id={field.name}
+                name={field.name}
+                required={field.required}
+                placeholder={field.placeholder}
+                rows="4"
+                class="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400 transition-all duration-300 backdrop-blur-sm resize-none"
+              />
+            ) : field.type === 'select' ? (
+              <select
+                id={field.name}
+                name={field.name}
+                required={field.required}
+                class="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all duration-300 backdrop-blur-sm"
+              >
+                <option value="" disabled selected class="text-gray-400">
+                  {field.placeholder || `Select ${field.label.toLowerCase()}`}
                 </option>
-              ))}
-            </select>
-          ) : (
-            <input
-              type={field.type}
-              id={field.name}
-              name={field.name}
-              required={field.required}
-              placeholder={field.placeholder}
-              class="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400 transition-all duration-300 backdrop-blur-sm"
-            />
-          )}
-        </div>
-      ))}
+                {field.options?.map((option) => (
+                  <option value={option} class="text-white bg-gray-800">
+                    {option}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <input
+                type={field.type}
+                id={field.name}
+                name={field.name}
+                required={field.required}
+                placeholder={field.placeholder}
+                class="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400 transition-all duration-300 backdrop-blur-sm"
+              />
+            )}
+          </div>
+        ))
+      }
 
       <!-- Terms and Conditions -->
       <div class="form-group">
@@ -133,13 +194,36 @@ const {
           class={`w-full bg-gradient-to-r ${gradientColors.from} ${gradientColors.to} hover:from-blue-600 hover:to-purple-700 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-center space-x-2`}
         >
           <span class="submit-text">Register Now</span>
-          <svg class="w-5 h-5 submit-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          <svg
+            class="w-5 h-5 submit-icon"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"></path>
           </svg>
           <!-- Loading spinner (hidden by default) -->
-          <svg class="w-5 h-5 loading-spinner hidden animate-spin" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          <svg
+            class="w-5 h-5 loading-spinner hidden animate-spin"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
           </svg>
         </button>
       </div>
@@ -147,21 +231,48 @@ const {
 
     <!-- Success/Error Messages -->
     <div class="form-messages mt-6 hidden">
-      <div class="success-message hidden bg-green-500/10 border border-green-500/20 text-green-300 px-4 py-3 rounded-lg">
+      <div
+        class="success-message hidden bg-green-500/10 border border-green-500/20 text-green-300 px-4 py-3 rounded-lg"
+      >
         <div class="flex items-center space-x-2">
-          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          <svg
+            class="w-5 h-5 flex-shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
-          <span>Registration successful! You will receive a confirmation email shortly.</span>
+          <span
+            >Registration successful! You will receive a confirmation email
+            shortly.</span
+          >
         </div>
       </div>
-      
-      <div class="error-message hidden bg-red-500/10 border border-red-500/20 text-red-300 px-4 py-3 rounded-lg">
+
+      <div
+        class="error-message hidden bg-red-500/10 border border-red-500/20 text-red-300 px-4 py-3 rounded-lg"
+      >
         <div class="flex items-center space-x-2">
-          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          <svg
+            class="w-5 h-5 flex-shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
-          <span class="error-text">An error occurred. Please try again later.</span>
+          <span class="error-text"
+            >An error occurred. Please try again later.</span
+          >
         </div>
       </div>
     </div>
@@ -172,15 +283,25 @@ const {
   class RegistrationForm {
     constructor(form: HTMLFormElement) {
       this.form = form;
-      this.submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+      this.submitButton = form.querySelector(
+        'button[type="submit"]'
+      ) as HTMLButtonElement;
       this.submitText = form.querySelector('.submit-text') as HTMLSpanElement;
       this.submitIcon = form.querySelector('.submit-icon') as SVGElement;
-      this.loadingSpinner = form.querySelector('.loading-spinner') as SVGElement;
-      this.messagesContainer = form.querySelector('.form-messages') as HTMLDivElement;
-      this.successMessage = form.querySelector('.success-message') as HTMLDivElement;
-      this.errorMessage = form.querySelector('.error-message') as HTMLDivElement;
+      this.loadingSpinner = form.querySelector(
+        '.loading-spinner'
+      ) as SVGElement;
+      this.messagesContainer = form.querySelector(
+        '.form-messages'
+      ) as HTMLDivElement;
+      this.successMessage = form.querySelector(
+        '.success-message'
+      ) as HTMLDivElement;
+      this.errorMessage = form.querySelector(
+        '.error-message'
+      ) as HTMLDivElement;
       this.errorText = form.querySelector('.error-text') as HTMLSpanElement;
-      
+
       this.init();
     }
 
@@ -196,10 +317,10 @@ const {
 
     private init(): void {
       this.form.addEventListener('submit', this.handleSubmit.bind(this));
-      
+
       // Add input validation styling
       const inputs = this.form.querySelectorAll('input, textarea, select');
-      inputs.forEach(input => {
+      inputs.forEach((input) => {
         input.addEventListener('blur', this.validateField.bind(this));
         input.addEventListener('input', this.clearFieldError.bind(this));
       });
@@ -214,29 +335,34 @@ const {
 
       // For testing: allow form to submit normally to see Netlify behavior
       // Remove this condition to test native form submission locally
-      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      if (
+        window.location.hostname === 'localhost' ||
+        window.location.hostname === '127.0.0.1'
+      ) {
         e.preventDefault();
-        
+
         this.setLoading(true);
         this.hideMessages();
 
         try {
           const formData = new FormData(this.form);
-          
+
           // Add timestamp
           formData.append('submittedAt', new Date().toISOString());
 
           // Simulate form submission for development
           console.log('Form data:', Object.fromEntries(formData));
-          
+
           // Simulate network delay
-          await new Promise(resolve => setTimeout(resolve, 1000));
-          
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+
           this.showSuccess();
           this.form.reset();
         } catch (error) {
           console.error('Registration error:', error);
-          this.showError('Network error. Please check your connection and try again.');
+          this.showError(
+            'Network error. Please check your connection and try again.'
+          );
         } finally {
           this.setLoading(false);
         }
@@ -245,10 +371,12 @@ const {
     }
 
     private validateForm(): boolean {
-      const inputs = this.form.querySelectorAll('input[required], textarea[required], select[required]');
+      const inputs = this.form.querySelectorAll(
+        'input[required], textarea[required], select[required]'
+      );
       let isValid = true;
 
-      inputs.forEach(input => {
+      inputs.forEach((input) => {
         if (!this.validateField({ target: input } as unknown as Event)) {
           isValid = false;
         }
@@ -258,7 +386,10 @@ const {
     }
 
     private validateField(e: Event): boolean {
-      const input = e.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+      const input = e.target as
+        | HTMLInputElement
+        | HTMLTextAreaElement
+        | HTMLSelectElement;
       const value = input.value.trim();
       let isValid = true;
       let errorMessage = '';
@@ -289,7 +420,11 @@ const {
       return isValid;
     }
 
-    private setFieldError(input: HTMLElement, isValid: boolean, errorMessage: string): void {
+    private setFieldError(
+      input: HTMLElement,
+      isValid: boolean,
+      errorMessage: string
+    ): void {
       const formGroup = input.closest('.form-group');
       if (!formGroup) return;
 
@@ -305,7 +440,7 @@ const {
       } else {
         input.classList.remove('border-gray-600', 'focus:ring-blue-500');
         input.classList.add('border-red-500', 'focus:ring-red-500');
-        
+
         // Add error message
         const errorDiv = document.createElement('div');
         errorDiv.className = 'field-error text-red-400 text-sm mt-1';
@@ -329,7 +464,7 @@ const {
 
     private setLoading(loading: boolean): void {
       this.submitButton.disabled = loading;
-      
+
       if (loading) {
         this.submitText.textContent = 'Registering...';
         this.submitIcon.classList.add('hidden');
@@ -347,10 +482,13 @@ const {
       this.messagesContainer.classList.remove('hidden');
       this.successMessage.classList.remove('hidden');
       this.errorMessage.classList.add('hidden');
-      
+
       // Scroll to message
-      this.messagesContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      
+      this.messagesContainer.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+
       // Auto hide after 10 seconds
       setTimeout(() => {
         this.hideMessages();
@@ -362,9 +500,12 @@ const {
       this.messagesContainer.classList.remove('hidden');
       this.errorMessage.classList.remove('hidden');
       this.successMessage.classList.add('hidden');
-      
+
       // Scroll to message
-      this.messagesContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      this.messagesContainer.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
     }
 
     private hideMessages(): void {
@@ -376,8 +517,10 @@ const {
 
   // Initialize forms when DOM is loaded
   document.addEventListener('DOMContentLoaded', () => {
-    const forms = document.querySelectorAll('.registration-form') as NodeListOf<HTMLFormElement>;
-    forms.forEach(form => new RegistrationForm(form));
+    const forms = document.querySelectorAll(
+      '.registration-form'
+    ) as NodeListOf<HTMLFormElement>;
+    forms.forEach((form) => new RegistrationForm(form));
   });
 </script>
 
