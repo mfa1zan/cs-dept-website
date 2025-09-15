@@ -616,11 +616,11 @@ try {
       .join('');
     if (resultsEl) resultsEl.innerHTML = rows;
 
-    // --- Mobile simplified cards ---
+    
     if (mobileResultsEl) {
       const mobileCards = list
         .map((r: FlatRecord) => {
-          const classBase = buildClassShort(r); // excludes semester
+          const classBase = buildClassShort(r);
           const semSuffix = r.semester != null ? ` (Sem #${r.semester})` : '';
           const classLine = classBase + semSuffix;
           const timeStr = `${to12(r.start_time)}${r.end_time ? ` - ${to12(r.end_time)}` : ''}`;
@@ -675,10 +675,7 @@ try {
     });
   }
 
-  // --- Helpers for mobile class short form ---
-  // abbreviateProgram, shortenSection, buildClassShort imported
-
-  // --- Mobile Filter Toggle Logic ---
+  // Mobile filter toggle
   const mobileToggle = document.getElementById('mobile-filter-toggle');
   const filtersContainer = document.getElementById('filters');
   const mobileCount = document.getElementById('mobile-filter-count');
@@ -698,28 +695,16 @@ try {
     mobileCount.textContent = c ? String(c) : '';
     mobileCount.style.display = c ? 'inline-flex' : 'none';
   }
-  // renderWithMobile removed (render already updates badge)
   updateActiveCountBadge();
-  // Replace certain initial calls
-  // (Subsequent event handlers now call renderWithMobile instead of render)
-
-  // Rewire event handlers that previously invoked render directly
-  // (Removed unused removeEventListener no-op)
-  // Override existing listeners by adding new ones (render inside already debounced input handler references)
-  // Simpler: monkey patch global references used inside earlier code paths
-  // We'll redefine a local helper to call renderWithMobile after filters build
-  // count badge already updated after render/build invocations
 
   mobileToggle?.addEventListener('click', () => {
     if (!filtersContainer) return;
     const collapsed = filtersContainer.classList.toggle('collapsed');
     mobileToggle.classList.toggle('active', !collapsed);
   });
-  // Initialize toggle button active state (collapsed by default => inactive)
   if (filtersContainer?.classList.contains('collapsed')) {
     mobileToggle?.classList.remove('active');
   }
-  // Auto-expand filters for mid-width tablets (>=768 && <=820)
   function autoExpandFiltersForTablet() {
     if (!filtersContainer) return;
     const w = window.innerWidth;
@@ -735,13 +720,11 @@ try {
     autoExpandFiltersForTablet();
   });
 
-  // Simplified toggle (desktop + responsive)
   simplifiedToggle?.addEventListener('click', () => {
     document.documentElement.classList.toggle('simplified');
     const active = document.documentElement.classList.contains('simplified');
     simplifiedToggle.classList.toggle('active', active);
     simplifiedToggle.setAttribute('aria-pressed', active ? 'true' : 'false');
-    // When simplified on desktop, hide table and show cards; we already render both.
     render();
   });
 </script>
