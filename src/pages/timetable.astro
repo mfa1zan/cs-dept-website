@@ -1,0 +1,378 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import '../styles/global.css';
+---
+
+<!-- Timetable Page -->
+<Layout>
+  <Header />
+  <main class="pt-32 pb-20 px-6 max-w-7xl mx-auto">
+    <h1 class="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">Department Timetable</h1>
+    <p class="text-gray-400 mb-8 max-w-3xl">Interactive, searchable timetable compiled from published schedule data. Filter by day, semester, and program. Type to search instantly across course titles, codes, teachers, rooms, sessions, and more. Switch between available source JSON datasets using the dropdown.</p>
+
+    <!-- Controls -->
+    <div class="space-y-4 mb-8">
+      <div class="flex flex-col md:flex-row md:items-center gap-4">
+        <div class="flex items-center gap-2">
+          <label for="dataset" class="text-sm text-gray-300 whitespace-nowrap">Dataset:</label>
+          <select id="dataset" class="bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="full_parsed1.json" selected>full_parsed1</option>
+            <option value="full_parsed2.json">full_parsed2</option>
+            <option value="full_parsed3.json">full_parsed3</option>
+          </select>
+        </div>
+        <div class="flex-1 relative">
+          <input id="search" type="text" placeholder="Search (course, code, teacher, program, semester, room, etc.)" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <svg class="w-5 h-5 text-gray-500 absolute right-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"/></svg>
+        </div>
+      </div>
+
+      <!-- Filter Rows -->
+      <div id="filters" class="space-y-3 flex flex-col items-center">
+        <div id="day-filters" class="flex flex-wrap justify-center gap-2"></div>
+        <div id="semester-filters" class="flex flex-wrap justify-center gap-2"></div>
+        <div id="program-filters" class="flex flex-wrap justify-center gap-2"></div>
+        <div class="pt-2 flex flex-wrap justify-center gap-3">
+          <button id="clear-filters" class="px-4 py-1.5 rounded-md text-xs font-medium bg-gray-800 text-gray-300 hover:bg-red-600/40 hover:text-red-200 border border-gray-700 hover:border-red-500 transition">Clear Filters</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div id="stats" class="text-xs text-gray-500 mb-2"></div>
+
+    <!-- Results (Unified Table) -->
+    <div class="bg-gray-900/60 backdrop-blur rounded-xl border border-gray-800 shadow-xl overflow-hidden">
+      <div class="max-h-[60vh] overflow-auto" id="results-wrapper">
+        <table class="min-w-full text-sm table-fixed align-top">
+          <colgroup>
+            <col style="width: 11rem;" />
+            <col style="width: 20rem;" />
+            <col style="width: 7rem;" />
+            <col style="width: 18rem;" />
+            <col style="width: 14rem;" />
+            <col style="width: 8rem;" />
+            <col style="width: 7rem;" />
+            <col style="width: 14rem;" />
+          </colgroup>
+          <thead class="bg-gray-800/70 text-gray-300 sticky top-0 z-10 backdrop-blur supports-[backdrop-filter]:bg-gray-800/60">
+            <tr class="text-left">
+              <th class="px-3 py-2 font-medium">Time</th>
+              <th class="px-3 py-2 font-medium">Course</th>
+              <th class="px-3 py-2 font-medium">Code</th>
+              <th class="px-3 py-2 font-medium">Program / Semester</th>
+              <th class="px-3 py-2 font-medium">Teacher</th>
+              <th class="px-3 py-2 font-medium">Room</th>
+              <th class="px-3 py-2 font-medium">Day</th>
+              <th class="px-3 py-2 font-medium">Flags</th>
+            </tr>
+          </thead>
+          <tbody id="results" class="divide-y divide-gray-800"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  // --- Type Definitions ---
+  interface RawEntry {
+    combined_class: boolean | null;
+    course_title: string | null;
+    course_code: string | null;
+    program_line: string | null;
+    degree: string | null;
+    program: string | null;
+    section: string | null;
+    session: string | null;
+    semester: number | null;
+    teacher_name: string | null;
+    start_time: string | null;
+    end_time: string | null;
+    practical: boolean | null;
+    raw_lines?: string[];
+  }
+  interface FlatRecord {
+    day: string;
+    room: string;
+    course_title: string;
+    course_code: string;
+    program_line: string;
+    degree: string;
+    program: string;
+    section: string;
+    session: string;
+    semester: number | null;
+    teacher_name: string;
+    combined_class: boolean | null;
+    start_time: string;
+    end_time: string;
+    practical: boolean | null | undefined;
+    raw: string[];
+  }
+
+  // Element refs (narrowed to specific types)
+  const datasetSelect = document.getElementById('dataset') as HTMLSelectElement | null;
+  const searchInput = document.getElementById('search') as HTMLInputElement | null;
+  const resultsEl = document.getElementById('results') as HTMLTableSectionElement | null;
+  const statsEl = document.getElementById('stats') as HTMLElement | null;
+  const dayFiltersEl = document.getElementById('day-filters') as HTMLElement | null;
+  const semesterFiltersEl = document.getElementById('semester-filters') as HTMLElement | null;
+  const programFiltersEl = document.getElementById('program-filters') as HTMLElement | null;
+
+  let rawData: Record<string, any> = {}; // initial nested data
+  let flat: FlatRecord[] = []; // flattened records array
+  const activeDays = new Set<string>();
+  const activeSemesters = new Set<string>();
+  const activePrograms = new Set<string>();
+
+  const DAY_ORDER = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+
+  function to12(time24: string | null | undefined): string {
+    if(!time24) return '';
+    const [hStr,mStr] = time24.split(':');
+    const h = parseInt(hStr,10); const m = parseInt(mStr,10);
+    if(Number.isNaN(h) || Number.isNaN(m)) return time24; // fallback
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    const hour12 = ((h + 11) % 12) + 1;
+    return `${hour12}:${m.toString().padStart(2,'0')} ${ampm}`;
+  }
+
+  function makeButton(label: string, container: HTMLElement | null, set: Set<string>, displayLabel?: string): void {
+    if(!container) return;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    // Use displayLabel (e.g., 'Semester 4') for text while keeping raw label for filter set
+    btn.textContent = displayLabel || label;
+    btn.dataset.filterValue = label;
+    const base = 'px-3 py-1 rounded-full text-xs font-medium border transition';
+    const inactive = 'bg-gray-800 text-gray-300 hover:bg-gradient-to-r hover:from-blue-600/40 hover:to-purple-600/40 hover:text-blue-200 border-gray-700';
+    const activeClasses = ['bg-blue-600','text-white','border-blue-400','shadow','shadow-blue-500/30','bg-gradient-to-r','from-blue-600','to-purple-600'];
+    const isActive = set.has(label);
+    btn.className = base + ' ' + (isActive ? (activeClasses.join(' ')) : inactive);
+    btn.addEventListener('click', () => {
+      const key = btn.dataset.filterValue || label;
+      if(set.has(key)) set.delete(key); else set.add(key);
+      const active = set.has(key);
+      if(active){
+        activeClasses.forEach(c=> btn.classList.add(c));
+        btn.classList.remove('bg-gray-800','text-gray-300','hover:bg-gradient-to-r','hover:from-blue-600/40','hover:to-purple-600/40','hover:text-blue-200','border-gray-700');
+      } else {
+        activeClasses.forEach(c=> btn.classList.remove(c));
+        btn.classList.add('bg-gray-800','text-gray-300','hover:bg-gradient-to-r','hover:from-blue-600/40','hover:to-purple-600/40','hover:text-blue-200','border-gray-700');
+      }
+      render();
+    });
+    container.appendChild(btn);
+  }
+
+  async function loadDataset(name: string): Promise<void> {
+    if(resultsEl)
+      resultsEl.innerHTML = '<tr><td class="px-4 py-6 text-center text-gray-400" colspan="8">Loading...</td></tr>';
+    try {
+      const res = await fetch(`/parsed/${name}`);
+      rawData = await res.json();
+      flatten();
+      buildFilters();
+      render();
+    } catch(err) {
+      if(resultsEl)
+        resultsEl.innerHTML = `<tr><td class='px-4 py-6 text-center text-red-400' colspan='8'>Failed to load dataset: ${err}</td></tr>`;
+    }
+  }
+
+  function flatten(): void {
+    flat = [];
+    Object.entries(rawData).forEach(([day, rooms]) => {
+      if(typeof rooms !== 'object' || rooms === null) return;
+      Object.entries(rooms as Record<string, RawEntry[] | any>).forEach(([room, entries]) => {
+        if(!Array.isArray(entries)) return;
+        (entries as RawEntry[]).forEach((entry) => {
+          if(!entry) return;
+          const rec: FlatRecord = {
+            day,
+            room,
+            course_title: entry.course_title || '',
+            course_code: entry.course_code || '',
+            program_line: entry.program_line || '',
+            degree: entry.degree || '',
+            program: entry.program || '',
+            section: entry.section || '',
+            session: entry.session || '',
+            semester: entry.semester ?? null,
+            teacher_name: entry.teacher_name || '',
+            combined_class: entry.combined_class ?? null,
+            start_time: entry.start_time || '',
+            end_time: entry.end_time || '',
+            practical: (entry.practical ?? false) && (entry.raw_lines?.some((l: string) => /practical/i.test(l)) || entry.practical),
+            raw: entry.raw_lines || []
+          };
+          const meaningful = rec.course_title && rec.course_title !== '';
+            if(meaningful || rec.teacher_name || rec.program_line) flat.push(rec);
+        });
+      });
+    });
+  }
+
+  function buildFilters(): void {
+    if(dayFiltersEl) dayFiltersEl.innerHTML='';
+    if(semesterFiltersEl) semesterFiltersEl.innerHTML='';
+    if(programFiltersEl) programFiltersEl.innerHTML='';
+
+    const days = [...new Set(flat.map(r=>r.day))].sort((a,b)=>DAY_ORDER.indexOf(a)-DAY_ORDER.indexOf(b));
+    const semesters = [...new Set(flat.map(r=>r.semester).filter(v=>v!=null))].sort((a,b)=> (Number(a) as number) - (Number(b) as number));
+    const programs = [...new Set(flat.map(r=>r.program).filter(Boolean))].sort();
+
+  days.forEach(d=> makeButton(d, dayFiltersEl, activeDays));
+  semesters.forEach(s=> makeButton(String(s), semesterFiltersEl, activeSemesters, `Semester ${s}`));
+  programs.forEach(p=> makeButton(p, programFiltersEl, activePrograms));
+  }
+
+  function recordMatches(rec: FlatRecord, q: string): boolean {
+    if(!q) return true;
+    const hay = [rec.course_title, rec.course_code, rec.program_line, rec.degree, rec.program, rec.section, rec.session, rec.teacher_name, rec.room, rec.day, String(rec.semester||'')].join(' ').toLowerCase();
+    return q.split(/\s+/).every((term: string) => hay.includes(term));
+  }
+
+  function applyFilters(list: FlatRecord[]): FlatRecord[] {
+    return list.filter((r: FlatRecord) => {
+      if(activeDays.size && !activeDays.has(r.day)) return false;
+      if(activeSemesters.size && !activeSemesters.has(String(r.semester))) return false;
+      if(activePrograms.size && !activePrograms.has(r.program)) return false;
+      return true;
+    });
+  }
+
+  let sortKey: keyof FlatRecord | 'day' = 'day';
+  let sortDir: 1 | -1 = 1;
+  let debounceTimer: number | null = null;
+
+  function headerSortHandler(th: HTMLElement, key: keyof FlatRecord | 'day'){
+    th.addEventListener('click', () => {
+      if(sortKey === key){
+        sortDir = sortDir === 1 ? -1 : 1;
+      } else {
+        sortKey = key; sortDir = 1;
+      }
+      render();
+    });
+  }
+
+  function attachHeaderSorting(){
+    document.querySelectorAll('thead th').forEach(th => {
+      const key = (th as HTMLElement).dataset.sort as (keyof FlatRecord | 'day' | undefined);
+      if(key){ headerSortHandler(th as HTMLElement, key); }
+    });
+  }
+
+
+  function syncURL(){
+    const params = new URLSearchParams();
+    if(datasetSelect?.value) params.set('ds', datasetSelect.value);
+    const q = searchInput?.value?.trim(); if(q) params.set('q', q);
+    if(activeDays.size) params.set('days', [...activeDays].join('|'));
+    if(activeSemesters.size) params.set('sem', [...activeSemesters].join('|'));
+    if(activePrograms.size) params.set('prog', [...activePrograms].join('|'));
+    if(sortKey) params.set('sort', sortKey);
+    if(sortDir===-1) params.set('dir','desc');
+  // grouping removed
+    const newUrl = `${location.pathname}?${params.toString()}`;
+    history.replaceState(null,'',newUrl);
+  }
+
+  function loadFromURL(){
+    const params = new URLSearchParams(location.search);
+    const ds = params.get('ds'); if(ds && datasetSelect) datasetSelect.value = ds;
+    const q = params.get('q'); if(q && searchInput) searchInput.value = q;
+    const days = params.get('days'); if(days) days.split('|').forEach(d=>activeDays.add(d));
+    const sem = params.get('sem'); if(sem) sem.split('|').forEach(s=>activeSemesters.add(s));
+    const prog = params.get('prog'); if(prog) prog.split('|').forEach(p=>activePrograms.add(p));
+    const sk = params.get('sort') as keyof FlatRecord | 'day' | null; if(sk) sortKey = sk;
+    const sd = params.get('dir'); if(sd==='desc') sortDir = -1;
+  // grouping removed
+  }
+
+  function render(): void {
+    const q = (searchInput?.value || '').trim().toLowerCase();
+    const list = applyFilters(flat).filter((r: FlatRecord)=>recordMatches(r,q));
+    list.sort((a: FlatRecord,b: FlatRecord)=>{
+      // Sort priority: chosen sortKey then fallback original ordering logic
+      const primary = (()=>{
+        if(sortKey==='day') return DAY_ORDER.indexOf(a.day) - DAY_ORDER.indexOf(b.day);
+        const av = (a as any)[sortKey];
+        const bv = (b as any)[sortKey];
+        if(typeof av === 'number' && typeof bv === 'number') return av - bv;
+        return String(av).localeCompare(String(bv));
+      })();
+      if(primary!==0) return primary * sortDir;
+      const dayDiff = DAY_ORDER.indexOf(a.day) - DAY_ORDER.indexOf(b.day); if(dayDiff!==0) return dayDiff;
+      const tA = a.start_time? parseInt(a.start_time.slice(0,2))*60 + parseInt(a.start_time.slice(3,5)) : 0;
+      const tB = b.start_time? parseInt(b.start_time.slice(0,2))*60 + parseInt(b.start_time.slice(3,5)) : 0;
+      if(tA!==tB) return tA - tB;
+      if(a.room < b.room) return -1; if(a.room > b.room) return 1; return 0;
+    });
+
+    if(statsEl){
+      const distinctTeachers = new Set(list.map(r=>r.teacher_name).filter(Boolean));
+      const distinctPrograms = new Set(list.map(r=>r.program).filter(Boolean));
+      statsEl.textContent = `${list.length} classes shown (of ${flat.length} loaded) • ${distinctTeachers.size} teachers • ${distinctPrograms.size} programs`;
+    }
+
+    if(!list.length){
+      if(resultsEl)
+        resultsEl.innerHTML = '<tr><td colspan="8" class="px-4 py-6 text-center text-gray-400">No matches.</td></tr>';
+      return;
+    }
+
+      const rows = list.map((r: FlatRecord) => {
+        const flags: string[] = [];
+        if(r.combined_class) flags.push('Combined');
+        if(r.practical) flags.push('Practical');
+        return `<tr class="hover:bg-gray-800/40">
+          <td class="px-3 py-2 whitespace-nowrap text-gray-300">${to12(r.start_time)}${r.end_time ? ` - ${to12(r.end_time)}` : ''}</td>
+          <td class="px-3 py-2 font-medium text-white">${r.course_title || '<span class="text-gray-500">TBA</span>'}</td>
+          <td class="px-3 py-2 text-gray-400">${r.course_code || ''}</td>
+          <td class="px-3 py-2 text-gray-300">
+            <div class="text-xs text-gray-400">${r.program || ''} ${r.degree ? '(' + r.degree + ')' : ''}</div>
+            <div class="text-xs">Semester ${r.semester ?? ''} ${r.section ? '• ' + r.section : ''}</div>
+          </td>
+          <td class="px-3 py-2 text-gray-300">${r.teacher_name || ''}</td>
+          <td class="px-3 py-2 text-gray-400">${r.room}</td>
+          <td class="px-3 py-2 text-gray-400">${r.day}</td>
+          <td class="px-3 py-2 text-xs">${flags.map(f => `<span class='inline-block bg-blue-600/30 border border-blue-500/40 text-blue-300 rounded-full px-2 py-0.5 mr-1 mb-1'>${f}</span>`).join('')}</td>
+        </tr>`;
+      }).join('');
+    if(resultsEl) resultsEl.innerHTML = rows;
+    syncURL();
+  }
+
+  function clearAll(){
+    activeDays.clear(); activeSemesters.clear(); activePrograms.clear();
+    if(searchInput) searchInput.value='';
+    buildFilters();
+    render();
+  }
+
+  if(datasetSelect) datasetSelect.addEventListener('change', ()=> datasetSelect && loadDataset(datasetSelect.value));
+  if(searchInput) searchInput.addEventListener('input', ()=> {
+    if(debounceTimer) window.clearTimeout(debounceTimer);
+    debounceTimer = window.setTimeout(()=>{ render(); }, 60);
+  });
+
+  document.getElementById('clear-filters')?.addEventListener('click', clearAll);
+  loadFromURL();
+
+  if(datasetSelect instanceof HTMLSelectElement) {
+    loadDataset(datasetSelect.value).then(()=>{
+      attachHeaderSorting();
+    });
+  }
+</script>
+
+<style>
+  /* Optional minor tweaks */
+  #results-wrapper table { font-variant-numeric: tabular-nums; }
+</style>
