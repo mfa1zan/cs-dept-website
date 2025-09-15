@@ -1,7 +1,7 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 import fs from 'node:fs';
 
@@ -9,8 +9,9 @@ import fs from 'node:fs';
 const parsedDir = new URL('../../public/parsed/', import.meta.url);
 let datasetFiles: string[] = [];
 try {
-  datasetFiles = fs.readdirSync(parsedDir)
-    .filter(f => f.endsWith('.json'))
+  datasetFiles = fs
+    .readdirSync(parsedDir)
+    .filter((f) => f.endsWith('.json'))
     .sort();
 } catch (e) {
   datasetFiles = [];
@@ -21,28 +22,65 @@ try {
 <Layout>
   <Header />
   <main class="pt-32 pb-20 px-6 max-w-7xl mx-auto">
-    <h1 class="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">Department Timetable</h1>
-    <p class="text-gray-400 mb-8 max-w-3xl">Interactive, searchable timetable compiled from published schedule data. Filter by day, semester, and program. Type to search instantly across course titles, codes, teachers, rooms, sessions, and more. Switch between available source JSON datasets using the dropdown.</p>
+    <h1
+      class="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent"
+    >
+      Department Timetable
+    </h1>
+    <p class="text-gray-400 mb-8 max-w-3xl">
+      Interactive, searchable timetable compiled from published schedule data.
+      Filter by day, semester, and program. Type to search instantly across
+      course titles, codes, teachers, rooms, sessions, and more. Switch between
+      available source JSON datasets using the dropdown.
+    </p>
 
     <!-- Controls -->
     <div class="space-y-4 mb-8">
       <div class="flex flex-col md:flex-row md:items-center gap-4">
         <div class="flex items-center gap-2">
-          <label for="dataset" class="text-sm text-gray-300 whitespace-nowrap">Dataset:</label>
-          <select id="dataset" class="bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-            {datasetFiles.map((f, i) => (
-              <option value={f} selected={i===0}>{f.replace(/\.json$/,'')}</option>
-            ))}
+          <label for="dataset" class="text-sm text-gray-300 whitespace-nowrap"
+            >Dataset:</label
+          >
+          <select
+            id="dataset"
+            class="bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            {
+              datasetFiles.map((f, i) => (
+                <option value={f} selected={i === 0}>
+                  {f.replace(/\.json$/, '')}
+                </option>
+              ))
+            }
           </select>
         </div>
         <div class="flex-1 relative">
-          <input id="search" type="text" placeholder="Search (course, code, teacher, program, semester, room, etc.)" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-          <svg class="w-5 h-5 text-gray-500 absolute right-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"/></svg>
+          <input
+            id="search"
+            type="text"
+            placeholder="Search (course, code, teacher, program, semester, room, etc.)"
+            class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <svg
+            class="w-5 h-5 text-gray-500 absolute right-3 top-1/2 -translate-y-1/2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            ><path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"
+            ></path></svg
+          >
         </div>
       </div>
 
       <!-- Filter Rows -->
-      <div id="filters" class="space-y-2 flex flex-col items-stretch max-w-4xl mx-auto">
+      <div
+        id="filters"
+        class="space-y-2 flex flex-col items-stretch max-w-4xl mx-auto"
+      >
         <div id="day-filters" class="filter-row"></div>
         <div id="degree-filters" class="filter-row"></div>
         <div id="program-filters" class="filter-row"></div>
@@ -58,7 +96,9 @@ try {
     <div id="stats" class="text-xs text-gray-500 mb-2"></div>
 
     <!-- Results (Unified Table) -->
-    <div class="bg-gray-900/60 backdrop-blur rounded-xl border border-gray-800 shadow-xl overflow-hidden">
+    <div
+      class="bg-gray-900/60 backdrop-blur rounded-xl border border-gray-800 shadow-xl overflow-hidden"
+    >
       <div class="max-h-[60vh] overflow-auto" id="results-wrapper">
         <table class="min-w-full text-sm table-fixed align-top">
           <colgroup>
@@ -71,7 +111,9 @@ try {
             <col style="width: 7rem;" />
             <col style="width: 14rem;" />
           </colgroup>
-          <thead class="bg-gray-800/70 text-gray-300 sticky top-0 z-10 backdrop-blur supports-[backdrop-filter]:bg-gray-800/60">
+          <thead
+            class="bg-gray-800/70 text-gray-300 sticky top-0 z-10 backdrop-blur supports-[backdrop-filter]:bg-gray-800/60"
+          >
             <tr class="text-left">
               <th class="px-3 py-2 font-medium">Time</th>
               <th class="px-3 py-2 font-medium">Course</th>
@@ -129,15 +171,31 @@ try {
   }
 
   // Element refs (narrowed to specific types)
-  const datasetSelect = document.getElementById('dataset') as HTMLSelectElement | null;
-  const searchInput = document.getElementById('search') as HTMLInputElement | null;
-  const resultsEl = document.getElementById('results') as HTMLTableSectionElement | null;
+  const datasetSelect = document.getElementById(
+    'dataset'
+  ) as HTMLSelectElement | null;
+  const searchInput = document.getElementById(
+    'search'
+  ) as HTMLInputElement | null;
+  const resultsEl = document.getElementById(
+    'results'
+  ) as HTMLTableSectionElement | null;
   const statsEl = document.getElementById('stats') as HTMLElement | null;
-  const dayFiltersEl = document.getElementById('day-filters') as HTMLElement | null;
-  const semesterFiltersEl = document.getElementById('semester-filters') as HTMLElement | null;
-  const programFiltersEl = document.getElementById('program-filters') as HTMLElement | null;
-  const sectionFiltersEl = document.getElementById('section-filters') as HTMLElement | null;
-  const degreeFiltersEl = document.getElementById('degree-filters') as HTMLElement | null;
+  const dayFiltersEl = document.getElementById(
+    'day-filters'
+  ) as HTMLElement | null;
+  const semesterFiltersEl = document.getElementById(
+    'semester-filters'
+  ) as HTMLElement | null;
+  const programFiltersEl = document.getElementById(
+    'program-filters'
+  ) as HTMLElement | null;
+  const sectionFiltersEl = document.getElementById(
+    'section-filters'
+  ) as HTMLElement | null;
+  const degreeFiltersEl = document.getElementById(
+    'degree-filters'
+  ) as HTMLElement | null;
 
   let rawData: Record<string, any> = {}; // initial nested data
   let flat: FlatRecord[] = []; // flattened records array
@@ -147,46 +205,67 @@ try {
   const activeSections = new Set<string>();
   const activeDegrees = new Set<string>();
 
-  const DAY_ORDER = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+  const DAY_ORDER = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday',
+  ];
 
   function to12(time24: string | null | undefined): string {
-    if(!time24) return '';
-    const [hStr,mStr] = time24.split(':');
-    const h = parseInt(hStr,10); const m = parseInt(mStr,10);
-    if(Number.isNaN(h) || Number.isNaN(m)) return time24; // fallback
+    if (!time24) return '';
+    const [hStr, mStr] = time24.split(':');
+    const h = parseInt(hStr, 10);
+    const m = parseInt(mStr, 10);
+    if (Number.isNaN(h) || Number.isNaN(m)) return time24; // fallback
     const ampm = h >= 12 ? 'PM' : 'AM';
     const hour12 = ((h + 11) % 12) + 1;
-    return `${hour12}:${m.toString().padStart(2,'0')} ${ampm}`;
+    return `${hour12}:${m.toString().padStart(2, '0')} ${ampm}`;
   }
 
-  function makeButton(label: string, container: HTMLElement | null, set: Set<string>, displayLabel?: string): void {
-    if(!container) return;
+  function makeButton(
+    label: string,
+    container: HTMLElement | null,
+    set: Set<string>,
+    displayLabel?: string
+  ): void {
+    if (!container) return;
     const btn = document.createElement('button');
     btn.type = 'button';
     // Use displayLabel (e.g., 'Semester 4') for text while keeping raw label for filter set
     btn.textContent = displayLabel || label;
     btn.dataset.filterValue = label;
-  const base = 'chip';
-  const inactive = 'chip-inactive';
-  // contextual color accent based on row type
-  let accent = '';
-  if(container.id === 'day-filters') accent = 'chip-accent-day';
-  else if(container.id === 'degree-filters') accent = 'chip-accent-degree';
-  else if(container.id === 'program-filters') accent = 'chip-accent-program';
-  else if(container.id === 'semester-filters') accent = 'chip-accent-semester';
-  else if(container.id === 'section-filters') accent = 'chip-accent-section';
-  const activeClasses = ['chip-active'];
+    const base = 'chip';
+    const inactive = 'chip-inactive';
+    // contextual color accent based on row type
+    let accent = '';
+    if (container.id === 'day-filters') accent = 'chip-accent-day';
+    else if (container.id === 'degree-filters') accent = 'chip-accent-degree';
+    else if (container.id === 'program-filters') accent = 'chip-accent-program';
+    else if (container.id === 'semester-filters')
+      accent = 'chip-accent-semester';
+    else if (container.id === 'section-filters') accent = 'chip-accent-section';
+    const activeClasses = ['chip-active'];
     const isActive = set.has(label);
-  btn.className = base + ' ' + accent + ' ' + (isActive ? activeClasses.join(' ') : inactive);
+    btn.className =
+      base +
+      ' ' +
+      accent +
+      ' ' +
+      (isActive ? activeClasses.join(' ') : inactive);
     btn.addEventListener('click', () => {
       const key = btn.dataset.filterValue || label;
-      if(set.has(key)) set.delete(key); else set.add(key);
+      if (set.has(key)) set.delete(key);
+      else set.add(key);
       const active = set.has(key);
-      if(active){
-        activeClasses.forEach(c=> btn.classList.add(c));
+      if (active) {
+        activeClasses.forEach((c) => btn.classList.add(c));
         btn.classList.remove('chip-inactive');
       } else {
-        activeClasses.forEach(c=> btn.classList.remove(c));
+        activeClasses.forEach((c) => btn.classList.remove(c));
         btn.classList.add('chip-inactive');
       }
       render();
@@ -195,16 +274,17 @@ try {
   }
 
   async function loadDataset(name: string): Promise<void> {
-    if(resultsEl)
-      resultsEl.innerHTML = '<tr><td class="px-4 py-6 text-center text-gray-400" colspan="8">Loading...</td></tr>';
+    if (resultsEl)
+      resultsEl.innerHTML =
+        '<tr><td class="px-4 py-6 text-center text-gray-400" colspan="8">Loading...</td></tr>';
     try {
       const res = await fetch(`/parsed/${name}`);
       rawData = await res.json();
       flatten();
       buildFilters();
       render();
-    } catch(err) {
-      if(resultsEl)
+    } catch (err) {
+      if (resultsEl)
         resultsEl.innerHTML = `<tr><td class='px-4 py-6 text-center text-red-400' colspan='8'>Failed to load dataset: ${err}</td></tr>`;
     }
   }
@@ -212,82 +292,119 @@ try {
   function flatten(): void {
     flat = [];
     Object.entries(rawData).forEach(([day, rooms]) => {
-      if(typeof rooms !== 'object' || rooms === null) return;
-      Object.entries(rooms as Record<string, RawEntry[] | any>).forEach(([room, entries]) => {
-        if(!Array.isArray(entries)) return;
-        (entries as RawEntry[]).forEach((entry) => {
-          if(!entry) return;
-          const rec: FlatRecord = {
-            day,
-            room,
-            course_title: entry.course_title || '',
-            course_code: entry.course_code || '',
-            program_line: entry.program_line || '',
-            degree: entry.degree || '',
-            program: entry.program || '',
-            section: entry.section || '',
-            session: entry.session || '',
-            semester: entry.semester ?? null,
-            teacher_name: entry.teacher_name || '',
-            combined_class: entry.combined_class ?? null,
-            start_time: entry.start_time || '',
-            end_time: entry.end_time || '',
-            practical: (entry.practical ?? false) && (entry.raw_lines?.some((l: string) => /practical/i.test(l)) || entry.practical),
-            raw: entry.raw_lines || []
-          };
-          const meaningful = rec.course_title && rec.course_title !== '';
-            if(meaningful || rec.teacher_name || rec.program_line) flat.push(rec);
-        });
-      });
+      if (typeof rooms !== 'object' || rooms === null) return;
+      Object.entries(rooms as Record<string, RawEntry[] | any>).forEach(
+        ([room, entries]) => {
+          if (!Array.isArray(entries)) return;
+          (entries as RawEntry[]).forEach((entry) => {
+            if (!entry) return;
+            const rec: FlatRecord = {
+              day,
+              room,
+              course_title: entry.course_title || '',
+              course_code: entry.course_code || '',
+              program_line: entry.program_line || '',
+              degree: entry.degree || '',
+              program: entry.program || '',
+              section: entry.section || '',
+              session: entry.session || '',
+              semester: entry.semester ?? null,
+              teacher_name: entry.teacher_name || '',
+              combined_class: entry.combined_class ?? null,
+              start_time: entry.start_time || '',
+              end_time: entry.end_time || '',
+              practical:
+                (entry.practical ?? false) &&
+                (entry.raw_lines?.some((l: string) => /practical/i.test(l)) ||
+                  entry.practical),
+              raw: entry.raw_lines || [],
+            };
+            const meaningful = rec.course_title && rec.course_title !== '';
+            if (meaningful || rec.teacher_name || rec.program_line)
+              flat.push(rec);
+          });
+        }
+      );
     });
   }
 
   function buildFilters(): void {
-    if(dayFiltersEl) dayFiltersEl.innerHTML='';
-  if(degreeFiltersEl) degreeFiltersEl.innerHTML='';
-  if(programFiltersEl) programFiltersEl.innerHTML='';
-  if(semesterFiltersEl) semesterFiltersEl.innerHTML='';
-    if(sectionFiltersEl) sectionFiltersEl.innerHTML='';
+    if (dayFiltersEl) dayFiltersEl.innerHTML = '';
+    if (degreeFiltersEl) degreeFiltersEl.innerHTML = '';
+    if (programFiltersEl) programFiltersEl.innerHTML = '';
+    if (semesterFiltersEl) semesterFiltersEl.innerHTML = '';
+    if (sectionFiltersEl) sectionFiltersEl.innerHTML = '';
 
-    const days = [...new Set(flat.map(r=>r.day))].sort((a,b)=>DAY_ORDER.indexOf(a)-DAY_ORDER.indexOf(b));
-    const semesters = [...new Set(flat.map(r=>r.semester).filter(v=>v!=null))].sort((a,b)=> (Number(a) as number) - (Number(b) as number));
-    const programs = [...new Set(flat.map(r=>r.program).filter(Boolean))].sort();
-    const degrees = [...new Set(flat.map(r=>r.degree).filter(Boolean))].sort();
+    const days = [...new Set(flat.map((r) => r.day))].sort(
+      (a, b) => DAY_ORDER.indexOf(a) - DAY_ORDER.indexOf(b)
+    );
+    const semesters = [
+      ...new Set(flat.map((r) => r.semester).filter((v) => v != null)),
+    ].sort((a, b) => (Number(a) as number) - (Number(b) as number));
+    const programs = [
+      ...new Set(flat.map((r) => r.program).filter(Boolean)),
+    ].sort();
+    const degrees = [
+      ...new Set(flat.map((r) => r.degree).filter(Boolean)),
+    ].sort();
 
-    days.forEach(d=> makeButton(d, dayFiltersEl, activeDays));
+    days.forEach((d) => makeButton(d, dayFiltersEl, activeDays));
     // Degrees row (explicit BS, MS, PhD ordering if present)
-    const DEG_ORDER = ['BS','MS','PhD'];
-    const orderedDegrees = degrees.sort((a,b)=>{
+    const DEG_ORDER = ['BS', 'MS', 'PhD'];
+    const orderedDegrees = degrees.sort((a, b) => {
       const ai = DEG_ORDER.indexOf(a.toUpperCase());
       const bi = DEG_ORDER.indexOf(b.toUpperCase());
-      if(ai===-1 && bi===-1) return a.localeCompare(b);
-      if(ai===-1) return 1;
-      if(bi===-1) return -1;
+      if (ai === -1 && bi === -1) return a.localeCompare(b);
+      if (ai === -1) return 1;
+      if (bi === -1) return -1;
       return ai - bi;
     });
-    orderedDegrees.forEach(dg=> makeButton(dg, degreeFiltersEl, activeDegrees));
-    programs.forEach(p=> makeButton(p, programFiltersEl, activePrograms));
-    semesters.forEach(s=> makeButton(String(s), semesterFiltersEl, activeSemesters, `Semester ${s}`));
-  // Sections: only show if multiple distinct non-empty sections exist
-  const sections = [...new Set(flat.map(r=>r.section).filter(Boolean))].sort();
-  if(sections.length > 1) {
-    sections.forEach(sec => makeButton(sec, sectionFiltersEl, activeSections));
-  }
+    orderedDegrees.forEach((dg) =>
+      makeButton(dg, degreeFiltersEl, activeDegrees)
+    );
+    programs.forEach((p) => makeButton(p, programFiltersEl, activePrograms));
+    semesters.forEach((s) =>
+      makeButton(String(s), semesterFiltersEl, activeSemesters, `Semester ${s}`)
+    );
+    // Sections: only show if multiple distinct non-empty sections exist
+    const sections = [
+      ...new Set(flat.map((r) => r.section).filter(Boolean)),
+    ].sort();
+    if (sections.length > 1) {
+      sections.forEach((sec) =>
+        makeButton(sec, sectionFiltersEl, activeSections)
+      );
+    }
   }
 
   function recordMatches(rec: FlatRecord, q: string): boolean {
-    if(!q) return true;
-    const hay = [rec.course_title, rec.course_code, rec.program_line, rec.degree, rec.program, rec.section, rec.session, rec.teacher_name, rec.room, rec.day, String(rec.semester||'')].join(' ').toLowerCase();
+    if (!q) return true;
+    const hay = [
+      rec.course_title,
+      rec.course_code,
+      rec.program_line,
+      rec.degree,
+      rec.program,
+      rec.section,
+      rec.session,
+      rec.teacher_name,
+      rec.room,
+      rec.day,
+      String(rec.semester || ''),
+    ]
+      .join(' ')
+      .toLowerCase();
     return q.split(/\s+/).every((term: string) => hay.includes(term));
   }
 
   function applyFilters(list: FlatRecord[]): FlatRecord[] {
     return list.filter((r: FlatRecord) => {
-      if(activeDays.size && !activeDays.has(r.day)) return false;
-      if(activeSemesters.size && !activeSemesters.has(String(r.semester))) return false;
-      if(activePrograms.size && !activePrograms.has(r.program)) return false;
-      if(activeSections.size && !activeSections.has(r.section)) return false;
-      if(activeDegrees.size && !activeDegrees.has(r.degree)) return false;
+      if (activeDays.size && !activeDays.has(r.day)) return false;
+      if (activeSemesters.size && !activeSemesters.has(String(r.semester)))
+        return false;
+      if (activePrograms.size && !activePrograms.has(r.program)) return false;
+      if (activeSections.size && !activeSections.has(r.section)) return false;
+      if (activeDegrees.size && !activeDegrees.has(r.degree)) return false;
       return true;
     });
   }
@@ -296,91 +413,124 @@ try {
   let sortDir: 1 | -1 = 1;
   let debounceTimer: number | null = null;
 
-  function headerSortHandler(th: HTMLElement, key: keyof FlatRecord | 'day'){
+  function headerSortHandler(th: HTMLElement, key: keyof FlatRecord | 'day') {
     th.addEventListener('click', () => {
-      if(sortKey === key){
+      if (sortKey === key) {
         sortDir = sortDir === 1 ? -1 : 1;
       } else {
-        sortKey = key; sortDir = 1;
+        sortKey = key;
+        sortDir = 1;
       }
       render();
     });
   }
 
-  function attachHeaderSorting(){
-    document.querySelectorAll('thead th').forEach(th => {
-      const key = (th as HTMLElement).dataset.sort as (keyof FlatRecord | 'day' | undefined);
-      if(key){ headerSortHandler(th as HTMLElement, key); }
+  function attachHeaderSorting() {
+    document.querySelectorAll('thead th').forEach((th) => {
+      const key = (th as HTMLElement).dataset.sort as
+        | keyof FlatRecord
+        | 'day'
+        | undefined;
+      if (key) {
+        headerSortHandler(th as HTMLElement, key);
+      }
     });
   }
 
-
-  function syncURL(){
+  function syncURL() {
     const params = new URLSearchParams();
-    if(datasetSelect?.value) params.set('ds', datasetSelect.value);
-    const q = searchInput?.value?.trim(); if(q) params.set('q', q);
-    if(activeDays.size) params.set('days', [...activeDays].join('|'));
-    if(activeSemesters.size) params.set('sem', [...activeSemesters].join('|'));
-    if(activePrograms.size) params.set('prog', [...activePrograms].join('|'));
-  if(activeSections.size) params.set('sec', [...activeSections].join('|'));
-    if(activeDegrees.size) params.set('deg', [...activeDegrees].join('|'));
-    if(sortKey) params.set('sort', sortKey);
-    if(sortDir===-1) params.set('dir','desc');
-  // grouping removed
+    if (datasetSelect?.value) params.set('ds', datasetSelect.value);
+    const q = searchInput?.value?.trim();
+    if (q) params.set('q', q);
+    if (activeDays.size) params.set('days', [...activeDays].join('|'));
+    if (activeSemesters.size) params.set('sem', [...activeSemesters].join('|'));
+    if (activePrograms.size) params.set('prog', [...activePrograms].join('|'));
+    if (activeSections.size) params.set('sec', [...activeSections].join('|'));
+    if (activeDegrees.size) params.set('deg', [...activeDegrees].join('|'));
+    if (sortKey) params.set('sort', sortKey);
+    if (sortDir === -1) params.set('dir', 'desc');
+    // grouping removed
     const newUrl = `${location.pathname}?${params.toString()}`;
-    history.replaceState(null,'',newUrl);
+    history.replaceState(null, '', newUrl);
   }
 
-  function loadFromURL(){
+  function loadFromURL() {
     const params = new URLSearchParams(location.search);
-    const ds = params.get('ds'); if(ds && datasetSelect) datasetSelect.value = ds;
-    const q = params.get('q'); if(q && searchInput) searchInput.value = q;
-    const days = params.get('days'); if(days) days.split('|').forEach(d=>activeDays.add(d));
-    const sem = params.get('sem'); if(sem) sem.split('|').forEach(s=>activeSemesters.add(s));
-    const prog = params.get('prog'); if(prog) prog.split('|').forEach(p=>activePrograms.add(p));
-  const sec = params.get('sec'); if(sec) sec.split('|').forEach(s=>activeSections.add(s));
-    const deg = params.get('deg'); if(deg) deg.split('|').forEach(d=>activeDegrees.add(d));
-    const sk = params.get('sort') as keyof FlatRecord | 'day' | null; if(sk) sortKey = sk;
-    const sd = params.get('dir'); if(sd==='desc') sortDir = -1;
-  // grouping removed
+    const ds = params.get('ds');
+    if (ds && datasetSelect) datasetSelect.value = ds;
+    const q = params.get('q');
+    if (q && searchInput) searchInput.value = q;
+    const days = params.get('days');
+    if (days) days.split('|').forEach((d) => activeDays.add(d));
+    const sem = params.get('sem');
+    if (sem) sem.split('|').forEach((s) => activeSemesters.add(s));
+    const prog = params.get('prog');
+    if (prog) prog.split('|').forEach((p) => activePrograms.add(p));
+    const sec = params.get('sec');
+    if (sec) sec.split('|').forEach((s) => activeSections.add(s));
+    const deg = params.get('deg');
+    if (deg) deg.split('|').forEach((d) => activeDegrees.add(d));
+    const sk = params.get('sort') as keyof FlatRecord | 'day' | null;
+    if (sk) sortKey = sk;
+    const sd = params.get('dir');
+    if (sd === 'desc') sortDir = -1;
+    // grouping removed
   }
 
   function render(): void {
     const q = (searchInput?.value || '').trim().toLowerCase();
-    const list = applyFilters(flat).filter((r: FlatRecord)=>recordMatches(r,q));
-    list.sort((a: FlatRecord,b: FlatRecord)=>{
+    const list = applyFilters(flat).filter((r: FlatRecord) =>
+      recordMatches(r, q)
+    );
+    list.sort((a: FlatRecord, b: FlatRecord) => {
       // Sort priority: chosen sortKey then fallback original ordering logic
-      const primary = (()=>{
-        if(sortKey==='day') return DAY_ORDER.indexOf(a.day) - DAY_ORDER.indexOf(b.day);
+      const primary = (() => {
+        if (sortKey === 'day')
+          return DAY_ORDER.indexOf(a.day) - DAY_ORDER.indexOf(b.day);
         const av = (a as any)[sortKey];
         const bv = (b as any)[sortKey];
-        if(typeof av === 'number' && typeof bv === 'number') return av - bv;
+        if (typeof av === 'number' && typeof bv === 'number') return av - bv;
         return String(av).localeCompare(String(bv));
       })();
-      if(primary!==0) return primary * sortDir;
-      const dayDiff = DAY_ORDER.indexOf(a.day) - DAY_ORDER.indexOf(b.day); if(dayDiff!==0) return dayDiff;
-      const tA = a.start_time? parseInt(a.start_time.slice(0,2))*60 + parseInt(a.start_time.slice(3,5)) : 0;
-      const tB = b.start_time? parseInt(b.start_time.slice(0,2))*60 + parseInt(b.start_time.slice(3,5)) : 0;
-      if(tA!==tB) return tA - tB;
-      if(a.room < b.room) return -1; if(a.room > b.room) return 1; return 0;
+      if (primary !== 0) return primary * sortDir;
+      const dayDiff = DAY_ORDER.indexOf(a.day) - DAY_ORDER.indexOf(b.day);
+      if (dayDiff !== 0) return dayDiff;
+      const tA = a.start_time
+        ? parseInt(a.start_time.slice(0, 2)) * 60 +
+          parseInt(a.start_time.slice(3, 5))
+        : 0;
+      const tB = b.start_time
+        ? parseInt(b.start_time.slice(0, 2)) * 60 +
+          parseInt(b.start_time.slice(3, 5))
+        : 0;
+      if (tA !== tB) return tA - tB;
+      if (a.room < b.room) return -1;
+      if (a.room > b.room) return 1;
+      return 0;
     });
 
-    if(statsEl){
-      const distinctTeachers = new Set(list.map(r=>r.teacher_name).filter(Boolean));
-      const distinctPrograms = new Set(list.map(r=>r.program).filter(Boolean));
+    if (statsEl) {
+      const distinctTeachers = new Set(
+        list.map((r) => r.teacher_name).filter(Boolean)
+      );
+      const distinctPrograms = new Set(
+        list.map((r) => r.program).filter(Boolean)
+      );
       statsEl.textContent = `${list.length} classes shown (of ${flat.length} loaded) • ${distinctTeachers.size} teachers • ${distinctPrograms.size} programs`;
     }
 
-    if(!list.length){
-      if(resultsEl)
-        resultsEl.innerHTML = '<tr><td colspan="8" class="px-4 py-6 text-center text-gray-400">No matches.</td></tr>';
+    if (!list.length) {
+      if (resultsEl)
+        resultsEl.innerHTML =
+          '<tr><td colspan="8" class="px-4 py-6 text-center text-gray-400">No matches.</td></tr>';
       return;
     }
 
-      const rows = list.map((r: FlatRecord) => {
+    const rows = list
+      .map((r: FlatRecord) => {
         const flags: string[] = [];
-        if(r.combined_class) flags.push('Combined');
-        if(r.practical) flags.push('Practical');
+        if (r.combined_class) flags.push('Combined');
+        if (r.practical) flags.push('Practical');
         return `<tr class="hover:bg-gray-800/40">
           <td class="px-3 py-2 whitespace-nowrap text-gray-300">${to12(r.start_time)}${r.end_time ? ` - ${to12(r.end_time)}` : ''}</td>
           <td class="px-3 py-2 font-medium text-white">${r.course_title || '<span class="text-gray-500">TBA</span>'}</td>
@@ -392,33 +542,43 @@ try {
           <td class="px-3 py-2 text-gray-300">${r.teacher_name || ''}</td>
           <td class="px-3 py-2 text-gray-400">${r.room}</td>
           <td class="px-3 py-2 text-gray-400">${r.day}</td>
-          <td class="px-3 py-2 text-xs">${flags.map(f => `<span class='inline-block bg-blue-600/30 border border-blue-500/40 text-blue-300 rounded-full px-2 py-0.5 mr-1 mb-1'>${f}</span>`).join('')}</td>
+          <td class="px-3 py-2 text-xs">${flags.map((f) => `<span class='inline-block bg-blue-600/30 border border-blue-500/40 text-blue-300 rounded-full px-2 py-0.5 mr-1 mb-1'>${f}</span>`).join('')}</td>
         </tr>`;
-      }).join('');
-    if(resultsEl) resultsEl.innerHTML = rows;
+      })
+      .join('');
+    if (resultsEl) resultsEl.innerHTML = rows;
     syncURL();
   }
 
-  function clearAll(){
-    activeDays.clear(); activeSemesters.clear(); activePrograms.clear();
+  function clearAll() {
+    activeDays.clear();
+    activeSemesters.clear();
+    activePrograms.clear();
     activeSections.clear();
     activeDegrees.clear();
-    if(searchInput) searchInput.value='';
+    if (searchInput) searchInput.value = '';
     buildFilters();
     render();
   }
 
-  if(datasetSelect) datasetSelect.addEventListener('change', ()=> datasetSelect && loadDataset(datasetSelect.value));
-  if(searchInput) searchInput.addEventListener('input', ()=> {
-    if(debounceTimer) window.clearTimeout(debounceTimer);
-    debounceTimer = window.setTimeout(()=>{ render(); }, 60);
-  });
+  if (datasetSelect)
+    datasetSelect.addEventListener(
+      'change',
+      () => datasetSelect && loadDataset(datasetSelect.value)
+    );
+  if (searchInput)
+    searchInput.addEventListener('input', () => {
+      if (debounceTimer) window.clearTimeout(debounceTimer);
+      debounceTimer = window.setTimeout(() => {
+        render();
+      }, 60);
+    });
 
   document.getElementById('clear-filters')?.addEventListener('click', clearAll);
   loadFromURL();
 
-  if(datasetSelect instanceof HTMLSelectElement) {
-    loadDataset(datasetSelect.value).then(()=>{
+  if (datasetSelect instanceof HTMLSelectElement) {
+    loadDataset(datasetSelect.value).then(() => {
       attachHeaderSorting();
     });
   }
@@ -426,57 +586,113 @@ try {
 
 <style is:global>
   /* Optional minor tweaks */
-  #results-wrapper table { font-variant-numeric: tabular-nums; }
-  .filter-row { display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center; padding:2px 4px; }
-  .chip { position:relative; cursor:pointer; user-select:none; padding:0.42rem 0.85rem; line-height:1; font-size:0.7rem; letter-spacing:.025em; border:1px solid var(--chip-border,#2e3a45); border-radius:9999px; background:var(--chip-bg,#1d242b); color:var(--chip-fg,#d5dde3); transition:background .16s ease, color .16s ease, border-color .16s ease, box-shadow .16s ease; }
-  .chip:focus-visible { outline:2px solid var(--chip-accent,#3b82f6); outline-offset:1px; }
-  .chip-inactive { opacity:.95; }
-  .chip-inactive:hover { background:var(--chip-bg-hover,#232d36); }
-  .chip-active { background:var(--chip-bg-active,#2d3741); color:var(--chip-fg-active,#ffffff); border-color:var(--chip-accent,#3b82f6); box-shadow:0 0 0 1px var(--chip-accent,#3b82f6),0 2px 6px -2px rgba(0,0,0,.5); }
-  .chip-active:hover { background:var(--chip-bg-active-hover,#31404b); }
+  #results-wrapper table {
+    font-variant-numeric: tabular-nums;
+  }
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    padding: 2px 4px;
+  }
+  .chip {
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    padding: 0.42rem 0.85rem;
+    line-height: 1;
+    font-size: 0.7rem;
+    letter-spacing: 0.025em;
+    border: 1px solid var(--chip-border, #2e3a45);
+    border-radius: 9999px;
+    background: var(--chip-bg, #1d242b);
+    color: var(--chip-fg, #d5dde3);
+    transition:
+      background 0.16s ease,
+      color 0.16s ease,
+      border-color 0.16s ease,
+      box-shadow 0.16s ease;
+  }
+  .chip:focus-visible {
+    outline: 2px solid var(--chip-accent, #3b82f6);
+    outline-offset: 1px;
+  }
+  .chip-inactive {
+    opacity: 0.95;
+  }
+  .chip-inactive:hover {
+    background: var(--chip-bg-hover, #232d36);
+  }
+  .chip-active {
+    background: var(--chip-bg-active, #2d3741);
+    color: var(--chip-fg-active, #ffffff);
+    border-color: var(--chip-accent, #3b82f6);
+    box-shadow:
+      0 0 0 1px var(--chip-accent, #3b82f6),
+      0 2px 6px -2px rgba(0, 0, 0, 0.5);
+  }
+  .chip-active:hover {
+    background: var(--chip-bg-active-hover, #31404b);
+  }
   /* Accent palettes (solid, subtle) */
   /* Brighter, higher-chroma translucent palettes */
-  .chip-accent-day { 
-    --chip-accent:#58b8ff; 
-    --chip-border:var(--chip-accent);
-    --chip-bg:rgba(88,184,255,0.18); 
-    --chip-bg-hover:rgba(88,184,255,0.28); 
-    --chip-bg-active:rgba(88,184,255,0.45); 
-    --chip-bg-active-hover:rgba(88,184,255,0.60); 
+  .chip-accent-day {
+    --chip-accent: #58b8ff;
+    --chip-border: var(--chip-accent);
+    --chip-bg: rgba(88, 184, 255, 0.18);
+    --chip-bg-hover: rgba(88, 184, 255, 0.28);
+    --chip-bg-active: rgba(88, 184, 255, 0.45);
+    --chip-bg-active-hover: rgba(88, 184, 255, 0.6);
   }
-  .chip-accent-degree { 
-    --chip-accent:#25dfff; 
-    --chip-border:var(--chip-accent);
-    --chip-bg:rgba(37,223,255,0.18); 
-    --chip-bg-hover:rgba(37,223,255,0.28); 
-    --chip-bg-active:rgba(37,223,255,0.45); 
-    --chip-bg-active-hover:rgba(37,223,255,0.60); 
+  .chip-accent-degree {
+    --chip-accent: #25dfff;
+    --chip-border: var(--chip-accent);
+    --chip-bg: rgba(37, 223, 255, 0.18);
+    --chip-bg-hover: rgba(37, 223, 255, 0.28);
+    --chip-bg-active: rgba(37, 223, 255, 0.45);
+    --chip-bg-active-hover: rgba(37, 223, 255, 0.6);
   }
-  .chip-accent-program { 
-    --chip-accent:#a38bff; 
-    --chip-border:var(--chip-accent);
-    --chip-bg:rgba(163,139,255,0.18); 
-    --chip-bg-hover:rgba(163,139,255,0.28); 
-    --chip-bg-active:rgba(163,139,255,0.45); 
-    --chip-bg-active-hover:rgba(163,139,255,0.60); 
+  .chip-accent-program {
+    --chip-accent: #a38bff;
+    --chip-border: var(--chip-accent);
+    --chip-bg: rgba(163, 139, 255, 0.18);
+    --chip-bg-hover: rgba(163, 139, 255, 0.28);
+    --chip-bg-active: rgba(163, 139, 255, 0.45);
+    --chip-bg-active-hover: rgba(163, 139, 255, 0.6);
   }
-  .chip-accent-semester { 
-    --chip-accent:#27f5b6; 
-    --chip-border:var(--chip-accent);
-    --chip-bg:rgba(39,245,182,0.18); 
-    --chip-bg-hover:rgba(39,245,182,0.28); 
-    --chip-bg-active:rgba(39,245,182,0.45); 
-    --chip-bg-active-hover:rgba(39,245,182,0.60); 
+  .chip-accent-semester {
+    --chip-accent: #27f5b6;
+    --chip-border: var(--chip-accent);
+    --chip-bg: rgba(39, 245, 182, 0.18);
+    --chip-bg-hover: rgba(39, 245, 182, 0.28);
+    --chip-bg-active: rgba(39, 245, 182, 0.45);
+    --chip-bg-active-hover: rgba(39, 245, 182, 0.6);
   }
-  .chip-accent-section { 
-    --chip-accent:#ffc766; 
-    --chip-border:var(--chip-accent);
-    --chip-bg:rgba(255,199,102,0.18); 
-    --chip-bg-hover:rgba(255,199,102,0.28); 
-    --chip-bg-active:rgba(255,199,102,0.45); 
-    --chip-bg-active-hover:rgba(255,199,102,0.60); 
+  .chip-accent-section {
+    --chip-accent: #ffc766;
+    --chip-border: var(--chip-accent);
+    --chip-bg: rgba(255, 199, 102, 0.18);
+    --chip-bg-hover: rgba(255, 199, 102, 0.28);
+    --chip-bg-active: rgba(255, 199, 102, 0.45);
+    --chip-bg-active-hover: rgba(255, 199, 102, 0.6);
   }
-  .clear-btn { font-size:0.7rem; letter-spacing:.05em; background:#1f2933; color:#cbd5e1; border:1px solid #334155; padding:.5rem 1rem; border-radius:0.55rem; transition:.18s; }
-  .clear-btn:hover { background:#dc2626; color:#fff; border-color:#ef4444; }
-  #filters { --c-border:#2e3b47; }
+  .clear-btn {
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    background: #1f2933;
+    color: #cbd5e1;
+    border: 1px solid #334155;
+    padding: 0.5rem 1rem;
+    border-radius: 0.55rem;
+    transition: 0.18s;
+  }
+  .clear-btn:hover {
+    background: #dc2626;
+    color: #fff;
+    border-color: #ef4444;
+  }
+  #filters {
+    --c-border: #2e3b47;
+  }
 </style>
