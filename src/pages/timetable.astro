@@ -623,15 +623,24 @@ try {
           const semSuffix = r.semester != null ? ` (Sem #${r.semester})` : '';
           const classLine = classBase + semSuffix;
           const timeStr = `${to12(r.start_time)}${r.end_time ? ` - ${to12(r.end_time)}` : ''}`;
-          return `<div class="mcard">
-            <div class="mcard-meta">
-              <div class="mcard-meta-day">${r.day}</div>
-              <div class="mcard-meta-time">${timeStr}</div>
+          const flags: string[] = [];
+          if (r.combined_class) flags.push('Combined');
+          if (r.practical) flags.push('Practical');
+          const flagsHTML = flags.length
+            ? `<div class=\"mcard-meta-flags\">${flags
+                .map((f) => `<span class=\"mcard-flag\">${f}</span>`)
+                .join('')}</div>`
+            : '';
+          return `<div class=\"mcard\">
+            <div class=\"mcard-meta\">
+              <div class=\"mcard-meta-day\">${r.day}</div>
+              <div class=\"mcard-meta-time\">${timeStr}</div>
+              ${flagsHTML}
             </div>
-            <div class="mcard-course">${r.course_title || '<span class="text-gray-500">TBA</span>'}</div>
-            <div class="mcard-class">${classLine}</div>
-            <div class="mcard-teacher">${r.teacher_name || ''}</div>
-            <div class="mcard-room">${r.room || ''}</div>
+            <div class=\"mcard-course\">${r.course_title || '<span class=\"text-gray-500\">TBA</span>'}</div>
+            <div class=\"mcard-class\">${classLine}</div>
+            <div class=\"mcard-teacher\">${r.teacher_name || ''}</div>
+            <div class=\"mcard-room\">${r.room || ''}</div>
           </div>`;
         })
         .join('');

@@ -152,6 +152,24 @@
     color: #7dd3fc;
     font-size: 0.6rem;
   }
+  #mobile-results .mcard-meta-flags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-top: 0.15rem;
+    justify-content: flex-end;
+  }
+  #mobile-results .mcard-flag {
+    background: rgba(88, 184, 255, 0.15);
+    border: 1px solid rgba(88, 184, 255, 0.35);
+    color: #7dd3fc;
+    font-size: 0.48rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 2px 5px 2px 5px;
+    border-radius: 0.5rem;
+    text-transform: uppercase;
+  }
   #mobile-results .mcard-course {
     font-size: 0.9rem;
     font-weight: 600;
@@ -264,6 +282,24 @@
     font-weight: 600;
     color: #7dd3fc;
     font-size: 0.7rem;
+  }
+  :root.simplified #mobile-results .mcard-meta-flags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-top: 0.2rem;
+    justify-content: flex-end;
+  }
+  :root.simplified #mobile-results .mcard-flag {
+    background: rgba(88, 184, 255, 0.15);
+    border: 1px solid rgba(88, 184, 255, 0.35);
+    color: #7dd3fc;
+    font-size: 0.53rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 2px 6px;
+    border-radius: 0.55rem;
+    text-transform: uppercase;
   }
   :root.simplified #mobile-results .mcard-course {
     font-size: 1rem;
