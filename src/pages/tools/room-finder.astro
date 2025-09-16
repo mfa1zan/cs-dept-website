@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import '../../styles/global.css';
+import '../../styles/room-finder.css';
 import fs from 'node:fs';
 // Reuse timetable dataset discovery (server-side)
 const parsedDir = new URL('../../../public/parsed/', import.meta.url);
@@ -108,11 +109,9 @@ try {
 </Layout>
 
 <script>
-	import { DAY_ORDER, to12 } from '../../utils/timetableUtils';
-	// Types similar to timetable
-	interface RawEntry { start_time: string | null; end_time: string | null; course_title: string | null; teacher_name: string | null; }
-	type RawData = Record<string, Record<string, RawEntry[]>>;
-	interface Slot { start: string; end: string; course: string; teacher: string; }
+	import { to12 } from '../../utils/timetableUtils';
+	import { parseHM, formatDelta, roomSlotsForDay, isRoomFreeAt, TEACHING_START, TEACHING_END, getWeekdayOrMonday } from '../../utils/roomFinder';
+	import type { RawData } from '../../utils/roomFinder';
 
 	const datasetSelect = document.getElementById('dataset') as HTMLSelectElement | null;
 	const dayFiltersEl = document.getElementById('day-filters');
@@ -165,53 +164,15 @@ try {
 		['Monday','Tuesday','Wednesday','Thursday','Friday'].forEach(makeDayButton);
 	}
 
-	function parseHM(t: string | null | undefined): number | null { if(!t) return null; const [h,m] = t.split(':').map(Number); if(Number.isNaN(h)||Number.isNaN(m)) return null; return h*60+m; }
-
-	function roomSlotsForDay(day: string, room: string): Slot[] {
-		const entries = rawData?.[day]?.[room] || [];
-		return entries
-			.filter(e => e && (e.start_time || e.end_time))
-			.map(e => ({
-				start: e.start_time || '08:00',
-				end: e.end_time || e.start_time || '18:30',
-				course: e.course_title || 'TBA',
-				teacher: e.teacher_name || ''
-			}))
-			.sort((a,b)=> (parseHM(a.start)||0) - (parseHM(b.start)||0));
-	}
-
-	function isRoomFreeAt(day: string, room: string, minutes: number): { free: boolean; nextStart: number | null; current?: Slot; currentEnds?: number | null; immediateContinuation?: boolean; nextAfterCurrentStart?: number | null } {
-		const slots = roomSlotsForDay(day, room);
-		let nextStart: number | null = null;
-		for (let i=0;i<slots.length;i++) {
-			const s = slots[i];
-			const start = parseHM(s.start) || 0;
-			const end = parseHM(s.end) || (start+50);
-			if (minutes >= start && minutes < end) {
-				let immediateContinuation = false;
-				let nextAfterCurrentStart: number | null = null;
-				if (i+1 < slots.length) {
-					const nextStartCandidate = parseHM(slots[i+1].start) || 0;
-					if (nextStartCandidate === end) immediateContinuation = true;
-					nextAfterCurrentStart = nextStartCandidate;
-				}
-				return { free: false, nextStart: null, current: s, currentEnds: end, immediateContinuation, nextAfterCurrentStart };
-			}
-			if (start > minutes) { nextStart = start; break; }
-		}
-		return { free: true, nextStart };
-	}
-
-	// buildRoomSelect removed
-
-	function formatDelta(mins: number | null): string { if(mins==null) return ''; if(mins <=0) return 'Now'; const h=Math.floor(mins/60); const m=mins%60; const parts=[]; if(h) parts.push(h+'h'); if(m) parts.push(m+'m'); return parts.join(' ');} 
+// buildRoomSelect removed (logic centralized in utils)
 
 	function updateAvailableHeading(day: string | null, minutes: number | null) {
 		if (!availableHeadingEl) return;
 		if (!day || minutes == null) { availableHeadingEl.firstChild && (availableHeadingEl.childNodes[0].textContent = 'Available Rooms '); return; }
 		const hh = String(Math.floor(minutes/60)).padStart(2,'0');
 		const mm = String(minutes%60).padStart(2,'0');
-		availableHeadingEl.childNodes[0].textContent = `Available Rooms at ${hh}:${mm} on ${day} `;
+		const ampm = to12(`${hh}:${mm}`);
+		availableHeadingEl.childNodes[0].textContent = `Available Rooms at ${ampm} on ${day} `;
 	}
 
 	function hideSchedule() {
@@ -237,7 +198,7 @@ try {
 			return;
 		}
 		let minutes = parseHM(tVal); if(minutes==null) return;
-		if (minutes < 480 || minutes > 1110) {
+		if (minutes < TEACHING_START || minutes > TEACHING_END) {
 			if (summaryEl) summaryEl.textContent = 'Outside teaching hours (08:00–18:30)';
 			if (noResultsEl) { noResultsEl.classList.remove('hidden'); noResultsEl.textContent = 'No data outside teaching hours.'; }
 			updateAvailableHeading(day, minutes);
@@ -246,7 +207,7 @@ try {
 		}
 		const csRooms = Object.keys(rawData[day] || {}).filter(r=> r.startsWith('Department of Computer Science'));
 		const uniqueRooms = csRooms.sort();
-		const list = uniqueRooms.map(room => ({ room, status: isRoomFreeAt(day, room, minutes) }));
+		const list = uniqueRooms.map(room => ({ room, status: isRoomFreeAt(rawData, day, room, minutes) }));
 		const free = list.filter(l=> l.status.free);
 		let soon: typeof list = [];
 		if (showSoon) {
@@ -273,7 +234,7 @@ try {
 			card.type='button';
 			card.className='room-card group flex flex-col text-left bg-gray-900/60 hover:bg-gray-800/70 border border-gray-800 hover:border-blue-500/60 rounded-lg p-3 transition focus:outline-none focus:ring-2 focus:ring-blue-600';
 			const nextDelta = status.nextStart != null ? status.nextStart - minutes : null;
-			const nextStr = status.nextStart != null ? `Next class in ${formatDelta(nextDelta)} (${to12(String(Math.floor(status.nextStart/60)).padStart(2,'0')+':'+String(status.nextStart%60).padStart(2,'0'))})` : 'Free until 18:30';
+			const nextStr = status.nextStart != null ? `Next class in ${formatDelta(nextDelta)} (${to12(String(Math.floor(status.nextStart/60)).padStart(2,'0')+':'+String(status.nextStart%60).padStart(2,'0'))})` : `Free until ${to12('18:30')}`;
 			card.innerHTML = `<div class='text-sm font-semibold text-white mb-1'>${room.replace('Department of Computer Science','CS')}</div>
 				<div class='text-xs text-gray-400'>${nextStr}</div>`;
 			card.addEventListener('click', ()=> {
@@ -336,7 +297,7 @@ try {
 		if (!scheduleEl || !activeDay || !selectedRoom) return;
 		scheduleEl.innerHTML='';
 		const minutes = parseHM(timeInput?.value || '') || 0;
-		const slots = roomSlotsForDay(activeDay, selectedRoom);
+		const slots = roomSlotsForDay(rawData, activeDay, selectedRoom);
 		if (!slots.length) { scheduleEl.innerHTML = `<div class='text-gray-400 text-sm'>No classes scheduled in this room on ${activeDay}.</div>`; mobileBody && (mobileBody.innerHTML=scheduleEl.innerHTML); return; }
 		const frag = document.createDocumentFragment();
 		slots.forEach(s=>{
@@ -380,7 +341,7 @@ try {
 	}
 
 	async function loadDataset(name: string) {
-		if (!name) return; try { const res = await fetch(`/parsed/${name}`); rawData = await res.json(); if (!activeDay) { const idx = new Date().getDay(); const mapped = DAY_ORDER[(idx+6)%7]; activeDay = ['Saturday','Sunday'].includes(mapped) ? 'Monday' : mapped; } buildDayFilters(); render(); } catch(e) { console.error('Failed to load dataset', e); }
+		if (!name) return; try { const res = await fetch(`/parsed/${name}`); rawData = await res.json(); if (!activeDay) { activeDay = getWeekdayOrMonday(); } buildDayFilters(); render(); } catch(e) { console.error('Failed to load dataset', e); }
 	}
 
 	datasetSelect?.addEventListener('change', ()=> { loadDataset(datasetSelect.value); syncURL(); });
@@ -395,9 +356,7 @@ try {
 
 	function setNowTime(force: boolean) {
 		const now = new Date();
-		const dayIdx = now.getDay(); // 0=Sun
-		const mapped = DAY_ORDER[(dayIdx+6)%7];
-		activeDay = ['Saturday','Sunday'].includes(mapped) ? 'Monday' : mapped;
+		activeDay = getWeekdayOrMonday();
 		const hh = String(now.getHours()).padStart(2,'0');
 		const mm = String(now.getMinutes()).padStart(2,'0');
 		if (timeInput && (force || !timeInput.value)) timeInput.value = `${hh}:${mm}`;
@@ -411,11 +370,7 @@ try {
 </script>
 
 <style>
-	/* Minor custom styles */
-	#available-rooms button { position: relative; }
-	#available-rooms button::after { content:''; position:absolute; inset:0; border-radius:inherit; box-shadow:0 0 0 0 rgba(59,130,246,0.4); opacity:0; transition:0.3s; }
-	#available-rooms button:focus-visible::after { box-shadow:0 0 0 3px rgba(59,130,246,0.5); opacity:1; }
-	.room-card.active { border-color: #3b82f6 !important; background: rgba(59,130,246,0.18) !important; box-shadow: 0 0 0 1px rgba(59,130,246,0.4); }
-	@media (max-width: 767px) { #layout-panels { display:flex; flex-direction:column; } }
+/* Page-specific overrides (structural layout only) now that core styles are external */
+@media (max-width: 767px) { #layout-panels { display:flex; flex-direction:column; } }
 </style>
 
