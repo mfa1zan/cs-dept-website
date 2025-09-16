@@ -107,34 +107,58 @@ const isActive = (path: string): boolean => {
               isActive('/timetable') ? 'w-full' : 'w-0 group-hover:w-full'
             }`}></span>
         </a>
-        <a
-          href="/tools/cgpa-calculator"
-          class={`transition-colors duration-200 relative group ${
-            isActive('/tools/cgpa-calculator')
-              ? 'text-blue-400'
-              : 'text-gray-300 hover:text-blue-400'
-          }`}
-        >
-          CGPA
-          <span
-            class={`absolute -bottom-1 left-0 h-0.5 bg-blue-400 transition-all duration-200 ${
-              isActive('/tools/cgpa-calculator') ? 'w-full' : 'w-0 group-hover:w-full'
-            }`}></span>
-        </a>
-        <a
-          href="/tools/room-finder"
-          class={`transition-colors duration-200 relative group ${
-            isActive('/tools/room-finder')
-              ? 'text-blue-400'
-              : 'text-gray-300 hover:text-blue-400'
-          }`}
-        >
-          Room Finder
-          <span
-            class={`absolute -bottom-1 left-0 h-0.5 bg-blue-400 transition-all duration-200 ${
-              isActive('/tools/room-finder') ? 'w-full' : 'w-0 group-hover:w-full'
-            }`}></span>
-        </a>
+        <!-- Tools Dropdown -->
+        <div class="relative group">
+          <button
+            class={`px-4 py-2 rounded-lg transition-all duration-200 flex items-center ${
+              isActive('/tools')
+                ? 'text-blue-400'
+                : 'text-gray-300 hover:text-blue-400'
+            }`}
+          >
+            Tools
+            <svg
+              class="w-4 h-4 ml-2 transform group-hover:rotate-180 transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div
+            class="absolute top-full right-0 mt-3 w-56 bg-gray-900/95 backdrop-blur-md border border-gray-700/50 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 overflow-hidden"
+          >
+            <div class="p-2">
+              <a
+                href="/tools/cgpa-calculator"
+                class={`block px-4 py-3 rounded-lg transition-all duration-200 hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-purple-500/10 text-gray-300 hover:text-blue-400 border-l-2 border-transparent hover:border-blue-400 ${
+                  currentPath === '/tools/cgpa-calculator'
+                    ? 'text-blue-400 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-l-2 border-blue-400'
+                    : ''
+                }`}
+              >
+                <div class="font-medium">CGPA Calculator</div>
+                <div class="text-xs text-gray-500 mt-1">Calculate your GPA</div>
+              </a>
+              <a
+                href="/tools/room-finder"
+                class={`block px-4 py-3 rounded-lg transition-all duration-200 hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-purple-500/10 text-gray-300 hover:text-blue-400 border-l-2 border-transparent hover:border-blue-400 ${
+                  currentPath === '/tools/room-finder'
+                    ? 'text-blue-400 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-l-2 border-blue-400'
+                    : ''
+                }`}
+              >
+                <div class="font-medium">Room Finder</div>
+                <div class="text-xs text-gray-500 mt-1">Locate free classrooms</div>
+              </a>
+            </div>
+          </div>
+        </div>
 
         <!-- Societies Dropdown -->
         <div class="relative group">
@@ -338,6 +362,54 @@ const isActive = (path: string): boolean => {
           }`}>Room Finder</a
         >
 
+        <!-- Tools Dropdown (Mobile) -->
+        <div class="space-y-2">
+          <button
+            id="mobile-tools-toggle"
+            class="block bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-4 py-2 rounded-lg transition-all duration-200 text-center w-full flex items-center justify-center shadow-lg"
+          >
+            Tools
+            <svg
+              id="mobile-tools-dropdown-arrow"
+              class="w-4 h-4 ml-2 transform transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div
+            id="mobile-tools-dropdown"
+            class="ml-2 space-y-1 hidden bg-gray-800/50 rounded-lg p-2 backdrop-blur-sm"
+          >
+            <a
+              href="/tools/cgpa-calculator"
+              class={`block px-3 py-2 rounded-lg transition-all duration-200 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 border-l-2 border-transparent hover:border-blue-400 ${
+                currentPath === '/tools/cgpa-calculator'
+                  ? 'text-blue-400 bg-blue-500/10 border-l-2 border-blue-400'
+                  : ''
+              }`}
+            >
+              <div class="font-medium text-sm">CGPA Calculator</div>
+            </a>
+            <a
+              href="/tools/room-finder"
+              class={`block px-3 py-2 rounded-lg transition-all duration-200 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 border-l-2 border-transparent hover:border-blue-400 ${
+                currentPath === '/tools/room-finder'
+                  ? 'text-blue-400 bg-blue-500/10 border-l-2 border-blue-400'
+                  : ''
+              }`}
+            >
+              <div class="font-medium text-sm">Room Finder</div>
+            </a>
+          </div>
+        </div>
+
         <!-- Societies Dropdown -->
         <div class="space-y-2">
           <button
@@ -461,10 +533,21 @@ const isActive = (path: string): boolean => {
     const mobileDropdownArrow = document.getElementById(
       'mobile-dropdown-arrow'
     );
+    // Tools mobile dropdown elements
+    const mobileToolsToggle = document.getElementById('mobile-tools-toggle');
+    const mobileToolsDropdown = document.getElementById('mobile-tools-dropdown');
+    const mobileToolsDropdownArrow = document.getElementById(
+      'mobile-tools-dropdown-arrow'
+    );
 
     mobileSocietiesToggle?.addEventListener('click', () => {
       mobileSocietiesDropdown?.classList.toggle('hidden');
       mobileDropdownArrow?.classList.toggle('rotate-180');
+    });
+
+    mobileToolsToggle?.addEventListener('click', () => {
+      mobileToolsDropdown?.classList.toggle('hidden');
+      mobileToolsDropdownArrow?.classList.toggle('rotate-180');
     });
   });
 </script>
