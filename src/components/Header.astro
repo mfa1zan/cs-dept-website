@@ -121,6 +121,20 @@ const isActive = (path: string): boolean => {
               isActive('/tools/cgpa-calculator') ? 'w-full' : 'w-0 group-hover:w-full'
             }`}></span>
         </a>
+        <a
+          href="/tools/room-finder"
+          class={`transition-colors duration-200 relative group ${
+            isActive('/tools/room-finder')
+              ? 'text-blue-400'
+              : 'text-gray-300 hover:text-blue-400'
+          }`}
+        >
+          Room Finder
+          <span
+            class={`absolute -bottom-1 left-0 h-0.5 bg-blue-400 transition-all duration-200 ${
+              isActive('/tools/room-finder') ? 'w-full' : 'w-0 group-hover:w-full'
+            }`}></span>
+        </a>
 
         <!-- Societies Dropdown -->
         <div class="relative group">
@@ -314,6 +328,14 @@ const isActive = (path: string): boolean => {
               ? 'text-blue-400'
               : 'text-gray-300 hover:text-blue-400'
           }`}>CGPA Calculator</a
+        >
+        <a
+          href="/tools/room-finder"
+          class={`block transition-colors duration-200 ${
+            isActive('/tools/room-finder')
+              ? 'text-blue-400'
+              : 'text-gray-300 hover:text-blue-400'
+          }`}>Room Finder</a
         >
 
         <!-- Societies Dropdown -->
