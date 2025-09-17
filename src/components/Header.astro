@@ -156,6 +156,17 @@ const isActive = (path: string): boolean => {
                 <div class="font-medium">Room Finder</div>
                 <div class="text-xs text-gray-500 mt-1">Locate free classrooms</div>
               </a>
+              <a
+                href="/tools/study-resources"
+                class={`block px-4 py-3 rounded-lg transition-all duration-200 hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-purple-500/10 text-gray-300 hover:text-blue-400 border-l-2 border-transparent hover:border-blue-400 ${
+                  currentPath === '/tools/study-resources'
+                    ? 'text-blue-400 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-l-2 border-blue-400'
+                    : ''
+                }`}
+              >
+                <div class="font-medium">Study Resources</div>
+                <div class="text-xs text-gray-500 mt-1">Access study materials</div>
+              </a>
             </div>
           </div>
         </div>
@@ -406,6 +417,16 @@ const isActive = (path: string): boolean => {
               }`}
             >
               <div class="font-medium text-sm">Room Finder</div>
+            </a>
+            <a
+              href="/tools/study-resources"
+              class={`block px-3 py-2 rounded-lg transition-all duration-200 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 border-l-2 border-transparent hover:border-blue-400 ${
+                currentPath === '/tools/study-resources'
+                  ? 'text-blue-400 bg-blue-500/10 border-l-2 border-blue-400'
+                  : ''
+              }`}
+            >
+              <div class="font-medium text-sm">Study Resources</div>
             </a>
           </div>
         </div>
