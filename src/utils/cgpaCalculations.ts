@@ -27,71 +27,77 @@ export interface GradeScale {
 }
 
 export const gradeScale: GradeScale[] = [
-  { minPercentage: 80, gradePoint: 4.00, letterGrade: 'A' },
+  { minPercentage: 80, gradePoint: 4.0, letterGrade: 'A' },
   { minPercentage: 79, gradePoint: 3.94, letterGrade: 'B' },
   { minPercentage: 78, gradePoint: 3.87, letterGrade: 'B' },
-  { minPercentage: 77, gradePoint: 3.80, letterGrade: 'B' },
+  { minPercentage: 77, gradePoint: 3.8, letterGrade: 'B' },
   { minPercentage: 76, gradePoint: 3.73, letterGrade: 'B' },
   { minPercentage: 75, gradePoint: 3.67, letterGrade: 'B' },
-  { minPercentage: 74, gradePoint: 3.60, letterGrade: 'B' },
+  { minPercentage: 74, gradePoint: 3.6, letterGrade: 'B' },
   { minPercentage: 73, gradePoint: 3.53, letterGrade: 'B' },
   { minPercentage: 72, gradePoint: 3.47, letterGrade: 'B' },
-  { minPercentage: 71, gradePoint: 3.40, letterGrade: 'B' },
+  { minPercentage: 71, gradePoint: 3.4, letterGrade: 'B' },
   { minPercentage: 70, gradePoint: 3.33, letterGrade: 'B' },
   { minPercentage: 69, gradePoint: 3.27, letterGrade: 'B' },
-  { minPercentage: 68, gradePoint: 3.20, letterGrade: 'B' },
+  { minPercentage: 68, gradePoint: 3.2, letterGrade: 'B' },
   { minPercentage: 67, gradePoint: 3.13, letterGrade: 'B' },
   { minPercentage: 66, gradePoint: 3.07, letterGrade: 'B' },
-  { minPercentage: 65, gradePoint: 3.00, letterGrade: 'B' },
+  { minPercentage: 65, gradePoint: 3.0, letterGrade: 'B' },
   { minPercentage: 64, gradePoint: 2.93, letterGrade: 'C' },
   { minPercentage: 63, gradePoint: 2.87, letterGrade: 'C' },
   { minPercentage: 62, gradePoint: 2.76, letterGrade: 'C' },
-  { minPercentage: 61, gradePoint: 2.70, letterGrade: 'C' },
+  { minPercentage: 61, gradePoint: 2.7, letterGrade: 'C' },
   { minPercentage: 60, gradePoint: 2.64, letterGrade: 'C' },
   { minPercentage: 59, gradePoint: 2.57, letterGrade: 'C' },
-  { minPercentage: 58, gradePoint: 2.50, letterGrade: 'C' },
+  { minPercentage: 58, gradePoint: 2.5, letterGrade: 'C' },
   { minPercentage: 57, gradePoint: 2.43, letterGrade: 'C' },
   { minPercentage: 56, gradePoint: 2.36, letterGrade: 'C' },
-  { minPercentage: 55, gradePoint: 2.30, letterGrade: 'C' },
+  { minPercentage: 55, gradePoint: 2.3, letterGrade: 'C' },
   { minPercentage: 54, gradePoint: 2.24, letterGrade: 'C' },
   { minPercentage: 53, gradePoint: 2.18, letterGrade: 'C' },
   { minPercentage: 52, gradePoint: 2.12, letterGrade: 'C' },
   { minPercentage: 51, gradePoint: 2.06, letterGrade: 'C' },
-  { minPercentage: 50, gradePoint: 2.00, letterGrade: 'C' },
-  { minPercentage: 49, gradePoint: 1.90, letterGrade: 'D' },
-  { minPercentage: 48, gradePoint: 1.80, letterGrade: 'D' },
-  { minPercentage: 47, gradePoint: 1.70, letterGrade: 'D' },
-  { minPercentage: 46, gradePoint: 1.60, letterGrade: 'D' },
-  { minPercentage: 45, gradePoint: 1.50, letterGrade: 'D' },
-  { minPercentage: 44, gradePoint: 1.40, letterGrade: 'D' },
-  { minPercentage: 43, gradePoint: 1.30, letterGrade: 'D' },
-  { minPercentage: 42, gradePoint: 1.20, letterGrade: 'D' },
-  { minPercentage: 41, gradePoint: 1.10, letterGrade: 'D' },
-  { minPercentage: 40, gradePoint: 1.00, letterGrade: 'D' },
-  { minPercentage: 0, gradePoint: 0.00, letterGrade: 'F' }
+  { minPercentage: 50, gradePoint: 2.0, letterGrade: 'C' },
+  { minPercentage: 49, gradePoint: 1.9, letterGrade: 'D' },
+  { minPercentage: 48, gradePoint: 1.8, letterGrade: 'D' },
+  { minPercentage: 47, gradePoint: 1.7, letterGrade: 'D' },
+  { minPercentage: 46, gradePoint: 1.6, letterGrade: 'D' },
+  { minPercentage: 45, gradePoint: 1.5, letterGrade: 'D' },
+  { minPercentage: 44, gradePoint: 1.4, letterGrade: 'D' },
+  { minPercentage: 43, gradePoint: 1.3, letterGrade: 'D' },
+  { minPercentage: 42, gradePoint: 1.2, letterGrade: 'D' },
+  { minPercentage: 41, gradePoint: 1.1, letterGrade: 'D' },
+  { minPercentage: 40, gradePoint: 1.0, letterGrade: 'D' },
+  { minPercentage: 0, gradePoint: 0.0, letterGrade: 'F' },
 ];
 
 export const defaultGradingSystem: GradingSystem = {
-  'A': 4.0,
-  'B': 3.0,
-  'C': 2.0,
-  'D': 1.0,
-  'F': 0.0,
+  A: 4.0,
+  B: 3.0,
+  C: 2.0,
+  D: 1.0,
+  F: 0.0,
 };
 
-export function getGradeFromMarks(percentage: number): { grade: string; gradePoint: number } {
+export function getGradeFromMarks(percentage: number): {
+  grade: string;
+  gradePoint: number;
+} {
   for (const scale of gradeScale) {
     if (percentage >= scale.minPercentage) {
       return {
         grade: scale.letterGrade,
-        gradePoint: scale.gradePoint
+        gradePoint: scale.gradePoint,
       };
     }
   }
-  return { grade: 'F', gradePoint: 0.00 };
+  return { grade: 'F', gradePoint: 0.0 };
 }
 
-export function calculatePercentage(obtainedMarks: number, totalMarks: number): number {
+export function calculatePercentage(
+  obtainedMarks: number,
+  totalMarks: number
+): number {
   if (totalMarks <= 0) return 0;
   return Math.round((obtainedMarks / totalMarks) * 100);
 }
@@ -108,8 +114,15 @@ export function calculateSGPA(courses: Course[]): number | null {
   let totalGradePoints = 0;
 
   for (const course of courses) {
-    if (course.obtainedMarks !== undefined && course.totalMarks !== undefined && course.totalMarks > 0) {
-      const percentage = calculatePercentage(course.obtainedMarks, course.totalMarks);
+    if (
+      course.obtainedMarks !== undefined &&
+      course.totalMarks !== undefined &&
+      course.totalMarks > 0
+    ) {
+      const percentage = calculatePercentage(
+        course.obtainedMarks,
+        course.totalMarks
+      );
       const { gradePoint } = getGradeFromMarks(percentage);
 
       totalCreditHours += course.creditHours;
@@ -130,8 +143,15 @@ export function calculateCGPA(semesters: Semester[]): number | null {
 
   for (const semester of semesters) {
     for (const course of semester.courses) {
-      if (course.obtainedMarks !== undefined && course.totalMarks !== undefined && course.totalMarks > 0) {
-        const percentage = calculatePercentage(course.obtainedMarks, course.totalMarks);
+      if (
+        course.obtainedMarks !== undefined &&
+        course.totalMarks !== undefined &&
+        course.totalMarks > 0
+      ) {
+        const percentage = calculatePercentage(
+          course.obtainedMarks,
+          course.totalMarks
+        );
         const { gradePoint } = getGradeFromMarks(percentage);
 
         totalCreditHours += course.creditHours;
@@ -158,7 +178,8 @@ export function predictRequiredGPA(
   }
 
   const currentTotalPoints = currentCGPA * completedCreditHours;
-  const targetTotalPoints = targetCGPA * (completedCreditHours + remainingCreditHours);
+  const targetTotalPoints =
+    targetCGPA * (completedCreditHours + remainingCreditHours);
   const requiredPoints = targetTotalPoints - currentTotalPoints;
   const requiredGPA = requiredPoints / remainingCreditHours;
 
@@ -183,11 +204,11 @@ export function getGradeFromGPA(gpa: number): string {
 }
 
 export function getGPAClassification(cgpa: number): string {
-    if (cgpa === 4.0) return '🌟 Perfect Score - Outstanding Achievement! 🌟';
-    if (cgpa >= 3.5) return '🏆 Excellent Performance';
-    if (cgpa >= 3.2) return '✨ Very Good Performance';
-    if (cgpa >= 2.8) return '👍 Good Performance';
-    if (cgpa >= 2.0) return '📘 Satisfactory Performance';
+  if (cgpa === 4.0) return '🌟 Perfect Score - Outstanding Achievement! 🌟';
+  if (cgpa >= 3.5) return '🏆 Excellent Performance';
+  if (cgpa >= 3.2) return '✨ Very Good Performance';
+  if (cgpa >= 2.8) return '👍 Good Performance';
+  if (cgpa >= 2.0) return '📘 Satisfactory Performance';
   return '⚠️ Needs Improvement';
 }
 
