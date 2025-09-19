@@ -9,7 +9,9 @@ import '../../styles/global.css';
 
 <Layout>
   <Header />
-  <main class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-950 to-black pt-20">
+  <main
+    class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-950 to-black pt-20"
+  >
     <div class="container mx-auto px-4 py-12">
       <div class="max-w-6xl mx-auto">
         <div class="text-center mb-8">
@@ -17,62 +19,126 @@ import '../../styles/global.css';
             CGPA Calculator
           </h1>
           <p class="text-gray-400 text-lg">
-            Calculate your Cumulative Grade Point Average across multiple semesters
+            Calculate your Cumulative Grade Point Average across multiple
+            semesters
           </p>
         </div>
 
-        <div id="calculator-section" class="bg-gray-900/50 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-2xl border border-gray-800 p-4 sm:p-6 lg:p-8 scroll-mt-20 md:scroll-mt-24">
+        <div
+          id="calculator-section"
+          class="bg-gray-900/50 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-2xl border border-gray-800 p-4 sm:p-6 lg:p-8 scroll-mt-20 md:scroll-mt-24"
+        >
           <CGPACalculator />
         </div>
 
-        <div class="mt-8 md:mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+        <div
+          class="mt-8 md:mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6"
+        >
           <button
             class="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-gray-800 text-left transition-all hover:bg-gray-800/50 hover:border-blue-500/50 hover:transform hover:scale-105 cursor-pointer"
-            onclick="document.querySelector('[data-tab=calculator]').click(); document.getElementById('calculator-section').scrollIntoView({ behavior: 'smooth', block: 'start' });">
+            onclick="document.querySelector('[data-tab=calculator]').click(); document.getElementById('calculator-section').scrollIntoView({ behavior: 'smooth', block: 'start' });"
+          >
             <div class="flex items-center mb-4">
-              <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+              <div
+                class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center"
+              >
+                <svg
+                  class="w-6 h-6 text-blue-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                  ></path>
                 </svg>
               </div>
             </div>
-            <h3 class="text-xl font-semibold text-white mb-2">Multiple Semesters</h3>
-            <p class="text-gray-400">Add unlimited semesters and courses to track your academic progress</p>
-            <div class="mt-4 text-blue-400 text-sm font-semibold">Open Calculator →</div>
+            <h3 class="text-xl font-semibold text-white mb-2">
+              Multiple Semesters
+            </h3>
+            <p class="text-gray-400">
+              Add unlimited semesters and courses to track your academic
+              progress
+            </p>
+            <div class="mt-4 text-blue-400 text-sm font-semibold">
+              Open Calculator →
+            </div>
           </button>
 
           <button
             class="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-gray-800 text-left transition-all hover:bg-gray-800/50 hover:border-purple-500/50 hover:transform hover:scale-105 cursor-pointer"
-            onclick="document.querySelector('[data-tab=prediction]').click(); document.getElementById('calculator-section').scrollIntoView({ behavior: 'smooth', block: 'start' });">
+            onclick="document.querySelector('[data-tab=prediction]').click(); document.getElementById('calculator-section').scrollIntoView({ behavior: 'smooth', block: 'start' });"
+          >
             <div class="flex items-center mb-4">
-              <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+              <div
+                class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center"
+              >
+                <svg
+                  class="w-6 h-6 text-purple-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+                  ></path>
                 </svg>
               </div>
             </div>
-            <h3 class="text-xl font-semibold text-white mb-2">Grade Prediction</h3>
-            <p class="text-gray-400">Calculate required GPA to achieve your target CGPA</p>
-            <div class="mt-4 text-purple-400 text-sm font-semibold">Open Predictor →</div>
+            <h3 class="text-xl font-semibold text-white mb-2">
+              Grade Prediction
+            </h3>
+            <p class="text-gray-400">
+              Calculate required GPA to achieve your target CGPA
+            </p>
+            <div class="mt-4 text-purple-400 text-sm font-semibold">
+              Open Predictor →
+            </div>
           </button>
 
           <button
             class="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-gray-800 text-left transition-all hover:bg-gray-800/50 hover:border-green-500/50 hover:transform hover:scale-105 cursor-pointer"
-            onclick="document.querySelector('[data-tab=history]').click(); document.getElementById('calculator-section').scrollIntoView({ behavior: 'smooth', block: 'start' });">
+            onclick="document.querySelector('[data-tab=history]').click(); document.getElementById('calculator-section').scrollIntoView({ behavior: 'smooth', block: 'start' });"
+          >
             <div class="flex items-center mb-4">
-              <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
-                <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V2"></path>
+              <div
+                class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center"
+              >
+                <svg
+                  class="w-6 h-6 text-green-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V2"
+                  ></path>
                 </svg>
               </div>
             </div>
             <h3 class="text-xl font-semibold text-white mb-2">Export & Save</h3>
-            <p class="text-gray-400">Save your data locally or export as JSON/PDF for future reference</p>
-            <div class="mt-4 text-green-400 text-sm font-semibold">Manage Data →</div>
+            <p class="text-gray-400">
+              Save your data locally or export as JSON/PDF for future reference
+            </p>
+            <div class="mt-4 text-green-400 text-sm font-semibold">
+              Manage Data →
+            </div>
           </button>
         </div>
 
-        <div class="mt-12 bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-gray-800">
+        <div
+          class="mt-12 bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-gray-800"
+        >
           <h2 class="text-2xl font-semibold text-white mb-4">How to Use</h2>
           <ol class="space-y-3 text-gray-300">
             <li class="flex items-start">
@@ -81,11 +147,14 @@ import '../../styles/global.css';
             </li>
             <li class="flex items-start">
               <span class="text-blue-400 font-semibold mr-3">2.</span>
-              <span>Enter your semester name (e.g., "Fall 2024")</span>
+              <span>Enter your semester name (e.g., "Fall 2025")</span>
             </li>
             <li class="flex items-start">
               <span class="text-blue-400 font-semibold mr-3">3.</span>
-              <span>Add courses with their names, credit hours, and marks (obtained/total)</span>
+              <span
+                >Add courses with their names, credit hours, and marks
+                (obtained/total)</span
+              >
             </li>
             <li class="flex items-start">
               <span class="text-blue-400 font-semibold mr-3">4.</span>
@@ -97,37 +166,57 @@ import '../../styles/global.css';
             </li>
             <li class="flex items-start">
               <span class="text-blue-400 font-semibold mr-3">6.</span>
-              <span>Save your data for future access or export it as needed</span>
+              <span
+                >Save your data for future access or export it as needed</span
+              >
             </li>
           </ol>
         </div>
 
-        <div class="mt-8 bg-yellow-900/20 border border-yellow-700/50 rounded-xl p-6">
+        <div
+          class="mt-8 bg-yellow-900/20 border border-yellow-700/50 rounded-xl p-6"
+        >
           <div class="flex items-start">
-            <svg class="w-6 h-6 text-yellow-500 mt-1 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            <svg
+              class="w-6 h-6 text-yellow-500 mt-1 mr-3 flex-shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
             </svg>
             <div>
               <h3 class="text-yellow-400 font-semibold mb-2">Grading System</h3>
               <p class="text-gray-300 text-sm">
-                This calculator automatically calculates grades based on percentage marks:
+                This calculator automatically calculates grades based on
+                percentage marks:
               </p>
               <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mt-3 text-sm">
                 <div class="bg-gray-900/50 rounded p-2">
-                  <span class="text-green-400 font-semibold">80-100%:</span> <span class="text-gray-300">A (4.00)</span>
+                  <span class="text-green-400 font-semibold">80-100%:</span>
+                  <span class="text-gray-300">A (4.00)</span>
                 </div>
                 <div class="bg-gray-900/50 rounded p-2">
-                  <span class="text-blue-400 font-semibold">65-79%:</span> <span class="text-gray-300">B (3.00-3.94)</span>
+                  <span class="text-blue-400 font-semibold">65-79%:</span>
+                  <span class="text-gray-300">B (3.00-3.94)</span>
                 </div>
                 <div class="bg-gray-900/50 rounded p-2">
-                  <span class="text-yellow-400 font-semibold">50-64%:</span> <span class="text-gray-300">C (2.00-2.93)</span>
+                  <span class="text-yellow-400 font-semibold">50-64%:</span>
+                  <span class="text-gray-300">C (2.00-2.93)</span>
                 </div>
                 <div class="bg-gray-900/50 rounded p-2">
-                  <span class="text-red-400 font-semibold">40-49%:</span> <span class="text-gray-300">D (1.00-1.90)</span>
+                  <span class="text-red-400 font-semibold">40-49%:</span>
+                  <span class="text-gray-300">D (1.00-1.90)</span>
                 </div>
               </div>
               <p class="text-gray-400 text-sm mt-3">
-                Below 40% is considered F (Fail) with 0.00 grade points. The exact grade point is calculated based on your percentage.
+                Below 40% is considered F (Fail) with 0.00 grade points. The
+                exact grade point is calculated based on your percentage.
               </p>
             </div>
           </div>

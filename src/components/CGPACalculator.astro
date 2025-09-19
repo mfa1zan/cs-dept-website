@@ -1,11 +1,17 @@
 ---
-import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations';
+import type {
+  Semester,
+  Course,
+  GradingSystem,
+} from '../utils/cgpaCalculations';
 ---
 
 <div class="cgpa-calculator-container">
   <div class="calculator-header">
     <h2 class="text-3xl font-bold mb-2">CGPA Calculator</h2>
-    <p class="text-gray-400 mb-2">Calculate your Cumulative Grade Point Average with ease</p>
+    <p class="text-gray-400 mb-2">
+      Calculate your Cumulative Grade Point Average with ease
+    </p>
   </div>
 
   <div class="tabs mb-6">
@@ -15,8 +21,7 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
   </div>
 
   <div class="tab-content" id="calculator-tab">
-    <div class="semesters-container" id="semesters-list">
-    </div>
+    <div class="semesters-container" id="semesters-list"></div>
 
     <div class="action-buttons">
       <button class="btn btn-secondary" id="add-semester-btn">
@@ -29,7 +34,12 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
         <label for="import-file" class="btn btn-info" id="import-label">
           Import JSON
         </label>
-        <input type="file" id="import-file" accept=".json" style="display: none;">
+        <input
+          type="file"
+          id="import-file"
+          accept=".json"
+          style="display: none;"
+        />
       </div>
     </div>
 
@@ -40,6 +50,14 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
         <div class="classification" id="classification"></div>
       </div>
       <div class="result-details" id="result-details"></div>
+      <div class="result-actions">
+        <button class="btn btn-gradient" id="result-print-btn">
+          <span class="btn-icon">📄</span> Print Report
+        </button>
+        <button class="btn btn-gradient" id="result-export-btn">
+          <span class="btn-icon">💾</span> Export as JSON
+        </button>
+      </div>
     </div>
   </div>
 
@@ -47,23 +65,43 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
     <div class="prediction-form">
       <div class="form-group">
         <label>Current CGPA</label>
-        <input type="number" id="current-cgpa" min="0" max="4" step="0.01" placeholder="3.50">
+        <input
+          type="number"
+          id="current-cgpa"
+          min="0"
+          max="4"
+          step="0.01"
+          placeholder="3.50"
+        />
       </div>
       <div class="form-group">
         <label>Completed Credit Hours</label>
-        <input type="number" id="completed-hours" min="0" placeholder="90">
+        <input type="number" id="completed-hours" min="0" placeholder="90" />
       </div>
       <div class="form-group">
         <label>Target CGPA</label>
-        <input type="number" id="target-cgpa" min="0" max="4" step="0.01" placeholder="3.70">
+        <input
+          type="number"
+          id="target-cgpa"
+          min="0"
+          max="4"
+          step="0.01"
+          placeholder="3.70"
+        />
       </div>
       <div class="form-group">
         <label>Remaining Credit Hours</label>
-        <input type="number" id="remaining-hours" min="0" placeholder="30">
+        <input type="number" id="remaining-hours" min="0" placeholder="30" />
       </div>
-      <button class="btn btn-primary" id="predict-btn">Predict Required GPA</button>
+      <button class="btn btn-primary" id="predict-btn"
+        >Predict Required GPA</button
+      >
 
-      <div class="prediction-result" id="prediction-result" style="display: none;">
+      <div
+        class="prediction-result"
+        id="prediction-result"
+        style="display: none;"
+      >
         <h3>Prediction Result</h3>
         <div class="prediction-message" id="prediction-message"></div>
       </div>
@@ -81,27 +119,57 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
   </div>
 
   <div class="footer-credit">
-    <p>Made by <a href="https://github.com/mfa1zan" target="_blank" rel="noopener noreferrer" class="developer-link">Muhammad Faizan</a></p>
+    <p>
+      Made by <a
+        href="https://github.com/mfa1zan"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="developer-link">Muhammad Faizan</a
+      >
+    </p>
   </div>
 </div>
 
 <template id="semester-template">
   <div class="semester-card" data-semester-id="">
     <div class="semester-header">
-      <input type="text" class="semester-name" placeholder="Semester Name (e.g., Fall 2024)">
+      <input
+        type="text"
+        class="semester-name"
+        placeholder="Semester Name (e.g., Fall 2024)"
+      />
       <button class="btn-remove-semester"></button>
     </div>
     <div class="courses-list"></div>
     <div class="semester-actions">
       <button class="btn btn-add-course add-course-btn">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+        <svg
+          class="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 4v16m8-8H4"></path>
         </svg>
         Add Course
       </button>
       <button class="btn btn-export-semester">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V2"></path>
+        <svg
+          class="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V2"
+          ></path>
         </svg>
         Export Semester
       </button>
@@ -115,11 +183,28 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
 
 <template id="course-template">
   <div class="course-row" data-course-id="">
-    <input type="text" class="course-name" placeholder="Course Name">
+    <input type="text" class="course-name" placeholder="Course Name" />
     <div class="course-inputs-row">
-      <input type="number" class="credit-hours" min="0" max="6" placeholder="Credits">
-      <input type="number" class="obtained-marks" min="0" placeholder="Obtained">
-      <input type="number" class="total-marks" min="1" value="100" placeholder="Total">
+      <input
+        type="number"
+        class="credit-hours"
+        min="0"
+        max="6"
+        placeholder="Credits"
+      />
+      <input
+        type="number"
+        class="obtained-marks"
+        min="0"
+        placeholder="Obtained"
+      />
+      <input
+        type="number"
+        class="total-marks"
+        min="1"
+        value="100"
+        placeholder="Total"
+      />
     </div>
     <div class="grade-display">
       <div class="grade-item">
@@ -303,7 +388,6 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
     align-items: center;
   }
 
-
   .course-inputs-row {
     display: contents;
   }
@@ -347,6 +431,17 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
 
     .calculator-header p {
       font-size: 0.875rem;
+    }
+
+    .result-actions {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .btn-gradient {
+      width: 100%;
+      justify-content: center;
+      padding: 0.875rem 1.25rem;
     }
 
     .tabs {
@@ -752,6 +847,39 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
     color: white;
   }
 
+  .btn-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  }
+
+  .btn-gradient:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+  }
+
+  .btn-icon {
+    font-size: 1.2rem;
+  }
+
+  .result-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
   .results-section {
     margin-top: 2rem;
     animation: fadeIn 0.5s;
@@ -855,8 +983,6 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
     gap: 1rem;
     margin-bottom: 2rem;
   }
-
-
 
   .footer-credit {
     text-align: center;
@@ -972,7 +1098,7 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
     loadFromLocalStorage,
     clearLocalStorage,
     exportToJSON,
-    importFromJSON
+    importFromJSON,
   } from '../utils/cgpaCalculations';
 
   let semesters: Semester[] = [];
@@ -987,14 +1113,14 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
     const tabButtons = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
 
-    tabButtons.forEach(button => {
+    tabButtons.forEach((button) => {
       button.addEventListener('click', () => {
         const targetTab = button.getAttribute('data-tab');
 
-        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabButtons.forEach((btn) => btn.classList.remove('active'));
         button.classList.add('active');
 
-        tabContents.forEach(content => {
+        tabContents.forEach((content) => {
           content.style.display = 'none';
         });
 
@@ -1007,7 +1133,9 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
   }
 
   function addSemester() {
-    const template = document.getElementById('semester-template') as HTMLTemplateElement;
+    const template = document.getElementById(
+      'semester-template'
+    ) as HTMLTemplateElement;
     const clone = template.content.cloneNode(true) as DocumentFragment;
     const semesterCard = clone.querySelector('.semester-card') as HTMLElement;
     const semesterId = generateId('semester', semesterIdCounter++);
@@ -1023,7 +1151,9 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
     const exportBtn = semesterCard.querySelector('.btn-export-semester');
     exportBtn?.addEventListener('click', () => exportSemester(semesterId));
 
-    const semesterNameInput = semesterCard.querySelector('.semester-name') as HTMLInputElement;
+    const semesterNameInput = semesterCard.querySelector(
+      '.semester-name'
+    ) as HTMLInputElement;
     semesterNameInput?.addEventListener('input', () => saveSemesterData());
 
     document.getElementById('semesters-list')?.appendChild(clone);
@@ -1031,7 +1161,7 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
     const semester: Semester = {
       id: semesterId,
       name: '',
-      courses: []
+      courses: [],
     };
     semesters.push(semester);
 
@@ -1039,10 +1169,12 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
   }
 
   function removeSemester(semesterId: string) {
-    const semesterCard = document.querySelector(`[data-semester-id="${semesterId}"]`);
+    const semesterCard = document.querySelector(
+      `[data-semester-id="${semesterId}"]`
+    );
     if (semesterCard) {
       semesterCard.remove();
-      semesters = semesters.filter(s => s.id !== semesterId);
+      semesters = semesters.filter((s) => s.id !== semesterId);
       saveSemesterData();
       calculateAllGPAs();
       updateImportLabel();
@@ -1050,13 +1182,17 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
   }
 
   function addCourse(semesterId: string) {
-    const semesterCard = document.querySelector(`[data-semester-id="${semesterId}"]`);
+    const semesterCard = document.querySelector(
+      `[data-semester-id="${semesterId}"]`
+    );
     if (!semesterCard) return;
 
     const coursesList = semesterCard.querySelector('.courses-list');
     if (!coursesList) return;
 
-    const template = document.getElementById('course-template') as HTMLTemplateElement;
+    const template = document.getElementById(
+      'course-template'
+    ) as HTMLTemplateElement;
     const clone = template.content.cloneNode(true) as DocumentFragment;
     const courseRow = clone.querySelector('.course-row') as HTMLElement;
     const courseId = generateId('course', courseIdCounter++);
@@ -1064,10 +1200,12 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
     courseRow.setAttribute('data-course-id', courseId);
 
     const removeBtn = courseRow.querySelector('.btn-remove-course');
-    removeBtn?.addEventListener('click', () => removeCourse(semesterId, courseId));
+    removeBtn?.addEventListener('click', () =>
+      removeCourse(semesterId, courseId)
+    );
 
     const inputs = courseRow.querySelectorAll('input');
-    inputs.forEach(input => {
+    inputs.forEach((input) => {
       input.addEventListener('input', () => {
         updateCourseGrade(courseId);
         saveSemesterData();
@@ -1077,14 +1215,14 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
 
     coursesList.appendChild(clone);
 
-    const semester = semesters.find(s => s.id === semesterId);
+    const semester = semesters.find((s) => s.id === semesterId);
     if (semester) {
       const course: Course = {
         id: courseId,
         name: '',
         creditHours: 0,
         obtainedMarks: 0,
-        totalMarks: 100
+        totalMarks: 100,
       };
       semester.courses.push(course);
     }
@@ -1094,8 +1232,12 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
     const courseRow = document.querySelector(`[data-course-id="${courseId}"]`);
     if (!courseRow) return;
 
-    const obtainedInput = courseRow.querySelector('.obtained-marks') as HTMLInputElement;
-    const totalInput = courseRow.querySelector('.total-marks') as HTMLInputElement;
+    const obtainedInput = courseRow.querySelector(
+      '.obtained-marks'
+    ) as HTMLInputElement;
+    const totalInput = courseRow.querySelector(
+      '.total-marks'
+    ) as HTMLInputElement;
     const percentageSpan = courseRow.querySelector('.percentage');
     const gradeSpan = courseRow.querySelector('.grade') as HTMLElement;
     const gradePointSpan = courseRow.querySelector('.grade-point');
@@ -1128,14 +1270,25 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
       // Update grade color based on grade with proper classes
       if (gradeSpan) {
         // Remove all existing grade classes
-        gradeSpan.classList.remove('grade-a', 'grade-b', 'grade-c', 'grade-d', 'grade-f');
+        gradeSpan.classList.remove(
+          'grade-a',
+          'grade-b',
+          'grade-c',
+          'grade-d',
+          'grade-f'
+        );
 
         // Add appropriate grade class
         const gradeClass =
-          grade === 'A' ? 'grade-a' :
-          grade === 'B' ? 'grade-b' :
-          grade === 'C' ? 'grade-c' :
-          grade === 'D' ? 'grade-d' : 'grade-f';
+          grade === 'A'
+            ? 'grade-a'
+            : grade === 'B'
+              ? 'grade-b'
+              : grade === 'C'
+                ? 'grade-c'
+                : grade === 'D'
+                  ? 'grade-d'
+                  : 'grade-f';
 
         gradeSpan.classList.add(gradeClass);
 
@@ -1143,18 +1296,28 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
         if (gradePointSpan) {
           const gpElement = gradePointSpan as HTMLElement;
           gpElement.style.color =
-            grade === 'A' ? '#10b981' :  // Green to match A
-            grade === 'B' ? '#3b82f6' :  // Blue to match B
-            grade === 'C' ? '#f59e0b' :  // Yellow to match C
-            grade === 'D' ? '#ef4444' :  // Red to match D
-            '#6b7280';                    // Gray to match F
+            grade === 'A'
+              ? '#10b981' // Green to match A
+              : grade === 'B'
+                ? '#3b82f6' // Blue to match B
+                : grade === 'C'
+                  ? '#f59e0b' // Yellow to match C
+                  : grade === 'D'
+                    ? '#ef4444' // Red to match D
+                    : '#6b7280'; // Gray to match F
         }
       }
     } else {
       if (percentageSpan) percentageSpan.textContent = '-%';
       if (gradeSpan) {
         gradeSpan.textContent = '-';
-        gradeSpan.classList.remove('grade-a', 'grade-b', 'grade-c', 'grade-d', 'grade-f');
+        gradeSpan.classList.remove(
+          'grade-a',
+          'grade-b',
+          'grade-c',
+          'grade-d',
+          'grade-f'
+        );
       }
       if (gradePointSpan) {
         gradePointSpan.textContent = '0.00';
@@ -1167,9 +1330,9 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
     const courseRow = document.querySelector(`[data-course-id="${courseId}"]`);
     if (courseRow) {
       courseRow.remove();
-      const semester = semesters.find(s => s.id === semesterId);
+      const semester = semesters.find((s) => s.id === semesterId);
       if (semester) {
-        semester.courses = semester.courses.filter(c => c.id !== courseId);
+        semester.courses = semester.courses.filter((c) => c.id !== courseId);
         saveSemesterData();
         calculateSemesterGPA(semesterId);
       }
@@ -1177,27 +1340,41 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
   }
 
   function saveSemesterData() {
-    semesters.forEach(semester => {
-      const semesterCard = document.querySelector(`[data-semester-id="${semester.id}"]`);
+    semesters.forEach((semester) => {
+      const semesterCard = document.querySelector(
+        `[data-semester-id="${semester.id}"]`
+      );
       if (!semesterCard) return;
 
-      const nameInput = semesterCard.querySelector('.semester-name') as HTMLInputElement;
+      const nameInput = semesterCard.querySelector(
+        '.semester-name'
+      ) as HTMLInputElement;
       semester.name = nameInput?.value || '';
 
       semester.courses = [];
       const courseRows = semesterCard.querySelectorAll('.course-row');
-      courseRows.forEach(row => {
+      courseRows.forEach((row) => {
         const courseId = row.getAttribute('data-course-id') || '';
         const nameInput = row.querySelector('.course-name') as HTMLInputElement;
-        const creditInput = row.querySelector('.credit-hours') as HTMLInputElement;
-        const obtainedInput = row.querySelector('.obtained-marks') as HTMLInputElement;
-        const totalInput = row.querySelector('.total-marks') as HTMLInputElement;
+        const creditInput = row.querySelector(
+          '.credit-hours'
+        ) as HTMLInputElement;
+        const obtainedInput = row.querySelector(
+          '.obtained-marks'
+        ) as HTMLInputElement;
+        const totalInput = row.querySelector(
+          '.total-marks'
+        ) as HTMLInputElement;
 
         if (nameInput?.value || creditInput?.value || obtainedInput?.value) {
           const obtained = parseFloat(obtainedInput?.value) || 0;
           const total = parseFloat(totalInput?.value) || 100;
-          const percentage = total > 0 ? calculatePercentage(obtained, total) : 0;
-          const { grade, gradePoint } = obtained > 0 && total > 0 ? getGradeFromMarks(percentage) : { grade: '', gradePoint: 0 };
+          const percentage =
+            total > 0 ? calculatePercentage(obtained, total) : 0;
+          const { grade, gradePoint } =
+            obtained > 0 && total > 0
+              ? getGradeFromMarks(percentage)
+              : { grade: '', gradePoint: 0 };
 
           semester.courses.push({
             id: courseId,
@@ -1207,7 +1384,7 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
             totalMarks: total,
             percentage: percentage,
             grade: grade,
-            gradePoints: gradePoint
+            gradePoints: gradePoint,
           });
         }
       });
@@ -1229,13 +1406,17 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
   }
 
   function renderSemester(semester: Semester) {
-    const template = document.getElementById('semester-template') as HTMLTemplateElement;
+    const template = document.getElementById(
+      'semester-template'
+    ) as HTMLTemplateElement;
     const clone = template.content.cloneNode(true) as DocumentFragment;
     const semesterCard = clone.querySelector('.semester-card') as HTMLElement;
 
     semesterCard.setAttribute('data-semester-id', semester.id);
 
-    const semesterNameInput = clone.querySelector('.semester-name') as HTMLInputElement;
+    const semesterNameInput = clone.querySelector(
+      '.semester-name'
+    ) as HTMLInputElement;
     if (semesterNameInput) {
       semesterNameInput.value = semester.name;
       semesterNameInput.addEventListener('input', () => saveSemesterData());
@@ -1254,7 +1435,7 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
     document.getElementById('semesters-list')?.appendChild(clone);
 
     // Render all courses for this semester
-    semester.courses.forEach(course => {
+    semester.courses.forEach((course) => {
       renderCourse(semester.id, course);
     });
 
@@ -1263,41 +1444,56 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
   }
 
   function renderCourse(semesterId: string, course: Course) {
-    const semesterCard = document.querySelector(`[data-semester-id="${semesterId}"]`);
+    const semesterCard = document.querySelector(
+      `[data-semester-id="${semesterId}"]`
+    );
     if (!semesterCard) return;
 
     const coursesList = semesterCard.querySelector('.courses-list');
     if (!coursesList) return;
 
-    const template = document.getElementById('course-template') as HTMLTemplateElement;
+    const template = document.getElementById(
+      'course-template'
+    ) as HTMLTemplateElement;
     const clone = template.content.cloneNode(true) as DocumentFragment;
     const courseRow = clone.querySelector('.course-row') as HTMLElement;
 
     courseRow.setAttribute('data-course-id', course.id);
 
     // Set course values
-    const courseNameInput = courseRow.querySelector('.course-name') as HTMLInputElement;
+    const courseNameInput = courseRow.querySelector(
+      '.course-name'
+    ) as HTMLInputElement;
     if (courseNameInput) courseNameInput.value = course.name;
 
-    const creditHoursInput = courseRow.querySelector('.credit-hours') as HTMLInputElement;
-    if (creditHoursInput) creditHoursInput.value = course.creditHours.toString();
+    const creditHoursInput = courseRow.querySelector(
+      '.credit-hours'
+    ) as HTMLInputElement;
+    if (creditHoursInput)
+      creditHoursInput.value = course.creditHours.toString();
 
-    const obtainedMarksInput = courseRow.querySelector('.obtained-marks') as HTMLInputElement;
+    const obtainedMarksInput = courseRow.querySelector(
+      '.obtained-marks'
+    ) as HTMLInputElement;
     if (obtainedMarksInput && course.obtainedMarks !== undefined) {
       obtainedMarksInput.value = course.obtainedMarks.toString();
     }
 
-    const totalMarksInput = courseRow.querySelector('.total-marks') as HTMLInputElement;
+    const totalMarksInput = courseRow.querySelector(
+      '.total-marks'
+    ) as HTMLInputElement;
     if (totalMarksInput && course.totalMarks !== undefined) {
       totalMarksInput.value = course.totalMarks.toString();
     }
 
     // Add event listeners
     const removeBtn = courseRow.querySelector('.btn-remove-course');
-    removeBtn?.addEventListener('click', () => removeCourse(semesterId, course.id));
+    removeBtn?.addEventListener('click', () =>
+      removeCourse(semesterId, course.id)
+    );
 
     const inputs = courseRow.querySelectorAll('input');
-    inputs.forEach(input => {
+    inputs.forEach((input) => {
       input.addEventListener('input', () => {
         updateCourseGrade(course.id);
         saveSemesterData();
@@ -1312,13 +1508,15 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
   }
 
   function calculateSemesterGPA(semesterId: string) {
-    const semester = semesters.find(s => s.id === semesterId);
+    const semester = semesters.find((s) => s.id === semesterId);
     if (!semester) return;
 
     const sgpa = calculateSGPA(semester.courses);
     semester.sgpa = sgpa || 0;
 
-    const semesterCard = document.querySelector(`[data-semester-id="${semesterId}"]`);
+    const semesterCard = document.querySelector(
+      `[data-semester-id="${semesterId}"]`
+    );
     const sgpaDisplay = semesterCard?.querySelector('.sgpa-value');
     if (sgpaDisplay) {
       sgpaDisplay.textContent = sgpa ? sgpa.toFixed(2) : '0.00';
@@ -1329,7 +1527,7 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
     // Save current data first
     saveSemesterData();
 
-    const semester = semesters.find(s => s.id === semesterId);
+    const semester = semesters.find((s) => s.id === semesterId);
     if (!semester) {
       alert('Semester not found!');
       return;
@@ -1339,7 +1537,7 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
       id: semester.id,
       name: semester.name,
       courses: semester.courses,
-      sgpa: calculateSGPA(semester.courses)
+      sgpa: calculateSGPA(semester.courses),
     };
 
     const json = JSON.stringify(semesterData, null, 2);
@@ -1353,7 +1551,7 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
   }
 
   function calculateAllGPAs() {
-    semesters.forEach(semester => {
+    semesters.forEach((semester) => {
       calculateSemesterGPA(semester.id);
     });
 
@@ -1376,9 +1574,13 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
     }
 
     // Highlight semester names when CGPA is calculated
-    semesters.forEach(semester => {
-      const semesterCard = document.querySelector(`[data-semester-id="${semester.id}"]`);
-      const nameInput = semesterCard?.querySelector('.semester-name') as HTMLInputElement;
+    semesters.forEach((semester) => {
+      const semesterCard = document.querySelector(
+        `[data-semester-id="${semester.id}"]`
+      );
+      const nameInput = semesterCard?.querySelector(
+        '.semester-name'
+      ) as HTMLInputElement;
       if (nameInput && semester.courses.length > 0) {
         nameInput.classList.add('highlighted');
       }
@@ -1389,14 +1591,21 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
       let totalPoints = 0;
       let detailsHTML = '';
 
-      semesters.forEach(semester => {
+      semesters.forEach((semester) => {
         if (semester.courses.length > 0) {
           let semCredits = 0;
           let semPoints = 0;
 
-          semester.courses.forEach(course => {
-            if (course.obtainedMarks !== undefined && course.totalMarks && course.totalMarks > 0) {
-              const percentage = calculatePercentage(course.obtainedMarks, course.totalMarks);
+          semester.courses.forEach((course) => {
+            if (
+              course.obtainedMarks !== undefined &&
+              course.totalMarks &&
+              course.totalMarks > 0
+            ) {
+              const percentage = calculatePercentage(
+                course.obtainedMarks,
+                course.totalMarks
+              );
               const { gradePoint } = getGradeFromMarks(percentage);
 
               semCredits += course.creditHours;
@@ -1424,12 +1633,31 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
   function setupPrediction() {
     const predictBtn = document.getElementById('predict-btn');
     predictBtn?.addEventListener('click', () => {
-      const currentCGPA = parseFloat((document.getElementById('current-cgpa') as HTMLInputElement)?.value) || 0;
-      const completedHours = parseFloat((document.getElementById('completed-hours') as HTMLInputElement)?.value) || 0;
-      const targetCGPA = parseFloat((document.getElementById('target-cgpa') as HTMLInputElement)?.value) || 0;
-      const remainingHours = parseFloat((document.getElementById('remaining-hours') as HTMLInputElement)?.value) || 0;
+      const currentCGPA =
+        parseFloat(
+          (document.getElementById('current-cgpa') as HTMLInputElement)?.value
+        ) || 0;
+      const completedHours =
+        parseFloat(
+          (document.getElementById('completed-hours') as HTMLInputElement)
+            ?.value
+        ) || 0;
+      const targetCGPA =
+        parseFloat(
+          (document.getElementById('target-cgpa') as HTMLInputElement)?.value
+        ) || 0;
+      const remainingHours =
+        parseFloat(
+          (document.getElementById('remaining-hours') as HTMLInputElement)
+            ?.value
+        ) || 0;
 
-      const requiredGPA = predictRequiredGPA(currentCGPA, completedHours, targetCGPA, remainingHours);
+      const requiredGPA = predictRequiredGPA(
+        currentCGPA,
+        completedHours,
+        targetCGPA,
+        remainingHours
+      );
 
       const resultDiv = document.getElementById('prediction-result');
       const messageDiv = document.getElementById('prediction-message');
@@ -1442,7 +1670,8 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
             <span style="color: #ef4444;">Target CGPA is not achievable with the remaining credit hours.</span>
           `;
         } else {
-          const feasibility = requiredGPA <= 4.0 ? 'Achievable' : 'Not Achievable';
+          const feasibility =
+            requiredGPA <= 4.0 ? 'Achievable' : 'Not Achievable';
           const color = requiredGPA <= 4.0 ? '#10b981' : '#ef4444';
           messageDiv.innerHTML = `
             <div>Required GPA: <strong style="font-size: 1.5rem;">${requiredGPA.toFixed(2)}</strong></div>
@@ -1458,7 +1687,7 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
     const data = {
       semesters: semesters,
       lastUpdated: new Date().toISOString(),
-      gradingSystem: {}
+      gradingSystem: {},
     };
     saveToLocalStorage(data);
   }
@@ -1497,7 +1726,7 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
       const data = {
         semesters: semesters,
         lastUpdated: new Date().toISOString(),
-        gradingSystem: {}
+        gradingSystem: {},
       };
       const json = exportToJSON(data);
       const blob = new Blob([json], { type: 'application/json' });
@@ -1509,7 +1738,9 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
       URL.revokeObjectURL(url);
     });
 
-    const importFile = document.getElementById('import-file') as HTMLInputElement;
+    const importFile = document.getElementById(
+      'import-file'
+    ) as HTMLInputElement;
     importFile?.addEventListener('change', (e) => {
       const file = (e.target as HTMLInputElement).files?.[0];
       if (file) {
@@ -1524,7 +1755,9 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
             if (parsedData.semesters && Array.isArray(parsedData.semesters)) {
               // Full data import
               if (semesters.length > 0) {
-                const confirm = window.confirm('This will replace all existing data. Do you want to continue?');
+                const confirm = window.confirm(
+                  'This will replace all existing data. Do you want to continue?'
+                );
                 if (!confirm) {
                   importFile.value = ''; // Reset the file input
                   return;
@@ -1552,7 +1785,9 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
 
               alert(`Semester "${semesterData.name}" imported successfully!`);
             } else {
-              alert('Invalid JSON format. Expected either full data export or single semester data.');
+              alert(
+                'Invalid JSON format. Expected either full data export or single semester data.'
+              );
             }
           } catch (error) {
             alert('Failed to parse JSON file. Please check the file format.');
@@ -1569,6 +1804,31 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
       calculateAllGPAs();
       generatePrintReport();
     });
+
+    // Add event listeners for result section buttons
+    const resultPrintBtn = document.getElementById('result-print-btn');
+    resultPrintBtn?.addEventListener('click', () => {
+      calculateAllGPAs();
+      generatePrintReport();
+    });
+
+    const resultExportBtn = document.getElementById('result-export-btn');
+    resultExportBtn?.addEventListener('click', () => {
+      const data = {
+        semesters: semesters,
+        lastUpdated: new Date().toISOString(),
+        gradingSystem: {},
+      };
+
+      const dataStr = JSON.stringify(data, null, 2);
+      const blob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `cgpa_data_${new Date().getTime()}.json`;
+      link.click();
+      URL.revokeObjectURL(url);
+    });
   }
 
   function generatePrintReport() {
@@ -1576,7 +1836,7 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
     const currentDate = new Date().toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
-      day: 'numeric'
+      day: 'numeric',
     });
 
     let reportHTML = `
@@ -1717,7 +1977,7 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
         <div class="stats-grid">
           <div class="stat-box">
             <div class="stat-label">Total Semesters</div>
-            <div class="stat-value">${semesters.filter(s => s.courses.length > 0).length}</div>
+            <div class="stat-value">${semesters.filter((s) => s.courses.length > 0).length}</div>
           </div>
           <div class="stat-box">
             <div class="stat-label">Total Courses</div>
@@ -1725,8 +1985,12 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
           </div>
           <div class="stat-box">
             <div class="stat-label">Total Credits</div>
-            <div class="stat-value">${semesters.reduce((acc, s) =>
-              acc + s.courses.reduce((sum, c) => sum + (c.creditHours || 0), 0), 0)}</div>
+            <div class="stat-value">${semesters.reduce(
+              (acc, s) =>
+                acc +
+                s.courses.reduce((sum, c) => sum + (c.creditHours || 0), 0),
+              0
+            )}</div>
           </div>
         </div>
     `;
@@ -1735,7 +1999,10 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
       if (semester.courses.length === 0) return;
 
       const semesterSGPA = calculateSGPA(semester.courses);
-      const totalCredits = semester.courses.reduce((sum, c) => sum + (c.creditHours || 0), 0);
+      const totalCredits = semester.courses.reduce(
+        (sum, c) => sum + (c.creditHours || 0),
+        0
+      );
 
       reportHTML += `
         <div class="semester-section">
@@ -1757,7 +2024,7 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
             <tbody>
       `;
 
-      semester.courses.forEach(course => {
+      semester.courses.forEach((course) => {
         const percentage = course.percentage || 0;
         const grade = course.grade || '-';
         const gradePoints = course.gradePoints || 0;
@@ -1814,33 +2081,47 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
     semesterIdCounter = 0;
     courseIdCounter = 0;
 
-    loadedSemesters.forEach(semester => {
+    loadedSemesters.forEach((semester) => {
       addSemester();
       const newSemester = semesters[semesters.length - 1];
-      const semesterCard = document.querySelector(`[data-semester-id="${newSemester.id}"]`);
+      const semesterCard = document.querySelector(
+        `[data-semester-id="${newSemester.id}"]`
+      );
 
       if (semesterCard) {
-        const nameInput = semesterCard.querySelector('.semester-name') as HTMLInputElement;
+        const nameInput = semesterCard.querySelector(
+          '.semester-name'
+        ) as HTMLInputElement;
         if (nameInput) nameInput.value = semester.name;
 
         const coursesList = semesterCard.querySelector('.courses-list');
         if (coursesList) coursesList.innerHTML = '';
 
-        semester.courses.forEach(course => {
+        semester.courses.forEach((course) => {
           addCourse(newSemester.id);
           const courseRows = semesterCard.querySelectorAll('.course-row');
           const lastRow = courseRows[courseRows.length - 1];
 
           if (lastRow) {
-            const nameInput = lastRow.querySelector('.course-name') as HTMLInputElement;
-            const creditInput = lastRow.querySelector('.credit-hours') as HTMLInputElement;
-            const obtainedInput = lastRow.querySelector('.obtained-marks') as HTMLInputElement;
-            const totalInput = lastRow.querySelector('.total-marks') as HTMLInputElement;
+            const nameInput = lastRow.querySelector(
+              '.course-name'
+            ) as HTMLInputElement;
+            const creditInput = lastRow.querySelector(
+              '.credit-hours'
+            ) as HTMLInputElement;
+            const obtainedInput = lastRow.querySelector(
+              '.obtained-marks'
+            ) as HTMLInputElement;
+            const totalInput = lastRow.querySelector(
+              '.total-marks'
+            ) as HTMLInputElement;
 
             if (nameInput) nameInput.value = course.name;
             if (creditInput) creditInput.value = course.creditHours.toString();
-            if (obtainedInput && course.obtainedMarks !== undefined) obtainedInput.value = course.obtainedMarks.toString();
-            if (totalInput && course.totalMarks !== undefined) totalInput.value = course.totalMarks.toString();
+            if (obtainedInput && course.obtainedMarks !== undefined)
+              obtainedInput.value = course.obtainedMarks.toString();
+            if (totalInput && course.totalMarks !== undefined)
+              totalInput.value = course.totalMarks.toString();
 
             // Update the grade display
             const courseId = lastRow.getAttribute('data-course-id');
@@ -1861,8 +2142,12 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
     setupDataManagement();
     updateImportLabel();
 
-    document.getElementById('add-semester-btn')?.addEventListener('click', addSemester);
-    document.getElementById('calculate-cgpa-btn')?.addEventListener('click', calculateAllGPAs);
+    document
+      .getElementById('add-semester-btn')
+      ?.addEventListener('click', addSemester);
+    document
+      .getElementById('calculate-cgpa-btn')
+      ?.addEventListener('click', calculateAllGPAs);
 
     const savedData = loadFromLocalStorage();
     if (savedData && savedData.semesters.length > 0) {
