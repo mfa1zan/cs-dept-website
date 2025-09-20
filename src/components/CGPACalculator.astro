@@ -50,6 +50,14 @@ import type {
         <div class="classification" id="classification"></div>
       </div>
       <div class="result-details" id="result-details"></div>
+      <div class="result-actions">
+        <button class="btn btn-gradient" id="result-print-btn">
+          <span class="btn-icon">📄</span> Print Report
+        </button>
+        <button class="btn btn-gradient" id="result-export-btn">
+          <span class="btn-icon">💾</span> Export as JSON
+        </button>
+      </div>
     </div>
   </div>
 
@@ -423,6 +431,17 @@ import type {
 
     .calculator-header p {
       font-size: 0.875rem;
+    }
+
+    .result-actions {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .btn-gradient {
+      width: 100%;
+      justify-content: center;
+      padding: 0.875rem 1.25rem;
     }
 
     .tabs {
@@ -826,6 +845,39 @@ import type {
   .btn-danger {
     background: #ef4444;
     color: white;
+  }
+
+  .btn-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  }
+
+  .btn-gradient:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+  }
+
+  .btn-icon {
+    font-size: 1.2rem;
+  }
+
+  .result-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .results-section {
@@ -1751,6 +1803,31 @@ import type {
     printBtn?.addEventListener('click', () => {
       calculateAllGPAs();
       generatePrintReport();
+    });
+
+    // Add event listeners for result section buttons
+    const resultPrintBtn = document.getElementById('result-print-btn');
+    resultPrintBtn?.addEventListener('click', () => {
+      calculateAllGPAs();
+      generatePrintReport();
+    });
+
+    const resultExportBtn = document.getElementById('result-export-btn');
+    resultExportBtn?.addEventListener('click', () => {
+      const data = {
+        semesters: semesters,
+        lastUpdated: new Date().toISOString(),
+        gradingSystem: {},
+      };
+
+      const dataStr = JSON.stringify(data, null, 2);
+      const blob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `cgpa_data_${new Date().getTime()}.json`;
+      link.click();
+      URL.revokeObjectURL(url);
     });
   }
 
