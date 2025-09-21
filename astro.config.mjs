@@ -9,5 +9,14 @@ export default defineConfig({
   integrations: [mdx()],
   vite: {
     plugins: [tailwindcss()],
+    resolve: {
+      alias: {
+        '@components': '/src/components',
+        '@pages': '/src/pages',
+        '@styles': '/src/styles',
+        '@utils': '/src/utils',
+        '@content': '/src/content',
+      },
+    },
   },
 });
