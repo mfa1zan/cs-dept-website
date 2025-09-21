@@ -5,9 +5,19 @@
 <script>
   class HeaderController {
     private throttleTimer: number | null = null;
+    private resizeObserver?: ResizeObserver;
 
     constructor() {
       this.init();
+      this.updateHeaderHeight();
+      // Update on viewport resize
+      window.addEventListener('resize', this.updateHeaderHeight.bind(this));
+      // Observe header size changes (e.g., mobile menu open/close)
+      const header = document.querySelector('header');
+      if (header && 'ResizeObserver' in window) {
+        this.resizeObserver = new ResizeObserver(() => this.updateHeaderHeight());
+        this.resizeObserver.observe(header);
+      }
     }
 
     init() {
@@ -35,6 +45,13 @@
       } else {
         header.classList.remove('bg-gray-900/95', 'backdrop-blur-md');
       }
+    }
+
+    updateHeaderHeight() {
+      const header = document.querySelector('header');
+      if (!header) return;
+      const h = header.getBoundingClientRect().height;
+      document.documentElement.style.setProperty('--header-height', `${h}px`);
     }
   }
 

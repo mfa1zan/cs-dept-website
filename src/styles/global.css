@@ -1,5 +1,13 @@
 @import 'tailwindcss';
 
+/* Reserve space for fixed header */
+:root {
+  --header-height: 72px; /* matches Header.astro ~py-4 + content */
+}
+body {
+  padding-top: var(--header-height);
+}
+
 /* Custom animations and effects */
 @keyframes float {
   0%,
