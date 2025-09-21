@@ -1116,7 +1116,9 @@
         button.classList.add('active');
 
         tabContents.forEach((content) => {
-          (content as HTMLElement).style.display = 'none';
+          if (content instanceof HTMLElement) {
+            content.style.display = 'none';
+          }
         });
         const targetContent = document.getElementById(`${targetTab}-tab`);
         if (targetContent) {

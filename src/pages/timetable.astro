@@ -30,7 +30,9 @@ try {
   // Fallback: if no week pattern, choose last alphabetically
   if (!defaultDataset && datasetFiles.length)
     defaultDataset = datasetFiles[datasetFiles.length - 1];
-} catch {}
+} catch (err) {
+  console.error("Error discovering timetable datasets:", err);
+}
 ---
 
 <Layout>
