@@ -55,10 +55,15 @@
     }
   }
 
-  // Initialize when DOM is loaded
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => new HeaderController());
-  } else {
+  // Initialize when DOM is loaded (idempotent)
+  const init = () => {
+    if ((window as any).__headerControllerInit) return;
+    (window as any).__headerControllerInit = true;
     new HeaderController();
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 </script>
