@@ -259,7 +259,7 @@ Forms submit to either:
 }
 ```
 
-For detailed examples and advanced usage, see [CUSTOM_FORMS.md](./CUSTOM_FORMS.md).
+<!-- Forms documentation removed -->
 
 ## 🔧 Using MDX for Enhanced Content
 
@@ -504,9 +504,7 @@ All commands are run from the project root:
 - **Markdown Guide**: [Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
 - **MDX Documentation**: [MDX Guide](https://mdxjs.com/docs/)
 - **Astro Documentation**: [docs.astro.build](https://docs.astro.build)
-- **Custom Form Fields**: [CUSTOM_FORMS.md](./CUSTOM_FORMS.md) - Comprehensive guide with examples
-- **Form Examples**: [FORM_EXAMPLES.md](./FORM_EXAMPLES.md) - Complete real-world examples
-- **Form Quick Reference**: [FORMS_QUICK_REF.md](./FORMS_QUICK_REF.md) - Developer reference
+- <!-- Forms guides removed as forms are no longer part of the project -->
 - **AI Content Tools**: ChatGPT, Claude, GitHub Copilot, or other LLMs
 - **Ask Questions**: Reach out to the web development team
 
