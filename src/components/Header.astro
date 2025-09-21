@@ -80,17 +80,18 @@ const isActive = (path: string): boolean => {
             }`}></span>
         </a>
         <a
-          href="/news"
+          href="/admin/"
           class={`transition-colors duration-200 relative group ${
-            isActive('/news')
+            currentPath.startsWith('/admin')
               ? 'text-blue-400'
               : 'text-gray-300 hover:text-blue-400'
           }`}
+          rel="nofollow noopener"
         >
-          News & Events
+          Admin
           <span
             class={`absolute -bottom-1 left-0 h-0.5 bg-blue-400 transition-all duration-200 ${
-              isActive('/news') ? 'w-full' : 'w-0 group-hover:w-full'
+              currentPath.startsWith('/admin') ? 'w-full' : 'w-0 group-hover:w-full'
             }`}></span>
         </a>
         <a
@@ -345,13 +346,14 @@ const isActive = (path: string): boolean => {
           }`}>Calendar</a
         >
         <a
-          href="/news"
+          href="/admin/"
           class={`block transition-colors duration-200 ${
-            isActive('/news')
+            currentPath.startsWith('/admin')
               ? 'text-blue-400'
               : 'text-gray-300 hover:text-blue-400'
-          }`}>News & Events</a
-        >
+          }`}
+          rel="nofollow noopener"
+        >Admin</a>
         <a
           href="/timetable"
           class={`block transition-colors duration-200 ${
