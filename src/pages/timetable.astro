@@ -31,7 +31,7 @@ try {
   if (!defaultDataset && datasetFiles.length)
     defaultDataset = datasetFiles[datasetFiles.length - 1];
 } catch (err) {
-  console.error("Error discovering timetable datasets:", err);
+  console.error('Error discovering timetable datasets:', err);
 }
 ---
 
@@ -43,10 +43,17 @@ try {
     <div class="flex flex-wrap gap-3 items-center mb-4">
       <label class="text-sm text-gray-300">
         Dataset
-        <select id="dataset" class="ml-2 bg-gray-800 border border-gray-700 rounded px-2 py-1">
-          {datasetFiles.map((f) => (
-            <option value={f} selected={f === defaultDataset}>{f}</option>
-          ))}
+        <select
+          id="dataset"
+          class="ml-2 bg-gray-800 border border-gray-700 rounded px-2 py-1"
+        >
+          {
+            datasetFiles.map((f) => (
+              <option value={f} selected={f === defaultDataset}>
+                {f}
+              </option>
+            ))
+          }
         </select>
       </label>
 
@@ -59,7 +66,11 @@ try {
         />
       </div>
 
-      <button id="toggle-simplified" aria-pressed="false" class="simplified-switch group ml-auto">
+      <button
+        id="toggle-simplified"
+        aria-pressed="false"
+        class="simplified-switch group ml-auto"
+      >
         <span class="switch-track"></span>
         <span class="switch-thumb"></span>
         <span class="switch-label">Simplified View</span>
@@ -76,17 +87,24 @@ try {
           id="mobile-filter-count"
           class="inline-flex items-center justify-center text-[10px] font-bold bg-blue-600/70 text-white rounded-full min-w-[1.25rem] h-5 px-1"
         ></span>
-        <svg id="mobile-filter-caret" class="w-3.5 h-3.5 opacity-70" viewBox="0 0 20 20" fill="currentColor">
+        <svg
+          id="mobile-filter-caret"
+          class="w-3.5 h-3.5 opacity-70"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
           <path
             fill-rule="evenodd"
             d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.08 1.04l-4.25 4.25a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
-            clip-rule="evenodd"
-          ></path>
+            clip-rule="evenodd"></path>
         </svg>
       </button>
     </div>
 
-    <div id="filters" class="collapsed space-y-2 flex flex-col items-stretch max-w-4xl mx-auto md:mt-0 mt-2">
+    <div
+      id="filters"
+      class="collapsed space-y-2 flex flex-col items-stretch max-w-4xl mx-auto md:mt-0 mt-2"
+    >
       <div id="day-filters" class="filter-row"></div>
       <div id="degree-filters" class="filter-row"></div>
       <div id="program-filters" class="filter-row"></div>
@@ -97,9 +115,9 @@ try {
       </div>
     </div>
 
-    
-
-    <div class="bg-gray-900/60 backdrop-blur rounded-xl border border-gray-800 shadow-xl overflow-hidden">
+    <div
+      class="bg-gray-900/60 backdrop-blur rounded-xl border border-gray-800 shadow-xl overflow-hidden"
+    >
       <div class="max-h-[60vh] overflow-auto" id="results-wrapper">
         <table class="min-w-full text-sm table-fixed align-top">
           <colgroup>
@@ -112,13 +130,22 @@ try {
             <col style="width: 7rem;" />
             <col style="width: 14rem;" />
           </colgroup>
-          <thead class="bg-gray-800/70 text-gray-300 sticky top-0 z-10 backdrop-blur supports-[backdrop-filter]:bg-gray-800/60">
+          <thead
+            class="bg-gray-800/70 text-gray-300 sticky top-0 z-10 backdrop-blur supports-[backdrop-filter]:bg-gray-800/60"
+          >
             <tr class="text-left">
               <th class="px-3 py-2 font-medium" data-sort="start_time">Time</th>
-              <th class="px-3 py-2 font-medium" data-sort="course_title">Course</th>
-              <th class="px-3 py-2 font-medium" data-sort="course_code">Code</th>
-              <th class="px-3 py-2 font-medium" data-sort="program_line">Program / Semester</th>
-              <th class="px-3 py-2 font-medium" data-sort="teacher_name">Teacher</th>
+              <th class="px-3 py-2 font-medium" data-sort="course_title"
+                >Course</th
+              >
+              <th class="px-3 py-2 font-medium" data-sort="course_code">Code</th
+              >
+              <th class="px-3 py-2 font-medium" data-sort="program_line"
+                >Program / Semester</th
+              >
+              <th class="px-3 py-2 font-medium" data-sort="teacher_name"
+                >Teacher</th
+              >
               <th class="px-3 py-2 font-medium" data-sort="room">Room</th>
               <th class="px-3 py-2 font-medium" data-sort="day">Day</th>
               <th class="px-3 py-2 font-medium">Flags</th>
@@ -182,7 +209,7 @@ try {
   const resultsEl = document.getElementById(
     'results'
   ) as HTMLTableSectionElement | null;
-  
+
   const mobileResultsEl = document.getElementById(
     'mobile-results'
   ) as HTMLElement | null;
@@ -539,8 +566,10 @@ try {
         </tr>`;
       })
       .join('');
-    if (resultsEl) resultsEl.innerHTML = rows ||
-      `<tr><td class='px-4 py-6 text-center text-gray-400' colspan='8'>No matching results</td></tr>`;
+    if (resultsEl)
+      resultsEl.innerHTML =
+        rows ||
+        `<tr><td class='px-4 py-6 text-center text-gray-400' colspan='8'>No matching results</td></tr>`;
 
     // Mobile simplified cards
     if (mobileResultsEl) {

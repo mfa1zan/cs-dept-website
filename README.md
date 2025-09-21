@@ -10,26 +10,28 @@
 
 ## Quick Start (Beginner Friendly)
 
-1) Install prerequisites
+1. Install prerequisites
+
 - Install Node (or Bun). We recommend Bun for speed: https://bun.sh
 
-2) Install dependencies (from the project root)
+2. Install dependencies (from the project root)
 
 ```bash
 bun install
 ```
 
-3) Start the dev server
+3. Start the dev server
 
 ```bash
 bun dev
 ```
 
-4) Open the site
+4. Open the site
+
 - Visit http://localhost:4321
 - Edit files under src/pages or src/components and your changes will hot-reload
 
-5) Build a production version (optional)
+5. Build a production version (optional)
 
 ```bash
 bun build
@@ -64,27 +66,27 @@ cs-dept-website/
 
 Anyone can contribute. If you're new to GitHub, follow this simple flow:
 
-1) Fork the repo (on GitHub) and clone your fork to your computer.
-2) Create a branch for your change:
+1. Fork the repo (on GitHub) and clone your fork to your computer.
+2. Create a branch for your change:
 
 ```bash
 git checkout -b feat/my-change
 ```
 
-3) Make edits and run locally:
+3. Make edits and run locally:
 
 ```bash
 bun dev
 ```
 
-4) Format and lint before committing:
+4. Format and lint before committing:
 
 ```bash
 bun run format
 bun run lint:fix
 ```
 
-5) Commit with a clear message and push:
+5. Commit with a clear message and push:
 
 ```bash
 git add -A
@@ -92,7 +94,7 @@ git commit -m "feat: brief description of your change"
 git push origin feat/my-change
 ```
 
-6) Open a Pull Request on GitHub. Describe what you changed and why.
+6. Open a Pull Request on GitHub. Describe what you changed and why.
 
 ## Content: Markdown and MDX
 
@@ -123,15 +125,16 @@ bun dev
 Then open http://localhost:4321/admin — you shouldn’t be prompted to log in.
 
 Notes:
+
 - Editorial Workflow is not supported with the local backend (entries commit directly).
 - If port 8081 is busy, create a `.env` with `PORT=8082` and add to config.yml:
-  
-	```yaml
-	local_backend:
-		url: http://localhost:8082/api/v1
-	```
-  
-	Then restart `bun run dev:cms`.
+
+  ```yaml
+  local_backend:
+  	url: http://localhost:8082/api/v1
+  ```
+
+  Then restart `bun run dev:cms`.
 
 ## Useful Scripts
 
@@ -156,7 +159,7 @@ bun run check-format
 - Port already in use: stop other dev servers or change the port via `bun dev -- --port 4322`.
 - Typescript/ESLint errors: run `bun run lint:fix` and check file paths, imports, and frontmatter blocks in .astro files.
 - CMS not saving: ensure you have write access (Git Gateway) and your `public/admin/config.yml` collections are set up.
-- Blank timetable: check public/parsed/*.json exists and your dataset is selectable.
+- Blank timetable: check public/parsed/\*.json exists and your dataset is selectable.
 
 ## Code of Conduct
 

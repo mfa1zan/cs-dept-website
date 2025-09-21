@@ -15,7 +15,9 @@
       // Observe header size changes (e.g., mobile menu open/close)
       const header = document.querySelector('header');
       if (header && 'ResizeObserver' in window) {
-        this.resizeObserver = new ResizeObserver(() => this.updateHeaderHeight());
+        this.resizeObserver = new ResizeObserver(() =>
+          this.updateHeaderHeight()
+        );
         this.resizeObserver.observe(header);
       }
     }

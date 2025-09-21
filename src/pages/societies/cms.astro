@@ -15,11 +15,16 @@ if (!society) {
   <Header />
   <main class="pt-24">
     <section class="py-20 relative overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950"></div>
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950"
+      >
+      </div>
       <div class="absolute inset-0 grid-pattern opacity-10"></div>
 
       <div class="container mx-auto px-6 relative z-10 text-center">
-        <div class={`w-32 h-32 md:w-40 md:h-40 rounded-full p-4 flex items-center justify-center mx-auto mb-8 overflow-hidden bg-white/5 ring-1 ring-white/10 backdrop-blur-sm`}>
+        <div
+          class={`w-32 h-32 md:w-40 md:h-40 rounded-full p-4 flex items-center justify-center mx-auto mb-8 overflow-hidden bg-white/5 ring-1 ring-white/10 backdrop-blur-sm`}
+        >
           <img
             src={society.logo}
             alt={`${society.name} Logo`}
@@ -31,11 +36,15 @@ if (!society) {
         </div>
 
         <h1 class="text-5xl md:text-6xl font-bold mb-6">
-          <span class={`bg-gradient-to-r ${society.color} bg-clip-text text-transparent`}>
+          <span
+            class={`bg-gradient-to-r ${society.color} bg-clip-text text-transparent`}
+          >
             {society.name}
           </span>
         </h1>
-        <p class="text-xl text-gray-300 max-w-3xl mx-auto">{society.description}</p>
+        <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+          {society.description}
+        </p>
       </div>
     </section>
 
@@ -44,29 +53,57 @@ if (!society) {
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
             <h2 class="text-3xl md:text-4xl font-bold mb-6">
-              <span class={`bg-gradient-to-r ${society.color} bg-clip-text text-transparent`}>
+              <span
+                class={`bg-gradient-to-r ${society.color} bg-clip-text text-transparent`}
+              >
                 About Our Society
               </span>
             </h2>
             <p class="text-gray-300 text-lg leading-relaxed mb-6">
-              The Computing Media Society bridges the gap between technology and creative expression. We explore digital media, multimedia programming, interactive design, and the latest trends in media technology.
+              The Computing Media Society bridges the gap between technology and
+              creative expression. We explore digital media, multimedia
+              programming, interactive design, and the latest trends in media
+              technology.
             </p>
             <p class="text-gray-400 leading-relaxed mb-8">
-              From video editing and animation to web design and interactive media, we provide a platform for students to express their creativity through technology.
+              From video editing and animation to web design and interactive
+              media, we provide a platform for students to express their
+              creativity through technology.
             </p>
             <div class="space-y-4">
-              <div class="flex items-center space-x-3"><div class="w-2 h-2 bg-cyan-400 rounded-full"></div><span class="text-gray-300">Digital Media Production</span></div>
-              <div class="flex items-center space-x-3"><div class="w-2 h-2 bg-teal-400 rounded-full"></div><span class="text-gray-300">Interactive Design Workshops</span></div>
-              <div class="flex items-center space-x-3"><div class="w-2 h-2 bg-cyan-400 rounded-full"></div><span class="text-gray-300">Multimedia Programming</span></div>
-              <div class="flex items-center space-x-3"><div class="w-2 h-2 bg-teal-400 rounded-full"></div><span class="text-gray-300">Creative Technology Projects</span></div>
+              <div class="flex items-center space-x-3">
+                <div class="w-2 h-2 bg-cyan-400 rounded-full"></div><span
+                  class="text-gray-300">Digital Media Production</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <div class="w-2 h-2 bg-teal-400 rounded-full"></div><span
+                  class="text-gray-300">Interactive Design Workshops</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <div class="w-2 h-2 bg-cyan-400 rounded-full"></div><span
+                  class="text-gray-300">Multimedia Programming</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <div class="w-2 h-2 bg-teal-400 rounded-full"></div><span
+                  class="text-gray-300">Creative Technology Projects</span>
+              </div>
             </div>
           </div>
 
           <div class="relative">
-            <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-2xl p-8 backdrop-blur-sm border border-gray-700">
+            <div
+              class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-2xl p-8 backdrop-blur-sm border border-gray-700"
+            >
               <h3 class="text-2xl font-bold text-white mb-6">Join Us Today!</h3>
-              <p class="text-gray-300 mb-6">Ready to explore the creative side of technology? Join our community of digital creators and innovators.</p>
-              <a href="#" class="bg-gradient-to-r from-cyan-400 to-teal-600 hover:from-cyan-500 hover:to-teal-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 inline-block">Become a Member</a>
+              <p class="text-gray-300 mb-6">
+                Ready to explore the creative side of technology? Join our
+                community of digital creators and innovators.
+              </p>
+              <a
+                href="#"
+                class="bg-gradient-to-r from-cyan-400 to-teal-600 hover:from-cyan-500 hover:to-teal-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 inline-block"
+                >Become a Member</a
+              >
             </div>
           </div>
         </div>

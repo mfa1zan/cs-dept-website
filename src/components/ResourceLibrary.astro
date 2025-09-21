@@ -160,8 +160,6 @@
   </div>
 </div>
 
-
-
 <!-- Resource Detail Modal -->
 <div id="detail-modal" class="fixed inset-0 z-50 hidden">
   <div class="fixed inset-0 bg-black/60 backdrop-blur-sm" id="detail-backdrop">
@@ -231,7 +229,10 @@
           const apiResources = await res.json();
           allResources = apiResources;
         } else {
-          console.warn('Failed to fetch /api/resources.json, status:', res.status);
+          console.warn(
+            'Failed to fetch /api/resources.json, status:',
+            res.status
+          );
         }
       } catch (err) {
         console.warn('Error fetching /api/resources.json:', err);
@@ -445,7 +446,8 @@
 
     if (sortFilter) {
       sortFilter.addEventListener('change', () => {
-        currentFilter.sortBy = sortFilter.value as import('../utils/resourceManager').ResourceFilter['sortBy'];
+        currentFilter.sortBy =
+          sortFilter.value as import('../utils/resourceManager').ResourceFilter['sortBy'];
         renderResources();
       });
     }
@@ -466,7 +468,6 @@
 
     // Upload handled via Decap CMS link; no in-app modal setup needed
   }
-
 
   function attachCardListeners() {
     document.querySelectorAll('.resource-card').forEach((card) => {
@@ -574,7 +575,8 @@
   }
 
   // Make resourceManager available globally for onclick handlers
-  (window as unknown as Record<string, unknown>).resourceManager = resourceManager;
+  (window as unknown as Record<string, unknown>).resourceManager =
+    resourceManager;
 </script>
 
 <style>
