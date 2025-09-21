@@ -27,7 +27,7 @@ export async function GET() {
     isVerified: e.data.isVerified ?? false,
   }));
 
-  return new Response(JSON.stringify(items), {
+  return new globalThis.Response(JSON.stringify(items), {
     headers: {
       'content-type': 'application/json',
       'cache-control': 'no-store',

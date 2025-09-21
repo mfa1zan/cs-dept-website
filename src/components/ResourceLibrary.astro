@@ -217,12 +217,14 @@
       try {
         const res = await fetch('/api/resources.json');
         if (res.ok) {
-          const apiResources = await res.json();
+          const apiResources = (await res.json()) as Array<
+            Record<string, unknown> & { uploadDate?: string }
+          >;
           // Normalize dates for compatibility with resourceManager filters
-          allResources = apiResources.map((r: any) => ({
+          allResources = apiResources.map((r) => ({
             ...r,
             uploadDate: r.uploadDate ? new Date(r.uploadDate) : new Date(),
-          }));
+          })) as unknown as typeof allResources;
         } else {
           console.warn(
             'Failed to fetch /api/resources.json, status:',

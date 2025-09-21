@@ -59,8 +59,9 @@
 
   // Initialize when DOM is loaded (idempotent)
   const init = () => {
-    if ((window as any).__headerControllerInit) return;
-    (window as any).__headerControllerInit = true;
+    const w = window as unknown as { __headerControllerInit?: boolean };
+    if (w.__headerControllerInit) return;
+    w.__headerControllerInit = true;
     new HeaderController();
   };
   if (document.readyState === 'loading') {
