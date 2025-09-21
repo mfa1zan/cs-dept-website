@@ -105,6 +105,34 @@ git push origin feat/my-change
 - Visit /admin for a lightweight CMS UI (Git Gateway).
 - Configure collections in public/admin/config.yml when ready to manage content through the CMS.
 
+### Local CMS (no Netlify Identity)
+
+We enabled Decap CMS local backend for easy local editing without logging in:
+
+- `public/admin/config.yml` has `local_backend: true` (writes to your local Git repo)
+- Start both the proxy and the dev server (use two terminals):
+
+```bash
+# Terminal A: start the Decap proxy (default port 8081)
+bun run cms:proxy
+
+# Terminal B: start Astro dev
+bun dev
+```
+
+Then open http://localhost:4321/admin — you shouldn’t be prompted to log in.
+
+Notes:
+- Editorial Workflow is not supported with the local backend (entries commit directly).
+- If port 8081 is busy, create a `.env` with `PORT=8082` and add to config.yml:
+  
+	```yaml
+	local_backend:
+		url: http://localhost:8082/api/v1
+	```
+  
+	Then restart `bun run dev:cms`.
+
 ## Useful Scripts
 
 ```bash
