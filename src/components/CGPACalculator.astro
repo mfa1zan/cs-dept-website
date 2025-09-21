@@ -1623,6 +1623,22 @@
         }
       });
 
+      // Append overall summary
+      if (totalCredits > 0) {
+        const overallCgpa = (totalPoints / totalCredits).toFixed(2);
+        detailsHTML += `
+          <hr style="border-color: #1f2937; margin: 1rem 0;" />
+          <div style="display:flex; justify-content: space-between; align-items: center; color: #d1d5db; margin-top: 0.25rem;">
+            <span style="font-weight: 600;">Total Credits</span>
+            <span>${totalCredits}</span>
+          </div>
+          <div style="display:flex; justify-content: space-between; align-items: center; color: #d1d5db; margin-top: 0.25rem;">
+            <span style="font-weight: 600;">Overall CGPA</span>
+            <span>${overallCgpa}</span>
+          </div>
+        `;
+      }
+
       detailsDisplay.innerHTML = detailsHTML;
     }
   }
@@ -1786,7 +1802,7 @@
                 'Invalid JSON format. Expected either full data export or single semester data.'
               );
             }
-          } catch (error) {
+          } catch {
             alert('Failed to parse JSON file. Please check the file format.');
           }
 
