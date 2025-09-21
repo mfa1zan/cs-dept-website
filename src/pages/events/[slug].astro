@@ -1,0 +1,24 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import '../../styles/global.css';
+
+export async function getStaticPaths() {
+  // Events are deprecated; no pages will be generated
+  return [];
+}
+---
+
+<Layout title="Events removed">
+  <Header />
+  <main class="pt-24">
+    <section class="py-20">
+      <div class="container mx-auto px-6 text-center">
+        <h1 class="text-3xl font-bold mb-4">Events have been removed</h1>
+        <p class="text-gray-300">This site no longer hosts event pages.</p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

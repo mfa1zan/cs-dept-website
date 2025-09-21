@@ -2,15 +2,13 @@
 
 # CS Department Website
 
-This is the official website for the Computer Science Department, built with Astro. This site serves as a hub for department news, events, society activities, and program information.
+This is the official website for the Computer Science Department, built with Astro. The site focuses on tools, society pages, and static content managed via a lightweight CMS.
 
-## 🆕 Latest Features
+## 🆕 Latest Changes
 
-- **Custom Form Fields**: Add event-specific registration fields directly in markdown
-- **Smart Form Validation**: Automatic validation for required fields and data types
-- **Enhanced Event Management**: Streamlined event creation with custom registration
-- **AI Content Generation**: Use LLMs to quickly generate events with custom forms
-- **Interactive Timetable**: New `/timetable` page with instant search, multi-dataset switching, and day / semester / program filters
+- Removed custom forms and event/news system in favor of a simpler workflow
+- Added Decap CMS admin at `/admin/` for future content editing
+- Kept tools like the interactive `/timetable` page with instant search and filters
 
 > Timetable quick use: Go to `/timetable`, pick a dataset (e.g. `full_parsed2`), optionally click day / semester / program pills to narrow, and just start typing — results update on every key press across all fields (course, code, teacher, room, etc.).
 
@@ -21,9 +19,7 @@ This is the official website for the Computer Science Department, built with Ast
   - [📚 Table of Contents](#-table-of-contents)
   - [🏗️ How the Website Works](#️-how-the-website-works)
     - [Project Structure](#project-structure)
-  - [📰 Adding News Articles](#-adding-news-articles)
-  - [🎉 Adding Events](#-adding-events)
-  - [📋 Registration Forms \& Custom Fields](#-registration-forms--custom-fields)
+  - [🧩 Admin (Decap CMS)](#-admin-decap-cms)
     - [Basic Registration](#basic-registration)
     - [Custom Form Fields 🆕](#custom-form-fields-)
     - [Form Submission](#form-submission)
@@ -50,216 +46,31 @@ The website is built using **Astro**, a modern web framework that generates fast
 - **Responsive Design**: Works perfectly on mobile, tablet, and desktop
 - **MDX Support**: Enhanced Markdown with React components for interactive content
 
-### Project Structure
+### Project Structure (simplified)
 
 ```text
 cs-dept-website/
 ├── public/                    # Static assets (images, etc.)
 ├── src/
 │   ├── components/           # Reusable UI components
-│   │   ├── EventRegistration.astro
-│   │   ├── RegistrationForm.astro
+│   │   ├── CGPACalculator.astro
+│   │   ├── Header.astro
 │   │   └── ...
 │   ├── content/              # Content files (THIS IS WHERE YOU'LL WORK!)
 │   │   ├── config.ts        # Defines content structure
-│   │   ├── events/          # Event markdown files
-│   │   └── news/            # News article markdown files
+│   │   └── (collections managed later via CMS)
 │   ├── layouts/             # Page templates
 │   ├── pages/               # Website pages
 │   │   ├── timetable.astro  # Interactive searchable timetable (new)
-│   │   ├── events/          # Event detail pages
-│   │   ├── news/            # News article pages
+│   │   ├── tools/           # Tools like CGPA calculator, room finder
 │   │   └── societies/       # Society pages
 │   └── styles/              # CSS styling
 └── package.json
 ```
 
-## 📰 Adding News Articles
+## 🧩 Admin (Decap CMS)
 
-To add a new news article:
-
-1. Create a new `.md` or `.mdx` file in `src/content/news/`
-2. Name it descriptively (e.g., `new-lab-opening.md`)
-3. Add the required frontmatter (metadata) at the top:
-
-```markdown
----
-title: 'Your Article Title'
-description: 'Brief summary of the article'
-publishDate: 2025-08-28 # Format: YYYY-MM-DD
-category: 'announcement' # Options: research, achievement, event, partnership, announcement
-featured: false # Set to true for homepage feature
-author: 'Your Name'
-image: '/path/to/image.jpg' # Optional
-tags: ['tag1', 'tag2'] # Optional
----
-
-# Your Article Content
-
-Write your article content here using Markdown...
-```
-
-**Category Options:**
-
-- `research`: Research publications, discoveries
-- `achievement`: Student/faculty achievements, awards
-- `event`: Department events, seminars
-- `partnership`: Industry partnerships, collaborations
-- `announcement`: General announcements, policy changes
-
-## 🎉 Adding Events
-
-To add a new event:
-
-1. Create a new `.md` or `.mdx` file in `src/content/events/`
-2. Name it descriptively (e.g., `hackathon-2025.md`)
-3. Add the required frontmatter:
-
-```markdown
----
-title: 'Event Name'
-description: 'Brief description of the event'
-date: 2025-09-15 # Event date (YYYY-MM-DD)
-time: '2:00 PM' # Start time
-endTime: '5:00 PM' # End time (optional)
-location: 'Room 101, CS Building'
-type: 'workshop' # Options: workshop, conference, competition, seminar, hackathon, meetup
-registrationRequired: true
-registrationLink: 'https://forms.example.com' # Optional
-organizer: 'CS Department'
-society: 'ps' # Optional: cms, pas, ps, sports, egaming, ems, blood-donation
-capacity: 100 # Optional
-image: '/event-image.jpg' # Optional
----
-
-# Event Details
-
-Detailed description of your event...
-
-## Agenda
-
-- 2:00 PM - Opening
-- 3:00 PM - Main session
-- ...
-```
-
-**Event Types:**
-
-- `workshop`: Hands-on learning sessions
-- `conference`: Academic conferences
-- `competition`: Coding competitions, contests
-- `seminar`: Guest lectures, presentations
-- `hackathon`: Programming marathons
-- `meetup`: Society gatherings, informal meetings
-
-**Society Codes:**
-
-- `cms`: Computing Media Society
-- `pas`: Performing Arts Society
-- `ps`: Programming Society
-- `sports`: Sports Society
-- `egaming`: E-Gaming Society
-- `ems`: Event Management Society
-- `blood-donation`: Blood Donation & Welfare Society
-
-## 📋 Registration Forms & Custom Fields
-
-Events can have custom registration forms with fields tailored to each event's needs. The website includes a flexible registration system that automatically generates forms.
-
-### Basic Registration
-
-For simple registration with a standard form, add these fields to your event frontmatter:
-
-```yaml
-registrationRequired: true
-formSubmitUrl: 'https://your-backend.com/register' # Optional custom endpoint
-```
-
-### Custom Form Fields 🆕
-
-You can now add custom form fields directly in your event markdown! The system automatically includes required default fields (Full Name, Email, Phone, Student ID, Gender) and adds your custom fields.
-
-**Example Event with Custom Fields:**
-
-```yaml
----
-title: 'Advanced React Workshop'
-# ... other event fields
-customFormFields:
-  - name: 'reactExperience'
-    label: 'React Experience Level'
-    type: 'select'
-    required: true
-    options:
-      - 'Complete Beginner'
-      - 'Basic (< 1 year)'
-      - 'Intermediate (1-3 years)'
-      - 'Advanced (3+ years)'
-
-  - name: 'projectGoals'
-    label: 'What do you want to build?'
-    type: 'textarea'
-    required: true
-    placeholder: 'Describe your project goals...'
-
-  - name: 'laptopOS'
-    label: 'Laptop Operating System'
-    type: 'select'
-    required: true
-    options: ['Windows', 'macOS', 'Linux', 'I need a lab computer']
----
-```
-
-**Supported Field Types:**
-
-- `text`: Single-line text input
-- `email`: Email validation
-- `tel`: Phone number input
-- `number`: Numeric input
-- `select`: Dropdown menu (requires `options` array)
-- `textarea`: Multi-line text area
-
-**Field Properties:**
-
-- `name`: Unique identifier (required)
-- `label`: Display text (required)
-- `type`: Field type (required)
-- `required`: Whether field is mandatory (default: false)
-- `placeholder`: Helper text
-- `options`: Array of choices for select fields
-
-**Default Required Fields (Always Included):**
-
-1. Full Name
-2. Email Address
-3. Phone Number
-4. Student ID
-5. Gender (Male/Female)
-
-### Form Submission
-
-Forms submit to either:
-
-- Custom endpoint: Set `formSubmitUrl` in event frontmatter
-- Default endpoint: Built-in form handler
-
-**Submitted Data Structure:**
-
-```json
-{
-  "fullName": "John Doe",
-  "email": "john@example.com",
-  "studentId": "CS123456",
-  "gender": "Male",
-  "reactExperience": "Intermediate (1-3 years)",
-  "projectGoals": "Build a portfolio website",
-  "laptopOS": "macOS",
-  "eventId": "advanced-react-workshop",
-  "submittedAt": "2025-08-28T15:30:00.000Z"
-}
-```
-
-<!-- Forms documentation removed -->
+This project includes a minimal Decap CMS setup available at `/admin/`. It's currently configured with Git Gateway and an empty collections list. You can extend `public/admin/config.yml` to add collections when you're ready to manage content via the CMS.
 
 ## 🔧 Using MDX for Enhanced Content
 
@@ -282,13 +93,13 @@ publishDate: 2025-08-28
 category: 'workshop'
 ---
 
-import { RegistrationForm } from '../components/RegistrationForm.astro';
+// Example MDX usage below (forms have been removed)
 
 # Interactive Workshop
 
 This workshop includes hands-on coding exercises.
 
-<RegistrationForm eventTitle="Coding Workshop" eventId="workshop-2025" />
+{/* Example interactive component would go here */}
 
 ## Code Example
 
