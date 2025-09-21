@@ -86,8 +86,10 @@
 
   <!-- Upload/Contribute Section -->
   <div class="mb-8">
-    <button
-      id="contribute-btn"
+    <a
+      href="/admin/#/collections/resources/new"
+      target="_blank"
+      rel="noopener"
       class="inline-flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-medium rounded-lg transition-all shadow-lg hover:shadow-xl"
     >
       <svg
@@ -102,8 +104,8 @@
           stroke-width="2"
           d="M12 4v16m8-8H4"></path>
       </svg>
-      Contribute Resource
-    </button>
+      Add Resource (Admin)
+    </a>
   </div>
 
   <!-- Resources Grid -->
@@ -158,192 +160,7 @@
   </div>
 </div>
 
-<!-- Upload Modal -->
-<div id="upload-modal" class="fixed inset-0 z-50 hidden">
-  <div class="fixed inset-0 bg-black/60 backdrop-blur-sm" id="modal-backdrop">
-  </div>
-  <div class="fixed inset-0 overflow-y-auto">
-    <div class="flex min-h-full items-center justify-center p-4">
-      <div
-        class="relative bg-gray-900 rounded-2xl border border-gray-800 w-full max-w-2xl p-6 shadow-2xl"
-      >
-        <h2 class="text-2xl font-bold text-white mb-6">
-          Contribute a Resource
-        </h2>
 
-        <form id="upload-form" class="space-y-4">
-          <!-- Title -->
-          <div>
-            <label
-              for="resource-title"
-              class="block text-sm font-medium text-gray-300 mb-1"
-              >Title *</label
-            >
-            <input
-              type="text"
-              id="resource-title"
-              required
-              class="w-full bg-gray-800/60 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          <!-- Course Selection -->
-          <div>
-            <label
-              for="resource-course"
-              class="block text-sm font-medium text-gray-300 mb-1"
-              >Course *</label
-            >
-            <select
-              id="resource-course"
-              required
-              class="w-full bg-gray-800/60 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="">Select a course</option>
-              <option value="cs101">CS101 - Intro to Programming</option>
-              <option value="cs201">CS201 - Data Structures</option>
-              <option value="cs301">CS301 - Algorithms</option>
-              <option value="cs302">CS302 - Database Systems</option>
-              <option value="cs401">CS401 - Operating Systems</option>
-              <option value="cs402">CS402 - Computer Networks</option>
-              <option value="cs403">CS403 - Software Engineering</option>
-              <option value="cs404">CS404 - Machine Learning</option>
-            </select>
-          </div>
-
-          <!-- Category -->
-          <div>
-            <label
-              for="resource-category"
-              class="block text-sm font-medium text-gray-300 mb-1"
-              >Category *</label
-            >
-            <select
-              id="resource-category"
-              required
-              class="w-full bg-gray-800/60 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="">Select a category</option>
-              <option value="notes">Lecture Notes</option>
-              <option value="past-papers">Past Papers</option>
-              <option value="tutorials">Tutorials</option>
-              <option value="assignments">Assignments</option>
-              <option value="projects">Project Resources</option>
-              <option value="books">Books & References</option>
-            </select>
-          </div>
-
-          <!-- Description -->
-          <div>
-            <label
-              for="resource-description"
-              class="block text-sm font-medium text-gray-300 mb-1"
-              >Description</label
-            >
-            <textarea
-              id="resource-description"
-              rows="3"
-              class="w-full bg-gray-800/60 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-            ></textarea>
-          </div>
-
-          <!-- File Upload -->
-          <div>
-            <label class="block text-sm font-medium text-gray-300 mb-1"
-              >File *</label
-            >
-            <div
-              id="file-drop-zone"
-              class="border-2 border-dashed border-gray-700 rounded-lg p-8 text-center hover:border-blue-500 transition-colors cursor-pointer"
-            >
-              <svg
-                class="w-12 h-12 text-gray-500 mx-auto mb-3"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.5"
-                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                ></path>
-              </svg>
-              <p class="text-gray-400 mb-2">
-                Drop file here or click to browse
-              </p>
-              <p class="text-xs text-gray-500">
-                PDF, DOC, DOCX, PPT, PPTX, ZIP (Max 50MB)
-              </p>
-              <input
-                type="file"
-                id="file-input"
-                class="hidden"
-                accept=".pdf,.doc,.docx,.ppt,.pptx,.zip"
-              />
-            </div>
-            <div
-              id="file-preview"
-              class="hidden mt-3 p-3 bg-gray-800/40 rounded-lg flex items-center justify-between"
-            >
-              <span id="file-name" class="text-sm text-gray-300"></span>
-              <button
-                type="button"
-                id="remove-file"
-                class="text-red-400 hover:text-red-300"
-              >
-                <svg
-                  class="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- Tags -->
-          <div>
-            <label
-              for="resource-tags"
-              class="block text-sm font-medium text-gray-300 mb-1"
-              >Tags (comma-separated)</label
-            >
-            <input
-              type="text"
-              id="resource-tags"
-              placeholder="e.g., midterm, final, lecture-10, algorithm"
-              class="w-full bg-gray-800/60 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          <!-- Buttons -->
-          <div class="flex gap-3 pt-4">
-            <button
-              type="submit"
-              class="flex-1 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-medium rounded-lg transition-all"
-            >
-              Upload Resource
-            </button>
-            <button
-              type="button"
-              id="cancel-upload"
-              class="flex-1 px-4 py-2.5 bg-gray-800 hover:bg-gray-700 text-white font-medium rounded-lg transition-colors"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- Resource Detail Modal -->
 <div id="detail-modal" class="fixed inset-0 z-50 hidden">
@@ -407,8 +224,23 @@
     if (emptyEl) emptyEl.classList.add('hidden');
 
     try {
-      // Simulate API call - in production, this would fetch from a backend
-      allResources = await resourceManager.getResources(currentFilter);
+      // Load from content-backed API first
+      try {
+        const res = await fetch('/api/resources.json');
+        if (res.ok) {
+          const apiResources = await res.json();
+          allResources = apiResources;
+        } else {
+          console.warn('Failed to fetch /api/resources.json, status:', res.status);
+        }
+      } catch (err) {
+        console.warn('Error fetching /api/resources.json:', err);
+      }
+
+      // Fallback to demo data if none loaded
+      if (!allResources || allResources.length === 0) {
+        allResources = await resourceManager.getResources(currentFilter);
+      }
       renderResources();
     } catch (error) {
       console.error('Failed to load resources:', error);
@@ -632,131 +464,9 @@
       });
     }
 
-    // Upload modal
-    setupUploadModal();
+    // Upload handled via Decap CMS link; no in-app modal setup needed
   }
 
-  function setupUploadModal() {
-    const contributeBtn = document.getElementById('contribute-btn');
-    const uploadModal = document.getElementById('upload-modal');
-    const modalBackdrop = document.getElementById('modal-backdrop');
-    const cancelUpload = document.getElementById('cancel-upload');
-    const uploadForm = document.getElementById(
-      'upload-form'
-    ) as HTMLFormElement;
-    const fileDropZone = document.getElementById('file-drop-zone');
-    const fileInput = document.getElementById('file-input') as HTMLInputElement;
-    const filePreview = document.getElementById('file-preview');
-    const fileName = document.getElementById('file-name');
-    const removeFile = document.getElementById('remove-file');
-
-    let selectedFile: File | null = null;
-
-    // Open modal
-    if (contributeBtn && uploadModal) {
-      contributeBtn.addEventListener('click', () => {
-        uploadModal.classList.remove('hidden');
-      });
-    }
-
-    // Close modal
-    function closeModal() {
-      if (uploadModal) uploadModal.classList.add('hidden');
-      if (uploadForm) uploadForm.reset();
-      selectedFile = null;
-      if (filePreview) filePreview.classList.add('hidden');
-    }
-
-    if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
-    if (cancelUpload) cancelUpload.addEventListener('click', closeModal);
-
-    // File handling
-    if (fileDropZone && fileInput) {
-      fileDropZone.addEventListener('click', () => fileInput.click());
-
-      fileDropZone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        fileDropZone.classList.add('border-blue-500', 'bg-blue-500/10');
-      });
-
-      fileDropZone.addEventListener('dragleave', () => {
-        fileDropZone.classList.remove('border-blue-500', 'bg-blue-500/10');
-      });
-
-      fileDropZone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        fileDropZone.classList.remove('border-blue-500', 'bg-blue-500/10');
-        const files = e.dataTransfer?.files;
-        if (files && files[0]) {
-          handleFileSelect(files[0]);
-        }
-      });
-
-      fileInput.addEventListener('change', (e) => {
-        const target = e.target as HTMLInputElement;
-        if (target.files && target.files[0]) {
-          handleFileSelect(target.files[0]);
-        }
-      });
-    }
-
-    function handleFileSelect(file: File) {
-      selectedFile = file;
-      if (fileName) fileName.textContent = file.name;
-      if (filePreview) filePreview.classList.remove('hidden');
-    }
-
-    if (removeFile) {
-      removeFile.addEventListener('click', () => {
-        selectedFile = null;
-        if (fileInput) fileInput.value = '';
-        if (filePreview) filePreview.classList.add('hidden');
-      });
-    }
-
-    // Form submission
-    if (uploadForm) {
-      uploadForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        if (!selectedFile) {
-          alert('Please select a file to upload');
-          return;
-        }
-
-        // In production, this would upload to a backend
-        const formData = new FormData(uploadForm);
-        formData.append('file', selectedFile);
-
-        // Simulate upload
-        console.log('Uploading resource:', {
-          title: (document.getElementById('resource-title') as HTMLInputElement)
-            ?.value,
-          course: (
-            document.getElementById('resource-course') as HTMLSelectElement
-          )?.value,
-          category: (
-            document.getElementById('resource-category') as HTMLSelectElement
-          )?.value,
-          description: (
-            document.getElementById(
-              'resource-description'
-            ) as HTMLTextAreaElement
-          )?.value,
-          tags: (document.getElementById('resource-tags') as HTMLInputElement)
-            ?.value,
-          file: selectedFile.name,
-        });
-
-        // Show success message
-        alert('Resource uploaded successfully! (Demo mode - no actual upload)');
-        closeModal();
-
-        // Reload resources
-        await loadResources();
-      });
-    }
-  }
 
   function attachCardListeners() {
     document.querySelectorAll('.resource-card').forEach((card) => {

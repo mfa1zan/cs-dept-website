@@ -29,4 +29,22 @@ const events = defineCollection({
 	}),
 });
 
-export const collections = { news, events };
+// Study Resources collection used by Decap CMS to store metadata
+const resources = defineCollection({
+	type: 'content',
+	schema: z.object({
+		title: z.string(),
+		description: z.string().optional(),
+		courseId: z.string(),
+		category: z.string(),
+		file: z.string(), // path under /resources or public/resources
+		uploadedBy: z.string().optional(),
+		tags: z.array(z.string()).optional(),
+		semester: z.string().optional(),
+		year: z.number().optional(),
+		professor: z.string().optional(),
+		uploadDate: z.coerce.date().optional(),
+	}),
+});
+ 
+export const collections = { news, events, resources };
