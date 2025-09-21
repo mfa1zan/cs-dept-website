@@ -1,6 +1,20 @@
+## Enable Decap CMS local development proxy so you can work without Netlify Identity
+## See: https://decapcms.org/docs/working-with-a-local-git-repository/
+## Notes:
+## - The local backend writes to your local Git repo and does NOT support editorial_workflow.
+## - The default proxy server port is 8081. To customize, create a .env with PORT=8082
+##   and set local_backend.url: http://localhost:8082/api/v1
+local_backend: true
+
 backend:
   name: git-gateway
   branch: master
+  commit_messages:
+    create: "Create {{collection}}: '{{slug}}'"
+    update: "Update {{collection}}: '{{slug}}'"
+    delete: "Delete {{collection}}: '{{slug}}'"
+    uploadMedia: "Upload media '{{path}}'"
+    deleteMedia: "Delete media '{{path}}'"
 
 # Global media folder for generic uploads (news images, etc.)
 media_folder: "public/uploads"
