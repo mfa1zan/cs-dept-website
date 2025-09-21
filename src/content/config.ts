@@ -44,6 +44,8 @@ const resources = defineCollection({
     year: z.number().optional(),
     professor: z.string().optional(),
     uploadDate: z.coerce.date().optional(),
+    // When true, resource is visible to the public listing
+    isVerified: z.boolean().optional(),
   }),
 });
 

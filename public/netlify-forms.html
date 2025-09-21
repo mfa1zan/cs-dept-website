@@ -35,5 +35,21 @@
       <input type="checkbox" name="terms" required />
       <input type="hidden" name="submittedAt" />
     </form>
+
+    <!-- Hidden stub for resource submissions so Netlify registers the form -->
+    <form name="resource-submission" netlify netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="resource-submission" />
+      <input type="text" name="bot-field" />
+      <input type="text" name="title" />
+      <input type="text" name="description" />
+      <input type="text" name="courseId" />
+      <input type="text" name="category" />
+      <input type="text" name="tags" />
+      <input type="text" name="uploadedBy" />
+      <input type="email" name="contactEmail" />
+      <input type="file" name="file" />
+      <input type="checkbox" name="terms" />
+      <input type="hidden" name="submittedAt" />
+    </form>
   </body>
 </html>

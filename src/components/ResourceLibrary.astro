@@ -86,26 +86,28 @@
 
   <!-- Upload/Contribute Section -->
   <div class="mb-8">
-    <a
-      href="/admin/#/collections/resources/new"
-      target="_blank"
-      rel="noopener"
-      class="inline-flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-medium rounded-lg transition-all shadow-lg hover:shadow-xl"
-    >
-      <svg
-        class="w-5 h-5"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
+    <div class="flex flex-wrap gap-3">
+      <a
+        href="/tools/submit-resource"
+        class="inline-flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-medium rounded-lg transition-all shadow-lg hover:shadow-xl"
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M12 4v16m8-8H4"></path>
-      </svg>
-      Add Resource (Admin)
-    </a>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+        </svg>
+        Submit a Resource
+      </a>
+      <a
+        href="/admin/#/collections/resources/new"
+        target="_blank"
+        rel="noopener"
+        class="inline-flex items-center gap-2 px-4 py-2.5 bg-gray-800 hover:bg-gray-700 text-white font-medium rounded-lg transition-all border border-gray-700"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+        </svg>
+        Add Resource (Admin)
+      </a>
+    </div>
   </div>
 
   <!-- Resources Grid -->
@@ -227,7 +229,11 @@
         const res = await fetch('/api/resources.json');
         if (res.ok) {
           const apiResources = await res.json();
-          allResources = apiResources;
+          // Normalize dates for compatibility with resourceManager filters
+          allResources = apiResources.map((r: any) => ({
+            ...r,
+            uploadDate: r.uploadDate ? new Date(r.uploadDate) : new Date(),
+          }));
         } else {
           console.warn(
             'Failed to fetch /api/resources.json, status:',
@@ -242,6 +248,11 @@
       if (!allResources || allResources.length === 0) {
         allResources = await resourceManager.getResources(currentFilter);
       }
+
+      // If the content-backed API returns any verified entries, default to showing only verified.
+      // If none are verified yet (fresh rollout), show all so the library isn't empty.
+      const hasVerified = allResources?.some((r) => r.isVerified === true);
+      currentFilter.isVerified = hasVerified ? true : undefined;
       renderResources();
     } catch (error) {
       console.error('Failed to load resources:', error);

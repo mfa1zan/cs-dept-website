@@ -123,4 +123,11 @@ collections:
           widget: 'datetime',
           required: false,
         }
+      - {
+          label: 'Verified (Public Visible)',
+          name: 'isVerified',
+          widget: 'boolean',
+          required: false,
+          default: false,
+        }
       - { label: 'Body', name: 'body', widget: 'markdown', required: false }

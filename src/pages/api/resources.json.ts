@@ -24,7 +24,7 @@ export async function GET() {
     reviews: 0,
     fileSize: 0,
     fileType: '',
-    isVerified: false,
+    isVerified: e.data.isVerified ?? false,
   }));
 
   return new Response(JSON.stringify(items), {
