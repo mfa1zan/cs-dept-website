@@ -2052,21 +2052,26 @@
       </html>
     `;
 
-    // Open in new window and print
-    const printWindow = window.open('', '_blank');
-    if (printWindow) {
-      printWindow.document.write(reportHTML);
-      printWindow.document.close();
-
-      // Wait for content to load then print
-      printWindow.onload = () => {
-        printWindow.print();
-        // Optional: close window after printing
-        printWindow.onafterprint = () => {
-          printWindow.close();
-        };
-      };
-    }
+    // Print using a temporary iframe (avoids deprecated document.write)
+    const iframe = document.createElement('iframe');
+    iframe.style.position = 'fixed';
+    iframe.style.right = '0';
+    iframe.style.bottom = '0';
+    iframe.style.width = '0';
+    iframe.style.height = '0';
+    iframe.style.border = '0';
+    // Use srcdoc when available for safer write
+    iframe.srcdoc = reportHTML;
+    document.body.appendChild(iframe);
+    iframe.onload = () => {
+      try {
+        iframe.contentWindow?.focus();
+        iframe.contentWindow?.print();
+      } finally {
+        // Cleanup after a small delay to allow print dialog
+        setTimeout(() => iframe.remove(), 1000);
+      }
+    };
   }
 
   function loadSemestersData(loadedSemesters: Semester[]) {
