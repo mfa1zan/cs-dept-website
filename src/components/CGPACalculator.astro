@@ -1118,9 +1118,8 @@ import type { Semester, Course, GradingSystem } from '../utils/cgpaCalculations'
         button.classList.add('active');
 
         tabContents.forEach((content) => {
-          content.style.display = 'none';
+          (content as HTMLElement).style.display = 'none';
         });
-
         const targetContent = document.getElementById(`${targetTab}-tab`);
         if (targetContent) {
           targetContent.style.display = 'block';
