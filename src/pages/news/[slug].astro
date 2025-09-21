@@ -1,0 +1,43 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/layout/Header.astro';
+import Footer from '../../components/layout/Footer.astro';
+import { getCollection } from 'astro:content';
+import '../../styles/global.css';
+
+export async function getStaticPaths() {
+  const news = await getCollection('news');
+  return news.map((n) => ({ params: { slug: n.slug } }));
+}
+
+const { slug } = Astro.params;
+const all = await getCollection('news');
+const entry = all.find((n) => n.slug === slug);
+if (!entry) {
+  throw new Error('News not found');
+}
+const { Content } = await entry.render();
+---
+
+<Layout>
+  <Header />
+  <main class="pt-24 pb-16 px-5 max-w-3xl mx-auto">
+    <a href="/news" class="text-sm text-blue-400 hover:text-blue-300">← Back to News</a>
+    <h1 class="text-3xl md:text-4xl font-bold mt-2 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+      {entry.data.title}
+    </h1>
+    <div class="text-xs text-gray-500 mt-1">
+      {new Date(entry.data.publishDate).toLocaleDateString()}
+      {entry.data.author && ` • ${entry.data.author}`}
+    </div>
+
+    {entry.data.description && (
+      <p class="text-gray-400 mt-4">{entry.data.description}</p>
+    )}
+
+    <article class="prose prose-invert max-w-none mt-6">
+      <Content />
+    </article>
+  </main>
+  <Footer />
+</Layout>
