@@ -29,6 +29,20 @@
   </head>
   <body class="bg-gray-950 text-white overflow-x-hidden">
     <slot />
+    <!-- Netlify Identity Widget -->
+    <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script is:inline>
+      // Redirect to /admin/ after login so editors land in the CMS
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on('init', (user) => {
+          if (!user) {
+            window.netlifyIdentity.on('login', () => {
+              window.location.href = '/admin/';
+            });
+          }
+        });
+      }
+    </script>
   </body>
 </html>
 
