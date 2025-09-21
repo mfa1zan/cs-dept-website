@@ -1,12 +1,10 @@
-# Netlify configuration for form handling
+## Netlify configuration (forms removed)
 [build]
   publish = "dist"
 
-# Form submission settings
 [[plugins]]
   package = "@netlify/plugin-sitemap"
 
-# Headers for security
 [[headers]]
   for = "/*"
   [headers.values]
@@ -15,12 +13,4 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
 
-# Redirect rules for form success
-[[redirects]]
-  from = "/success"
-  to = "/success"
-  status = 200
-
-# Form handling configuration
-[[forms]]
-  name = "event-registration"
+# Forms and success redirect removed as part of cleanup

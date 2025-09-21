@@ -3,11 +3,7 @@ import { getCollection, type CollectionEntry, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import RegistrationForm from '../../components/RegistrationForm.astro';
-import {
-  createRegistrationForm,
-  createFormWithDefaults,
-} from '../../utils/registrationForm';
+// Registration form removed; relying only on external registrationLink
 import '../../styles/global.css';
 
 export async function getStaticPaths() {
@@ -28,36 +24,7 @@ const { Content } = await render(entry);
 // Check if event is upcoming
 const isUpcoming = entry.data.date >= new Date();
 
-// Prepare registration form
-let registrationProps = null;
-if (
-  isUpcoming &&
-  entry.data.registrationRequired &&
-  !entry.data.registrationLink
-) {
-  if (entry.data.customFormFields && entry.data.customFormFields.length > 0) {
-    // Use custom fields with required defaults
-    const allFields = createFormWithDefaults(entry.data.customFormFields);
-
-    registrationProps = {
-      eventTitle: entry.data.title,
-      eventId: entry.id,
-      gradientColors: { from: 'from-blue-500', to: 'to-purple-600' },
-      accentColor: 'blue',
-      fields: allFields,
-    };
-  } else {
-    // Use preset form
-    registrationProps = createRegistrationForm(
-      entry.data.title,
-      entry.data
-        .type as keyof typeof import('../../utils/registrationForm').FORM_FIELD_PRESETS,
-      {
-        eventId: entry.id,
-      }
-    );
-  }
-}
+// Registration form support removed
 ---
 
 <Layout title={entry.data.title}>
@@ -261,14 +228,7 @@ if (
             <Content />
           </div>
 
-          <!-- Registration Form for events without registrationLink -->
-          {
-            registrationProps && (
-              <div class="mt-16">
-                <RegistrationForm {...registrationProps} />
-              </div>
-            )
-          }
+          <!-- Registration Form removed; use external registration link only -->
         </div>
       </div>
     </section>
