@@ -1,0 +1,71 @@
+---
+// HeaderController Island - Handles header background changes on scroll
+---
+
+<script>
+  class HeaderController {
+    private throttleTimer: number | null = null;
+    private resizeObserver?: ResizeObserver;
+
+    constructor() {
+      this.init();
+      this.updateHeaderHeight();
+      // Update on viewport resize
+      window.addEventListener('resize', this.updateHeaderHeight.bind(this));
+      // Observe header size changes (e.g., mobile menu open/close)
+      const header = document.querySelector('header');
+      if (header && 'ResizeObserver' in window) {
+        this.resizeObserver = new ResizeObserver(() =>
+          this.updateHeaderHeight()
+        );
+        this.resizeObserver.observe(header);
+      }
+    }
+
+    init() {
+      window.addEventListener('scroll', this.throttledHandleScroll.bind(this), {
+        passive: true,
+      });
+    }
+
+    throttledHandleScroll() {
+      if (this.throttleTimer !== null) return;
+
+      this.throttleTimer = window.requestAnimationFrame(() => {
+        this.handleScroll();
+        this.throttleTimer = null;
+      });
+    }
+
+    handleScroll() {
+      const header = document.querySelector('header');
+      if (!header) return;
+
+      if (window.scrollY > 100) {
+        header.classList.add('bg-gray-900/95', 'backdrop-blur-md');
+        header.style.transition = 'all 0.3s ease';
+      } else {
+        header.classList.remove('bg-gray-900/95', 'backdrop-blur-md');
+      }
+    }
+
+    updateHeaderHeight() {
+      const header = document.querySelector('header');
+      if (!header) return;
+      const h = header.getBoundingClientRect().height;
+      document.documentElement.style.setProperty('--header-height', `${h}px`);
+    }
+  }
+
+  // Initialize when DOM is loaded (idempotent)
+  const init = () => {
+    if ((window as any).__headerControllerInit) return;
+    (window as any).__headerControllerInit = true;
+    new HeaderController();
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+</script>

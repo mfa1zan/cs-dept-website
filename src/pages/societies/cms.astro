@@ -1,9 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import { getCollection } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
+import Header from '@components/layout/Header.astro';
+import Footer from '@components/layout/Footer.astro';
 import { getSocietyById } from '../../utils/societyData';
 import '../../styles/global.css';
 
@@ -11,35 +9,11 @@ const society = getSocietyById('cms');
 if (!society) {
   throw new Error('Computing Media Society data not found');
 }
-
-// Fetch events related to CMS society
-const allEvents = await getCollection('events');
-const cmsEvents = allEvents.filter(
-  (event: CollectionEntry<'events'>) => event.data.society === 'cms'
-);
-
-// Get upcoming events only
-const upcomingCmsEvents = cmsEvents
-  .filter((event: CollectionEntry<'events'>) => event.data.date >= new Date())
-  .sort(
-    (a: CollectionEntry<'events'>, b: CollectionEntry<'events'>) =>
-      a.data.date.getTime() - b.data.date.getTime()
-  );
-
-// Get recent past events (for showcase purposes)
-const pastCmsEvents = cmsEvents
-  .filter((event: CollectionEntry<'events'>) => event.data.date < new Date())
-  .sort(
-    (a: CollectionEntry<'events'>, b: CollectionEntry<'events'>) =>
-      b.data.date.getTime() - a.data.date.getTime()
-  )
-  .slice(0, 3);
 ---
 
 <Layout>
   <Header />
   <main class="pt-24">
-    <!-- Hero Section -->
     <section class="py-20 relative overflow-hidden">
       <div
         class="absolute inset-0 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950"
@@ -74,7 +48,6 @@ const pastCmsEvents = cmsEvents
       </div>
     </section>
 
-    <!-- About Section -->
     <section class="py-20">
       <div class="container mx-auto px-6">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -97,24 +70,22 @@ const pastCmsEvents = cmsEvents
               media, we provide a platform for students to express their
               creativity through technology.
             </p>
-
-            <!-- Key Features -->
             <div class="space-y-4">
               <div class="flex items-center space-x-3">
-                <div class="w-2 h-2 bg-cyan-400 rounded-full"></div>
-                <span class="text-gray-300">Digital Media Production</span>
+                <div class="w-2 h-2 bg-cyan-400 rounded-full"></div><span
+                  class="text-gray-300">Digital Media Production</span>
               </div>
               <div class="flex items-center space-x-3">
-                <div class="w-2 h-2 bg-teal-400 rounded-full"></div>
-                <span class="text-gray-300">Interactive Design Workshops</span>
+                <div class="w-2 h-2 bg-teal-400 rounded-full"></div><span
+                  class="text-gray-300">Interactive Design Workshops</span>
               </div>
               <div class="flex items-center space-x-3">
-                <div class="w-2 h-2 bg-cyan-400 rounded-full"></div>
-                <span class="text-gray-300">Multimedia Programming</span>
+                <div class="w-2 h-2 bg-cyan-400 rounded-full"></div><span
+                  class="text-gray-300">Multimedia Programming</span>
               </div>
               <div class="flex items-center space-x-3">
-                <div class="w-2 h-2 bg-teal-400 rounded-full"></div>
-                <span class="text-gray-300">Creative Technology Projects</span>
+                <div class="w-2 h-2 bg-teal-400 rounded-full"></div><span
+                  class="text-gray-300">Creative Technology Projects</span>
               </div>
             </div>
           </div>
@@ -128,238 +99,16 @@ const pastCmsEvents = cmsEvents
                 Ready to explore the creative side of technology? Join our
                 community of digital creators and innovators.
               </p>
-              <button
-                class="bg-gradient-to-r from-cyan-400 to-teal-600 hover:from-cyan-500 hover:to-teal-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
-              >
-                Become a Member
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Activities Section -->
-    <section class="py-20 bg-gradient-to-br from-gray-900 to-gray-950">
-      <div class="container mx-auto px-6">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold mb-6">
-            <span
-              class="bg-gradient-to-r from-cyan-400 to-teal-600 bg-clip-text text-transparent"
-            >
-              Our Activities
-            </span>
-          </h2>
-          <p class="text-gray-300 max-w-2xl mx-auto">
-            Explore our diverse range of activities designed to enhance your
-            media and technology skills
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div
-            class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6"
-          >
-            <div class="text-3xl mb-4">🎬</div>
-            <h3 class="text-xl font-bold text-white mb-3">Video Production</h3>
-            <p class="text-gray-400">
-              Create professional videos, documentaries, and multimedia content
-            </p>
-          </div>
-
-          <div
-            class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6"
-          >
-            <div class="text-3xl mb-4">🎨</div>
-            <h3 class="text-xl font-bold text-white mb-3">Digital Design</h3>
-            <p class="text-gray-400">
-              Master graphic design, UI/UX, and digital art techniques
-            </p>
-          </div>
-
-          <div
-            class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6"
-          >
-            <div class="text-3xl mb-4">💻</div>
-            <h3 class="text-xl font-bold text-white mb-3">Interactive Media</h3>
-            <p class="text-gray-400">
-              Build interactive websites, games, and multimedia applications
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Upcoming Events Section -->
-    {
-      upcomingCmsEvents.length > 0 && (
-        <section class="py-20">
-          <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-              <h2 class="text-4xl font-bold mb-6">
-                <span class="bg-gradient-to-r from-cyan-400 to-teal-600 bg-clip-text text-transparent">
-                  Upcoming Events
-                </span>
-              </h2>
-              <p class="text-gray-300 max-w-2xl mx-auto">
-                Join us for exciting CMS events and workshops
-              </p>
-            </div>
-
-            <div class="max-w-4xl mx-auto space-y-6">
-              {upcomingCmsEvents.map((event: CollectionEntry<'events'>) => (
-                <div class="bg-gradient-to-br from-gray-800/60 to-gray-900/60 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 hover:border-cyan-500/50 transition-all duration-300">
-                  <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-                    <div class="flex-1 mb-4 md:mb-0">
-                      <div class="flex items-center space-x-4 mb-3">
-                        <div class="bg-cyan-500/20 text-cyan-300 px-3 py-1 rounded-lg font-medium">
-                          {event.data.date.toLocaleDateString('en-US', {
-                            month: 'short',
-                            day: 'numeric',
-                          })}
-                        </div>
-                        <span class="text-cyan-400 font-medium">
-                          {event.data.type.charAt(0).toUpperCase() +
-                            event.data.type.slice(1)}
-                        </span>
-                      </div>
-                      <h3 class="text-2xl font-bold text-white mb-2">
-                        {event.data.title}
-                      </h3>
-                      <p class="text-gray-300 mb-3">{event.data.description}</p>
-                      <div class="flex items-center space-x-4 text-sm text-gray-400">
-                        <div class="flex items-center">
-                          <svg
-                            class="w-4 h-4 mr-2"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                          </svg>
-                          {event.data.time}
-                          {event.data.endTime ? ` - ${event.data.endTime}` : ''}
-                        </div>
-                        <div class="flex items-center">
-                          <svg
-                            class="w-4 h-4 mr-2"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                            />
-                          </svg>
-                          {event.data.location}
-                        </div>
-                      </div>
-                    </div>
-                    <div class="flex space-x-3">
-                      {event.data.registrationRequired &&
-                        event.data.registrationLink && (
-                          <a
-                            href={event.data.registrationLink}
-                            class="bg-gradient-to-r from-cyan-500 to-teal-600 hover:from-cyan-600 hover:to-teal-700 px-6 py-2 rounded-lg transition-all duration-300"
-                          >
-                            Register
-                          </a>
-                        )}
-                      <a
-                        href={`/events/${event.id}`}
-                        class="border border-gray-600 hover:border-cyan-400 px-6 py-2 rounded-lg transition-all duration-300"
-                      >
-                        Learn More
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div class="text-center mt-12">
               <a
-                href="/news"
-                class="bg-gradient-to-r from-cyan-500 to-teal-600 hover:from-cyan-600 hover:to-teal-700 px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105"
+                href="#"
+                class="bg-gradient-to-r from-cyan-400 to-teal-600 hover:from-cyan-500 hover:to-teal-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 inline-block"
+                >Become a Member</a
               >
-                View All Events
-              </a>
             </div>
           </div>
-        </section>
-      )
-    }
-
-    <!-- Past Events Showcase (if any) -->
-    {
-      pastCmsEvents.length > 0 && (
-        <section class="py-20 bg-gradient-to-br from-gray-900 to-gray-950">
-          <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-              <h2 class="text-4xl font-bold mb-6">
-                <span class="bg-gradient-to-r from-cyan-400 to-teal-600 bg-clip-text text-transparent">
-                  Recent Events
-                </span>
-              </h2>
-              <p class="text-gray-300 max-w-2xl mx-auto">
-                Check out our recent successful events and activities
-              </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {pastCmsEvents.map((event: CollectionEntry<'events'>) => (
-                <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 hover:border-cyan-500/50 transition-all duration-300">
-                  <div class="flex items-center space-x-3 mb-4">
-                    <span class="bg-cyan-500/20 text-cyan-300 px-3 py-1 rounded-full text-sm font-medium">
-                      {event.data.type.charAt(0).toUpperCase() +
-                        event.data.type.slice(1)}
-                    </span>
-                    <span class="text-gray-400 text-sm">
-                      {event.data.date.toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: 'numeric',
-                        year: 'numeric',
-                      })}
-                    </span>
-                  </div>
-
-                  <h4 class="text-xl font-bold text-white mb-3">
-                    {event.data.title}
-                  </h4>
-
-                  <p class="text-gray-300 text-sm leading-relaxed mb-4">
-                    {event.data.description}
-                  </p>
-
-                  <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-2">
-                      <div class="w-6 h-6 bg-gradient-to-br from-cyan-400 to-teal-600 rounded-full" />
-                      <span class="text-cyan-300 text-sm font-medium">
-                        CMS Event
-                      </span>
-                    </div>
-                    <a
-                      href={`/events/${event.id}`}
-                      class="text-cyan-400 hover:text-cyan-300 transition-colors text-sm font-medium"
-                    >
-                      Read More →
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )
-    }
+        </div>
+      </div>
+    </section>
   </main>
   <Footer />
 </Layout>

@@ -1,78 +1,50 @@
 import { defineCollection, z } from 'astro:content';
-import { glob } from 'astro/loaders';
 
-const newsCollection = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: 'src/content/news' }),
+const news = defineCollection({
+  type: 'content',
   schema: z.object({
     title: z.string(),
-    description: z.string(),
-    publishDate: z.date(),
-    category: z.enum([
-      'research',
-      'achievement',
-      'event',
-      'partnership',
-      'announcement',
-    ]),
-    featured: z.boolean().default(false),
-    image: z.string().optional(),
+    description: z.string().optional(),
+    publishDate: z.coerce.date(),
+    category: z.string().optional(),
+    featured: z.boolean().optional(),
     author: z.string().optional(),
-    tags: z.array(z.string()).optional(),
   }),
 });
 
-const eventsCollection = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: 'src/content/events' }),
+const events = defineCollection({
+  type: 'content',
   schema: z.object({
     title: z.string(),
-    description: z.string(),
-    date: z.date(),
-    time: z.string(),
+    description: z.string().optional(),
+    date: z.coerce.date(),
     endTime: z.string().optional(),
-    location: z.string(),
-    type: z.enum([
-      'workshop',
-      'conference',
-      'competition',
-      'seminar',
-      'hackathon',
-      'meetup',
-    ]),
-    registrationRequired: z.boolean().default(false),
-    registrationLink: z.string().url().optional(),
-    image: z.string().optional(),
+    time: z.string().optional(),
+    location: z.string().optional(),
+    type: z.string().optional(),
+    registrationRequired: z.boolean().optional(),
     organizer: z.string().optional(),
+    society: z.string().optional(),
     capacity: z.number().optional(),
-    // New field for society association
-    society: z
-      .enum(['cms', 'pas', 'ps', 'sports', 'egaming', 'ems', 'blood-donation'])
-      .optional(),
-    // Alternative field for custom organizers
-    organizingBody: z.string().optional(),
-    // New fields for custom registration forms
-    customFormFields: z
-      .array(
-        z.object({
-          name: z.string(),
-          label: z.string(),
-          type: z.enum([
-            'text',
-            'email',
-            'tel',
-            'select',
-            'textarea',
-            'number',
-          ]),
-          required: z.boolean().default(false),
-          placeholder: z.string().optional(),
-          options: z.array(z.string()).optional(), // for select fields
-        })
-      )
-      .optional(),
   }),
 });
 
-export const collections = {
-  news: newsCollection,
-  events: eventsCollection,
-};
+// Study Resources collection used by Decap CMS to store metadata
+const resources = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    courseId: z.string(),
+    category: z.string(),
+    file: z.string(), // path under /resources or public/resources
+    uploadedBy: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+    semester: z.string().optional(),
+    year: z.number().optional(),
+    professor: z.string().optional(),
+    uploadDate: z.coerce.date().optional(),
+  }),
+});
+
+export const collections = { news, events, resources };

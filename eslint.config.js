@@ -19,6 +19,9 @@ export default [
         navigator: 'readonly',
         document: 'readonly',
         window: 'readonly',
+        localStorage: 'readonly',
+        console: 'readonly',
+        dataLayer: 'readonly',
       },
     },
     plugins: {
@@ -33,6 +36,13 @@ export default [
     },
   },
   ...astro.configs.recommended,
+  {
+    files: ['**/*.astro'],
+    rules: {
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+    },
+  },
   {
     ignores: ['dist/', '.astro/', 'node_modules/', '*.config.*'],
   },

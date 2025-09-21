@@ -1,12 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import Header from '@components/layout/Header.astro';
+import Footer from '@components/layout/Footer.astro';
 import '../styles/global.css';
 import '../styles/timetable.css';
-// Utilities used only client-side; omit here to avoid unused var lint and import again in script.
 import fs from 'node:fs';
-// NOTE: DAY_ORDER, to12, buildClassShort imported in client script below.
 
 // Discover all JSON datasets in public/parsed at build time
 const parsedDir = new URL('../../public/parsed/', import.meta.url);
@@ -32,133 +30,91 @@ try {
   // Fallback: if no week pattern, choose last alphabetically
   if (!defaultDataset && datasetFiles.length)
     defaultDataset = datasetFiles[datasetFiles.length - 1];
-} catch {
-  datasetFiles = [];
-  defaultDataset = null;
+} catch (err) {
+  console.error('Error discovering timetable datasets:', err);
 }
 ---
 
-<!-- Timetable Page -->
 <Layout>
   <Header />
-  <main class="pt-32 pb-20 px-6 max-w-7xl mx-auto">
-    <h1
-      class="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent"
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold mb-4">Department Timetable</h1>
+
+    <div class="flex flex-wrap gap-3 items-center mb-4">
+      <label class="text-sm text-gray-300">
+        Dataset
+        <select
+          id="dataset"
+          class="ml-2 bg-gray-800 border border-gray-700 rounded px-2 py-1"
+        >
+          {
+            datasetFiles.map((f) => (
+              <option value={f} selected={f === defaultDataset}>
+                {f}
+              </option>
+            ))
+          }
+        </select>
+      </label>
+
+      <div class="relative">
+        <input
+          id="search"
+          type="text"
+          placeholder="Search course, teacher, room..."
+          class="bg-gray-800 border border-gray-700 rounded pl-3 pr-3 py-1.5 w-72"
+        />
+      </div>
+
+      <button
+        id="toggle-simplified"
+        aria-pressed="false"
+        class="simplified-switch group ml-auto"
+      >
+        <span class="switch-track"></span>
+        <span class="switch-thumb"></span>
+        <span class="switch-label">Simplified View</span>
+      </button>
+    </div>
+
+    <div class="flex justify-between items-center" id="filter-toggle-wrapper">
+      <button
+        id="mobile-filter-toggle"
+        class="text-xs tracking-wide font-semibold flex items-center gap-2 px-3 py-2 rounded-md bg-gray-800/70 border border-gray-700 hover:border-gray-500 hover:bg-gray-700/70 transition"
+      >
+        <span>Filters</span>
+        <span
+          id="mobile-filter-count"
+          class="inline-flex items-center justify-center text-[10px] font-bold bg-blue-600/70 text-white rounded-full min-w-[1.25rem] h-5 px-1"
+        ></span>
+        <svg
+          id="mobile-filter-caret"
+          class="w-3.5 h-3.5 opacity-70"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.08 1.04l-4.25 4.25a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
+            clip-rule="evenodd"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div
+      id="filters"
+      class="collapsed space-y-2 flex flex-col items-stretch max-w-4xl mx-auto md:mt-0 mt-2"
     >
-      Department Timetable
-    </h1>
-    <p class="text-gray-400 mb-8">
-      <span class="text-amber-400 font-medium">Note:</span> This data was heuristically
-      extracted from PDF sources and <a
-        class="text-amber-100"
-        target="_blank"
-        href="https://www.reddit.com/r/AskProgramming/comments/1ahfeti/does_extracting_data_from_pdfs_just_never_work/"
-        >may contain errors or inaccuracies</a
-      >; always verify critical details (times, rooms) with the official
-      timetable PDF.
-    </p>
-
-    <!-- Controls -->
-    <div class="space-y-4 mb-8" id="controls-wrapper">
-      <div class="flex flex-col md:flex-row md:items-center gap-4">
-        <div class="flex items-center gap-2">
-          <label for="dataset" class="text-sm text-gray-300 whitespace-nowrap"
-            >Dataset:</label
-          >
-          <select
-            id="dataset"
-            class="bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            {
-              datasetFiles.map((f) => (
-                <option value={f} selected={f === defaultDataset}>
-                  {f.replace(/\.json$/, '')}
-                </option>
-              ))
-            }
-          </select>
-        </div>
-        <div class="flex-1 relative">
-          <input
-            id="search"
-            type="text"
-            placeholder="Search (course, code, teacher, program, semester, room, etc.)"
-            class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <svg
-            class="w-5 h-5 text-gray-500 absolute right-3 top-1/2 -translate-y-1/2"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            ><path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"
-            ></path></svg
-          >
-        </div>
-      </div>
-      <!-- Desktop simplified toggle (relocated below main control row) -->
-      <div
-        class="hidden md:flex mt-2 items-center justify-end"
-        id="simplified-toggle-row"
-      >
-        <button
-          id="toggle-simplified"
-          aria-pressed="false"
-          class="simplified-switch group"
-        >
-          <span class="switch-track"></span>
-          <span class="switch-thumb"></span>
-          <span class="switch-label">Simplified View</span>
-        </button>
-      </div>
-
-      <!-- Mobile/Tablet (<=820px) filter toggle -->
-      <div class="flex justify-between items-center" id="filter-toggle-wrapper">
-        <button
-          id="mobile-filter-toggle"
-          class="text-xs tracking-wide font-semibold flex items-center gap-2 px-3 py-2 rounded-md bg-gray-800/70 border border-gray-700 hover:border-gray-500 hover:bg-gray-700/70 transition"
-        >
-          <span>Filters</span>
-          <span
-            id="mobile-filter-count"
-            class="inline-flex items-center justify-center text-[10px] font-bold bg-blue-600/70 text-white rounded-full min-w-[1.25rem] h-5 px-1"
-          ></span>
-          <svg
-            id="mobile-filter-caret"
-            class="w-3.5 h-3.5 opacity-70"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            ><path
-              fill-rule="evenodd"
-              d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.08 1.04l-4.25 4.25a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
-              clip-rule="evenodd"></path></svg
-          >
-        </button>
-      </div>
-
-      <!-- Filter Rows -->
-      <div
-        id="filters"
-        class="collapsed space-y-2 flex flex-col items-stretch max-w-4xl mx-auto md:mt-0 mt-2"
-      >
-        <div id="day-filters" class="filter-row"></div>
-        <div id="degree-filters" class="filter-row"></div>
-        <div id="program-filters" class="filter-row"></div>
-        <div id="semester-filters" class="filter-row"></div>
-        <div id="section-filters" class="filter-row"></div>
-        <div class="pt-2 flex justify-center">
-          <button id="clear-filters" class="clear-btn">Clear Filters</button>
-        </div>
+      <div id="day-filters" class="filter-row"></div>
+      <div id="degree-filters" class="filter-row"></div>
+      <div id="program-filters" class="filter-row"></div>
+      <div id="semester-filters" class="filter-row"></div>
+      <div id="section-filters" class="filter-row"></div>
+      <div class="pt-2 flex justify-center">
+        <button id="clear-filters" class="clear-btn">Clear Filters</button>
       </div>
     </div>
 
-    <!-- Stats -->
-    <div id="stats" class="text-xs text-gray-500 mb-2"></div>
-
-    <!-- Results (Unified Table) -->
     <div
       class="bg-gray-900/60 backdrop-blur rounded-xl border border-gray-800 shadow-xl overflow-hidden"
     >
@@ -178,13 +134,20 @@ try {
             class="bg-gray-800/70 text-gray-300 sticky top-0 z-10 backdrop-blur supports-[backdrop-filter]:bg-gray-800/60"
           >
             <tr class="text-left">
-              <th class="px-3 py-2 font-medium">Time</th>
-              <th class="px-3 py-2 font-medium">Course</th>
-              <th class="px-3 py-2 font-medium">Code</th>
-              <th class="px-3 py-2 font-medium">Program / Semester</th>
-              <th class="px-3 py-2 font-medium">Teacher</th>
-              <th class="px-3 py-2 font-medium">Room</th>
-              <th class="px-3 py-2 font-medium">Day</th>
+              <th class="px-3 py-2 font-medium" data-sort="start_time">Time</th>
+              <th class="px-3 py-2 font-medium" data-sort="course_title"
+                >Course</th
+              >
+              <th class="px-3 py-2 font-medium" data-sort="course_code">Code</th
+              >
+              <th class="px-3 py-2 font-medium" data-sort="program_line"
+                >Program / Semester</th
+              >
+              <th class="px-3 py-2 font-medium" data-sort="teacher_name"
+                >Teacher</th
+              >
+              <th class="px-3 py-2 font-medium" data-sort="room">Room</th>
+              <th class="px-3 py-2 font-medium" data-sort="day">Day</th>
               <th class="px-3 py-2 font-medium">Flags</th>
             </tr>
           </thead>
@@ -192,7 +155,6 @@ try {
         </table>
       </div>
     </div>
-    <!-- Mobile Simplified Results -->
     <div id="mobile-results" class="mt-6 space-y-3"></div>
   </main>
   <Footer />
@@ -247,7 +209,7 @@ try {
   const resultsEl = document.getElementById(
     'results'
   ) as HTMLTableSectionElement | null;
-  const statsEl = document.getElementById('stats') as HTMLElement | null;
+
   const mobileResultsEl = document.getElementById(
     'mobile-results'
   ) as HTMLElement | null;
@@ -574,48 +536,42 @@ try {
       if (a.room > b.room) return 1;
       return 0;
     });
-
-    if (statsEl) {
-      const distinctTeachers = new Set(
-        list.map((r) => r.teacher_name).filter(Boolean)
-      );
-      const distinctPrograms = new Set(
-        list.map((r) => r.program).filter(Boolean)
-      );
-      statsEl.textContent = `${list.length} classes shown (of ${flat.length} loaded) • ${distinctTeachers.size} teachers • ${distinctPrograms.size} programs`;
-    }
-
-    if (!list.length) {
-      if (resultsEl)
-        resultsEl.innerHTML =
-          '<tr><td colspan="8" class="px-4 py-6 text-center text-gray-400">No matches.</td></tr>';
-      if (mobileResultsEl)
-        mobileResultsEl.innerHTML = `<div class="text-center text-gray-400 text-sm py-4">No matches.</div>`;
-      return;
-    }
-
+    // Desktop table rows
     const rows = list
       .map((r: FlatRecord) => {
         const flags: string[] = [];
         if (r.combined_class) flags.push('Combined');
         if (r.practical) flags.push('Practical');
-        return `<tr class="hover:bg-gray-800/40">
-          <td data-label="Time" class="px-3 py-2 whitespace-nowrap text-gray-300">${to12(r.start_time)}${r.end_time ? ` - ${to12(r.end_time)}` : ''}</td>
-          <td data-label="Course" class="px-3 py-2 font-medium text-white">${r.course_title || '<span class="text-gray-500">TBA</span>'}</td>
+        const timeStr = `${to12(r.start_time)}${r.end_time ? ` - ${to12(r.end_time)}` : ''}`;
+        const classBase = buildClassShort(r);
+        const semSuffix = r.semester != null ? ` (Sem #${r.semester})` : '';
+        const classLine = classBase + semSuffix;
+        return `<tr>
+          <td data-label="Time" class="px-3 py-2 text-gray-300">${timeStr}</td>
+          <td data-label="Course" class="px-3 py-2 text-gray-200">${r.course_title || '<span class="text-gray-500">TBA</span>'}</td>
           <td data-label="Code" class="px-3 py-2 text-gray-400">${r.course_code || ''}</td>
           <td data-label="Program / Semester" class="px-3 py-2 text-gray-300">
-            <div class="text-xs text-gray-400">${r.program || ''} ${r.degree ? '(' + r.degree + ')' : ''}</div>
+            <div>${classLine}</div>
             <div class="text-xs">Semester ${r.semester ?? ''} ${r.section ? '• ' + r.section : ''}</div>
           </td>
           <td data-label="Teacher" class="px-3 py-2 text-gray-300">${r.teacher_name || ''}</td>
           <td data-label="Room" class="px-3 py-2 text-gray-400">${r.room}</td>
           <td data-label="Day" class="px-3 py-2 text-gray-400">${r.day}</td>
-          <td data-label="Flags" class="px-3 py-2 text-xs">${flags.map((f) => `<span class='inline-block bg-blue-600/30 border border-blue-500/40 text-blue-300 rounded-full px-2 py-0.5 mr-1 mb-1'>${f}</span>`).join('')}</td>
+          <td data-label="Flags" class="px-3 py-2 text-xs">${flags
+            .map(
+              (f) =>
+                `<span class='inline-block bg-blue-600/30 border border-blue-500/40 text-blue-300 rounded-full px-2 py-0.5 mr-1 mb-1'>${f}</span>`
+            )
+            .join('')}</td>
         </tr>`;
       })
       .join('');
-    if (resultsEl) resultsEl.innerHTML = rows;
+    if (resultsEl)
+      resultsEl.innerHTML =
+        rows ||
+        `<tr><td class='px-4 py-6 text-center text-gray-400' colspan='8'>No matching results</td></tr>`;
 
+    // Mobile simplified cards
     if (mobileResultsEl) {
       const mobileCards = list
         .map((r: FlatRecord) => {
@@ -627,20 +583,20 @@ try {
           if (r.combined_class) flags.push('Combined');
           if (r.practical) flags.push('Practical');
           const flagsHTML = flags.length
-            ? `<div class=\"mcard-meta-flags\">${flags
-                .map((f) => `<span class=\"mcard-flag\">${f}</span>`)
+            ? `<div class="mcard-meta-flags">${flags
+                .map((f) => `<span class="mcard-flag">${f}</span>`)
                 .join('')}</div>`
             : '';
-          return `<div class=\"mcard\">
-            <div class=\"mcard-meta\">
-              <div class=\"mcard-meta-day\">${r.day}</div>
-              <div class=\"mcard-meta-time\">${timeStr}</div>
+          return `<div class="mcard">
+            <div class="mcard-meta">
+              <div class="mcard-meta-day">${r.day}</div>
+              <div class="mcard-meta-time">${timeStr}</div>
               ${flagsHTML}
             </div>
-            <div class=\"mcard-course\">${r.course_title || '<span class=\"text-gray-500\">TBA</span>'}</div>
-            <div class=\"mcard-class\">${classLine}</div>
-            <div class=\"mcard-teacher\">${r.teacher_name || ''}</div>
-            <div class=\"mcard-room\">${r.room || ''}</div>
+            <div class="mcard-course">${r.course_title || '<span class="text-gray-500">TBA</span>'}</div>
+            <div class="mcard-class">${classLine}</div>
+            <div class="mcard-teacher">${r.teacher_name || ''}</div>
+            <div class="mcard-room">${r.room || ''}</div>
           </div>`;
         })
         .join('');

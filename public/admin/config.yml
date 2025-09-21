@@ -1,0 +1,126 @@
+## Enable Decap CMS local development proxy so you can work without Netlify Identity
+## See: https://decapcms.org/docs/working-with-a-local-git-repository/
+## Notes:
+## - The local backend writes to your local Git repo and does NOT support editorial_workflow.
+## - The default proxy server port is 8081. To customize, create a .env with PORT=8082
+##   and set local_backend.url: http://localhost:8082/api/v1
+local_backend: true
+
+backend:
+  name: git-gateway
+  branch: master
+  commit_messages:
+    create: "Create {{collection}}: '{{slug}}'"
+    update: "Update {{collection}}: '{{slug}}'"
+    delete: "Delete {{collection}}: '{{slug}}'"
+    uploadMedia: "Upload media '{{path}}'"
+    deleteMedia: "Delete media '{{path}}'"
+
+# Global media folder for generic uploads (news images, etc.)
+media_folder: 'public/uploads'
+public_folder: '/uploads'
+
+publish_mode: editorial_workflow
+
+collections:
+  # News articles managed via Astro Content Collections (src/content/news)
+  - name: 'news'
+    label: 'News'
+    label_singular: 'News Article'
+    folder: 'src/content/news'
+    create: true
+    slug: '{{slug}}'
+    extension: 'md'
+    format: 'frontmatter'
+    summary: '{{title}} — {{publishDate}}'
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - {
+          label: 'Description',
+          name: 'description',
+          widget: 'text',
+          required: false,
+        }
+      - { label: 'Publish Date', name: 'publishDate', widget: 'datetime' }
+      - {
+          label: 'Category',
+          name: 'category',
+          widget: 'string',
+          required: false,
+        }
+      - {
+          label: 'Featured',
+          name: 'featured',
+          widget: 'boolean',
+          required: false,
+        }
+      - { label: 'Author', name: 'author', widget: 'string', required: false }
+      - { label: 'Body', name: 'body', widget: 'markdown' }
+
+  # Study Resources - stores metadata in src/content/resources and files under public/resources
+  - name: 'resources'
+    label: 'Study Resources'
+    label_singular: 'Resource'
+    folder: 'src/content/resources'
+    create: true
+    slug: '{{fields.courseId}}-{{slug}}'
+    extension: 'md'
+    format: 'frontmatter'
+    media_folder: 'public/resources'
+    public_folder: '/resources'
+    summary: '{{title}} ({{courseId}}) — {{category}}'
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - {
+          label: 'Description',
+          name: 'description',
+          widget: 'text',
+          required: false,
+        }
+      - { label: 'Course ID', name: 'courseId', widget: 'string' }
+      - label: 'Category'
+        name: 'category'
+        widget: 'select'
+        options:
+          [
+            'notes',
+            'past-papers',
+            'tutorials',
+            'assignments',
+            'projects',
+            'books',
+          ]
+      - label: 'File'
+        name: 'file'
+        widget: 'file'
+        # Accept typical document/resource types
+        allow_multiple: false
+        media_folder: 'public/resources'
+        public_folder: '/resources'
+      - {
+          label: 'Uploaded By',
+          name: 'uploadedBy',
+          widget: 'string',
+          required: false,
+        }
+      - { label: 'Tags', name: 'tags', widget: 'list', required: false }
+      - {
+          label: 'Semester',
+          name: 'semester',
+          widget: 'string',
+          required: false,
+        }
+      - { label: 'Year', name: 'year', widget: 'number', required: false }
+      - {
+          label: 'Professor',
+          name: 'professor',
+          widget: 'string',
+          required: false,
+        }
+      - {
+          label: 'Upload Date',
+          name: 'uploadDate',
+          widget: 'datetime',
+          required: false,
+        }
+      - { label: 'Body', name: 'body', widget: 'markdown', required: false }
