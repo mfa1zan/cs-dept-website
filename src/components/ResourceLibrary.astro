@@ -613,7 +613,7 @@
 
     if (sortFilter) {
       sortFilter.addEventListener('change', () => {
-        currentFilter.sortBy = sortFilter.value as any;
+        currentFilter.sortBy = sortFilter.value as import('../utils/resourceManager').ResourceFilter['sortBy'];
         renderResources();
       });
     }
@@ -864,7 +864,7 @@
   }
 
   // Make resourceManager available globally for onclick handlers
-  (window as Record<string, unknown>).resourceManager = resourceManager;
+  (window as unknown as Record<string, unknown>).resourceManager = resourceManager;
 </script>
 
 <style>
