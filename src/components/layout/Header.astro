@@ -355,6 +355,44 @@ const isActive = (path: string): boolean => {
           </div>
         </div>
 
+        <!-- Academics Dropdown (Mobile) -->
+        <div class="space-y-2">
+          <button
+            id="mobile-academics-toggle"
+            class="block bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-4 py-2 rounded-lg transition-all duration-200 text-center w-full flex items-center justify-center shadow-lg"
+          >
+            Academics
+            <svg
+              id="mobile-academics-dropdown-arrow"
+              class="w-4 h-4 ml-2 transform transition-transform duration-200"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div
+            id="mobile-academics-dropdown"
+            class="ml-2 space-y-1 hidden bg-gray-800/50 rounded-lg p-2 backdrop-blur-sm"
+          >
+            <a
+              href="/academics/fyp"
+              class={`block px-3 py-2 rounded-lg transition-all duration-200 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 border-l-2 border-transparent hover:border-blue-400 ${
+                currentPath === '/academics/fyp'
+                  ? 'text-blue-400 bg-blue-500/10 border-l-2 border-blue-400'
+                  : ''
+              }`}
+            >
+              <div class="font-medium text-sm">Final Year Projects</div>
+            </a>
+          </div>
+        </div>
+
         <!-- Societies Dropdown -->
         <div class="space-y-2">
           <button
@@ -486,6 +524,16 @@ const isActive = (path: string): boolean => {
     const mobileToolsDropdownArrow = document.getElementById(
       'mobile-tools-dropdown-arrow'
     );
+    // Academics mobile dropdown elements
+    const mobileAcademicsToggle = document.getElementById(
+      'mobile-academics-toggle'
+    );
+    const mobileAcademicsDropdown = document.getElementById(
+      'mobile-academics-dropdown'
+    );
+    const mobileAcademicsDropdownArrow = document.getElementById(
+      'mobile-academics-dropdown-arrow'
+    );
 
     mobileSocietiesToggle?.addEventListener('click', () => {
       mobileSocietiesDropdown?.classList.toggle('hidden');
@@ -495,6 +543,11 @@ const isActive = (path: string): boolean => {
     mobileToolsToggle?.addEventListener('click', () => {
       mobileToolsDropdown?.classList.toggle('hidden');
       mobileToolsDropdownArrow?.classList.toggle('rotate-180');
+    });
+
+    mobileAcademicsToggle?.addEventListener('click', () => {
+      mobileAcademicsDropdown?.classList.toggle('hidden');
+      mobileAcademicsDropdownArrow?.classList.toggle('rotate-180');
     });
   });
 </script>
