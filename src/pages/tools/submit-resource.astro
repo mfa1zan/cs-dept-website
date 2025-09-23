@@ -9,15 +9,26 @@ import '../../styles/global.css';
   <Header />
   <main class="pt-24 pb-16 px-5 max-w-3xl mx-auto">
     <div class="mb-8">
-      <h1 class="text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-emerald-400 to-teal-600 bg-clip-text text-transparent">
+      <h1
+        class="text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-emerald-400 to-teal-600 bg-clip-text text-transparent"
+      >
         Submit a Study Resource
       </h1>
       <p class="text-gray-400 text-sm md:text-base">
-        Share your notes, past papers, or tutorials with the community. Submissions are reviewed by an admin before appearing in the library.
+        Share your notes, past papers, or tutorials with the community.
+        Submissions are reviewed by an admin before appearing in the library.
       </p>
     </div>
 
-  <form name="resource-submission" method="POST" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data" action="/tools/submit-resource?submitted=1" class="bg-gray-900/50 border border-gray-800 rounded-xl p-6 space-y-5">
+    <form
+      name="resource-submission"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      enctype="multipart/form-data"
+      action="/tools/submit-resource?submitted=1"
+      class="bg-gray-900/50 border border-gray-800 rounded-xl p-6 space-y-5"
+    >
       <input type="hidden" name="form-name" value="resource-submission" />
       <input type="hidden" name="submittedAt" value="" />
       <p class="hidden">
@@ -25,21 +36,46 @@ import '../../styles/global.css';
       </p>
 
       <div class="grid grid-cols-1 gap-4">
-        <label class="text-sm text-gray-300">Title
-          <input required name="title" type="text" class="mt-1 w-full bg-gray-800/60 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="e.g., CS201 Data Structures Notes" />
+        <label class="text-sm text-gray-300"
+          >Title
+          <input
+            required
+            name="title"
+            type="text"
+            class="mt-1 w-full bg-gray-800/60 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            placeholder="e.g., CS201 Data Structures Notes"
+          />
         </label>
 
-        <label class="text-sm text-gray-300">Description
-          <textarea name="description" rows="3" class="mt-1 w-full bg-gray-800/60 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Brief description of the resource (optional)"></textarea>
+        <label class="text-sm text-gray-300"
+          >Description
+          <textarea
+            name="description"
+            rows="3"
+            class="mt-1 w-full bg-gray-800/60 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            placeholder="Brief description of the resource (optional)"
+          ></textarea>
         </label>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <label class="text-sm text-gray-300">Course ID
-            <input required name="courseId" type="text" class="mt-1 w-full bg-gray-800/60 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="e.g., cs201" />
+          <label class="text-sm text-gray-300"
+            >Course ID
+            <input
+              required
+              name="courseId"
+              type="text"
+              class="mt-1 w-full bg-gray-800/60 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              placeholder="e.g., cs201"
+            />
           </label>
 
-          <label class="text-sm text-gray-300">Category
-            <select required name="category" class="mt-1 w-full bg-gray-800/60 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
+          <label class="text-sm text-gray-300"
+            >Category
+            <select
+              required
+              name="category"
+              class="mt-1 w-full bg-gray-800/60 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            >
               <option value="notes">Lecture Notes</option>
               <option value="past-papers">Past Papers</option>
               <option value="tutorials">Tutorials</option>
@@ -50,39 +86,82 @@ import '../../styles/global.css';
           </label>
         </div>
 
-        <label class="text-sm text-gray-300">Tags (comma separated)
-          <input name="tags" type="text" class="mt-1 w-full bg-gray-800/60 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="e.g., graphs, linked-lists, exam" />
+        <label class="text-sm text-gray-300"
+          >Tags (comma separated)
+          <input
+            name="tags"
+            type="text"
+            class="mt-1 w-full bg-gray-800/60 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            placeholder="e.g., graphs, linked-lists, exam"
+          />
         </label>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <label class="text-sm text-gray-300">Your Name
-            <input name="uploadedBy" type="text" class="mt-1 w-full bg-gray-800/60 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="e.g., Ayesha Khan" />
+          <label class="text-sm text-gray-300"
+            >Your Name
+            <input
+              name="uploadedBy"
+              type="text"
+              class="mt-1 w-full bg-gray-800/60 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              placeholder="e.g., Ayesha Khan"
+            />
           </label>
-          <label class="text-sm text-gray-300">Contact Email
-            <input name="contactEmail" type="email" class="mt-1 w-full bg-gray-800/60 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="for admin follow-up (not public)" />
+          <label class="text-sm text-gray-300"
+            >Contact Email
+            <input
+              name="contactEmail"
+              type="email"
+              class="mt-1 w-full bg-gray-800/60 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              placeholder="for admin follow-up (not public)"
+            />
           </label>
         </div>
 
-        <label class="text-sm text-gray-300">Upload File
-          <input required name="file" type="file" class="mt-1 w-full text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-500" />
-          <span class="text-xs text-gray-500 block mt-1">Accepted types: PDF, DOCX, ZIP, images; max 10MB.</span>
+        <label class="text-sm text-gray-300"
+          >Upload File
+          <input
+            required
+            name="file"
+            type="file"
+            class="mt-1 w-full text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-500"
+          />
+          <span class="text-xs text-gray-500 block mt-1"
+            >Accepted types: PDF, DOCX, ZIP, images; max 10MB.</span
+          >
         </label>
 
         <div class="flex items-start gap-2">
           <input name="terms" type="checkbox" required class="mt-1" />
-          <p class="text-xs text-gray-400">I confirm I have the right to share this file and agree it will be reviewed by an admin before publication.</p>
+          <p class="text-xs text-gray-400">
+            I confirm I have the right to share this file and agree it will be
+            reviewed by an admin before publication.
+          </p>
         </div>
 
         <div class="flex gap-3 pt-2">
-          <button type="submit" class="px-5 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-medium rounded-lg transition-all">Submit</button>
-          <a href="/tools/study-resources" class="px-5 py-2.5 bg-gray-800 hover:bg-gray-700 text-white font-medium rounded-lg transition-colors">Cancel</a>
+          <button
+            type="submit"
+            class="px-5 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-medium rounded-lg transition-all"
+            >Submit</button
+          >
+          <a
+            href="/tools/study-resources"
+            class="px-5 py-2.5 bg-gray-800 hover:bg-gray-700 text-white font-medium rounded-lg transition-colors"
+            >Cancel</a
+          >
         </div>
       </div>
     </form>
 
-    <p class="text-xs text-gray-500 mt-4">After submission, an admin will review and publish verified resources. If accepted, your resource will appear in the Study Resources library.</p>
+    <p class="text-xs text-gray-500 mt-4">
+      After submission, an admin will review and publish verified resources. If
+      accepted, your resource will appear in the Study Resources library.
+    </p>
 
-    <div id="submit-success" class="hidden mt-6 bg-emerald-900/40 border border-emerald-700 text-emerald-200 rounded-lg p-4">
+    <div
+      id="submit-success"
+      class="hidden mt-6 bg-emerald-900/40 border border-emerald-700 text-emerald-200 rounded-lg p-4"
+    >
       Thank you! Your resource was submitted and is pending review by an admin.
     </div>
   </main>
@@ -92,7 +171,9 @@ import '../../styles/global.css';
 <script>
   // Stamp submission time for convenience
   document.addEventListener('DOMContentLoaded', () => {
-    const input = document.querySelector('input[name="submittedAt"]') as HTMLInputElement | null;
+    const input = document.querySelector(
+      'input[name="submittedAt"]'
+    ) as HTMLInputElement | null;
     if (input) input.value = new Date().toISOString();
 
     const params = new URLSearchParams(window.location.search);
