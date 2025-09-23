@@ -12,7 +12,7 @@ const isActive = (path: string): boolean => {
 <header
   class="fixed top-0 left-0 right-0 z-50 bg-gray-900/80 backdrop-blur-md border-b border-gray-800"
 >
-  <nav class="container mx-auto px-6 py-4">
+  <nav class="container px-6 py-4">
     <div class="flex items-center justify-between">
       <!-- Logo -->
       <div class="flex items-center space-x-3">
@@ -110,7 +110,7 @@ const isActive = (path: string): boolean => {
         <!-- Tools Dropdown -->
         <div class="relative group">
           <button
-            class={`px-4 py-2 rounded-lg transition-all duration-200 flex items-center ${
+            class={`px-2 py-2 rounded-lg transition-all duration-200 flex items-center ${
               isActive('/tools')
                 ? 'text-blue-400'
                 : 'text-gray-300 hover:text-blue-400'
@@ -178,7 +178,7 @@ const isActive = (path: string): boolean => {
         <!-- Academics Dropdown -->
         <div class="relative group">
           <button
-            class={`px-4 py-2 rounded-lg transition-all duration-200 flex items-center ${
+            class={`px-2 py-2 rounded-lg transition-all duration-200 flex items-center ${
               isActive('/academics')
                 ? 'text-blue-400'
                 : 'text-gray-300 hover:text-blue-400'
@@ -301,7 +301,7 @@ const isActive = (path: string): boolean => {
         <div class="space-y-2">
           <button
             id="mobile-tools-toggle"
-            class="block bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-4 py-2 rounded-lg transition-all duration-200 text-center w-full flex items-center justify-center shadow-lg"
+            class="block w-full text-left transition-colors duration-200 flex items-center justify-between text-gray-300 hover:text-blue-400"
           >
             Tools
             <svg
@@ -318,10 +318,7 @@ const isActive = (path: string): boolean => {
                 d="M19 9l-7 7-7-7"></path>
             </svg>
           </button>
-          <div
-            id="mobile-tools-dropdown"
-            class="ml-2 space-y-1 hidden bg-gray-800/50 rounded-lg p-2 backdrop-blur-sm"
-          >
+          <div id="mobile-tools-dropdown" class="ml-2 space-y-1 hidden">
             <a
               href="/tools/cgpa-calculator"
               class={`block px-3 py-2 rounded-lg transition-all duration-200 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 border-l-2 border-transparent hover:border-blue-400 ${
@@ -359,7 +356,7 @@ const isActive = (path: string): boolean => {
         <div class="space-y-2">
           <button
             id="mobile-academics-toggle"
-            class="block bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-4 py-2 rounded-lg transition-all duration-200 text-center w-full flex items-center justify-center shadow-lg"
+            class="block w-full text-left transition-colors duration-200 flex items-center justify-between text-gray-300 hover:text-blue-400"
           >
             Academics
             <svg
@@ -376,10 +373,7 @@ const isActive = (path: string): boolean => {
                 d="M19 9l-7 7-7-7"></path>
             </svg>
           </button>
-          <div
-            id="mobile-academics-dropdown"
-            class="ml-2 space-y-1 hidden bg-gray-800/50 rounded-lg p-2 backdrop-blur-sm"
-          >
+          <div id="mobile-academics-dropdown" class="ml-2 space-y-1 hidden">
             <a
               href="/academics/fyp"
               class={`block px-3 py-2 rounded-lg transition-all duration-200 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 border-l-2 border-transparent hover:border-blue-400 ${
@@ -397,7 +391,7 @@ const isActive = (path: string): boolean => {
         <div class="space-y-2">
           <button
             id="mobile-societies-toggle"
-            class="block bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-4 py-2 rounded-lg transition-all duration-200 text-center w-full flex items-center justify-center shadow-lg"
+            class="block w-full text-left transition-colors duration-200 flex items-center justify-between text-gray-300 hover:text-blue-400"
           >
             Societies
             <svg
