@@ -75,6 +75,19 @@ try {
         <span class="switch-thumb"></span>
         <span class="switch-label">Simplified View</span>
       </button>
+
+      <button
+        id="export-google-calendar"
+        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 text-sm font-medium"
+        title="Export filtered results to Google Calendar"
+      >
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <path
+            d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"
+          ></path>
+        </svg>
+        <span>Export to Calendar</span>
+      </button>
     </div>
 
     <div class="flex justify-between items-center" id="filter-toggle-wrapper">
@@ -690,5 +703,147 @@ try {
     simplifiedToggle.classList.toggle('active', active);
     simplifiedToggle.setAttribute('aria-pressed', active ? 'true' : 'false');
     render();
+  });
+
+  // Google Calendar Export functionality
+  const exportButton = document.getElementById('export-google-calendar');
+
+  function getDayOffset(dayName: string): number {
+    const days = [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+    ];
+    return days.indexOf(dayName);
+  }
+
+  function getNextOccurrence(dayName: string): Date {
+    const today = new Date();
+    const targetDay = getDayOffset(dayName);
+    const currentDay = today.getDay();
+    let daysUntilTarget = targetDay - currentDay;
+
+    if (daysUntilTarget <= 0) {
+      daysUntilTarget += 7;
+    }
+
+    const nextDate = new Date(today);
+    nextDate.setDate(today.getDate() + daysUntilTarget);
+    return nextDate;
+  }
+
+  function formatDateForGoogle(date: Date, time: string): string {
+    const [hours, minutes] = time.split(':').map(Number);
+    date.setHours(hours, minutes, 0, 0);
+
+    // Format: YYYYMMDDTHHmmSS
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hour = String(date.getHours()).padStart(2, '0');
+    const minute = String(date.getMinutes()).padStart(2, '0');
+
+    return `${year}${month}${day}T${hour}${minute}00`;
+  }
+
+  function createGoogleCalendarUrl(record: FlatRecord): string {
+    const baseUrl =
+      'https://calendar.google.com/calendar/render?action=TEMPLATE';
+
+    // Get the next occurrence of this class day
+    const classDate = getNextOccurrence(record.day);
+
+    // Format start and end times
+    const startTime = formatDateForGoogle(
+      new Date(classDate),
+      record.start_time
+    );
+    const endDate = new Date(classDate);
+    const endTime = formatDateForGoogle(
+      endDate,
+      record.end_time || record.start_time
+    );
+
+    // Build title and description
+    const title = record.course_title || 'Class';
+    const details = [
+      record.course_code ? `Course Code: ${record.course_code}` : '',
+      record.teacher_name ? `Teacher: ${record.teacher_name}` : '',
+      record.program_line ? `Program: ${record.program_line}` : '',
+      record.semester ? `Semester: ${record.semester}` : '',
+      record.section ? `Section: ${record.section}` : '',
+      record.practical ? 'Type: Practical' : '',
+      record.combined_class ? 'Type: Combined Class' : '',
+    ]
+      .filter(Boolean)
+      .join('\n');
+
+    const location = `Room ${record.room}`;
+
+    // Create recurring event (weekly for a semester, approximately 16 weeks)
+    const recurrence = `RRULE:FREQ=WEEKLY;COUNT=16`;
+
+    const params = new URLSearchParams({
+      text: title,
+      dates: `${startTime}/${endTime}`,
+      details: details,
+      location: location,
+      recur: recurrence,
+    });
+
+    return `${baseUrl}&${params.toString()}`;
+  }
+
+  exportButton?.addEventListener('click', () => {
+    // Get currently filtered results
+    const q = (searchInput?.value || '').trim().toLowerCase();
+    const filteredList = applyFilters(flat).filter((r: FlatRecord) =>
+      recordMatches(r, q)
+    );
+
+    if (filteredList.length === 0) {
+      alert('No timetable entries to export. Please adjust your filters.');
+      return;
+    }
+
+    if (filteredList.length > 20) {
+      const proceed = confirm(
+        `You are about to export ${filteredList.length} calendar entries. This will open multiple browser tabs. Do you want to continue?`
+      );
+      if (!proceed) return;
+    }
+
+    // Group by similar classes to avoid duplicates
+    const uniqueClasses = new Map<string, FlatRecord>();
+
+    filteredList.forEach((record: FlatRecord) => {
+      // Create a unique key for each class
+      const key = `${record.course_code}-${record.day}-${record.start_time}-${record.room}`;
+      if (!uniqueClasses.has(key)) {
+        uniqueClasses.set(key, record);
+      }
+    });
+
+    // Open Google Calendar for each unique class
+    let count = 0;
+    uniqueClasses.forEach((record) => {
+      setTimeout(() => {
+        const url = createGoogleCalendarUrl(record);
+        window.open(url, '_blank');
+      }, count * 500); // Delay to prevent browser blocking
+      count++;
+    });
+
+    if (uniqueClasses.size === 1) {
+      // Single event
+    } else {
+      alert(
+        `Opening ${uniqueClasses.size} calendar entries. Please allow pop-ups if blocked.`
+      );
+    }
   });
 </script>
