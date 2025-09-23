@@ -175,12 +175,28 @@ const isActive = (path: string): boolean => {
           </div>
         </div>
 
-        <!-- Societies Dropdown -->
+        <!-- Societies Link -->
+        <a
+          href="/societies"
+          class={`bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-4 py-2 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg ${
+            isActive('/societies')
+              ? 'from-blue-600 to-purple-700'
+              : ''
+          }`}
+        >
+          Societies
+        </a>
+
+        <!-- Academics Dropdown -->
         <div class="relative group">
           <button
-            class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-4 py-2 rounded-lg transition-all duration-200 transform hover:scale-105 flex items-center shadow-lg"
+            class={`px-4 py-2 rounded-lg transition-all duration-200 flex items-center ${
+              isActive('/academics')
+                ? 'text-blue-400'
+                : 'text-gray-300 hover:text-blue-400'
+            }`}
           >
-            Societies
+            Academics
             <svg
               class="w-4 h-4 ml-2 transform group-hover:rotate-180 transition-transform duration-200"
               fill="none"
@@ -195,99 +211,19 @@ const isActive = (path: string): boolean => {
             </svg>
           </button>
           <div
-            class="absolute top-full right-0 mt-3 w-72 bg-gray-900/95 backdrop-blur-md border border-gray-700/50 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 overflow-hidden"
+            class="absolute top-full right-0 mt-3 w-56 bg-gray-900/95 backdrop-blur-md border border-gray-700/50 rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50 overflow-hidden"
           >
             <div class="p-2">
               <a
-                href="/societies/ps"
+                href="/academics/fyp"
                 class={`block px-4 py-3 rounded-lg transition-all duration-200 hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-purple-500/10 text-gray-300 hover:text-blue-400 border-l-2 border-transparent hover:border-blue-400 ${
-                  currentPath === '/societies/ps'
+                  currentPath === '/academics/fyp'
                     ? 'text-blue-400 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-l-2 border-blue-400'
                     : ''
                 }`}
               >
-                <div class="font-medium">Programming Society</div>
-                <div class="text-xs text-gray-500 mt-1">
-                  Coding competitions & workshops
-                </div>
-              </a>
-              <a
-                href="/societies/cms"
-                class={`block px-4 py-3 rounded-lg transition-all duration-200 hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-purple-500/10 text-gray-300 hover:text-blue-400 border-l-2 border-transparent hover:border-blue-400 ${
-                  currentPath === '/societies/cms'
-                    ? 'text-blue-400 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-l-2 border-blue-400'
-                    : ''
-                }`}
-              >
-                <div class="font-medium">Computing Media Society</div>
-                <div class="text-xs text-gray-500 mt-1">
-                  Digital media & design
-                </div>
-              </a>
-              <a
-                href="/societies/egaming"
-                class={`block px-4 py-3 rounded-lg transition-all duration-200 hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-purple-500/10 text-gray-300 hover:text-blue-400 border-l-2 border-transparent hover:border-blue-400 ${
-                  currentPath === '/societies/egaming'
-                    ? 'text-blue-400 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-l-2 border-blue-400'
-                    : ''
-                }`}
-              >
-                <div class="font-medium">E-Gaming Society</div>
-                <div class="text-xs text-gray-500 mt-1">
-                  Gaming tournaments & events
-                </div>
-              </a>
-              <a
-                href="/societies/ems"
-                class={`block px-4 py-3 rounded-lg transition-all duration-200 hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-purple-500/10 text-gray-300 hover:text-blue-400 border-l-2 border-transparent hover:border-blue-400 ${
-                  currentPath === '/societies/ems'
-                    ? 'text-blue-400 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-l-2 border-blue-400'
-                    : ''
-                }`}
-              >
-                <div class="font-medium">Event Management Society</div>
-                <div class="text-xs text-gray-500 mt-1">
-                  Organizing department events
-                </div>
-              </a>
-              <a
-                href="/societies/pas"
-                class={`block px-4 py-3 rounded-lg transition-all duration-200 hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-purple-500/10 text-gray-300 hover:text-blue-400 border-l-2 border-transparent hover:border-blue-400 ${
-                  currentPath === '/societies/pas'
-                    ? 'text-blue-400 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-l-2 border-blue-400'
-                    : ''
-                }`}
-              >
-                <div class="font-medium">Performing Arts Society</div>
-                <div class="text-xs text-gray-500 mt-1">
-                  Drama, music & cultural events
-                </div>
-              </a>
-              <a
-                href="/societies/sports"
-                class={`block px-4 py-3 rounded-lg transition-all duration-200 hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-purple-500/10 text-gray-300 hover:text-blue-400 border-l-2 border-transparent hover:border-blue-400 ${
-                  currentPath === '/societies/sports'
-                    ? 'text-blue-400 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-l-2 border-blue-400'
-                    : ''
-                }`}
-              >
-                <div class="font-medium">Sports Society</div>
-                <div class="text-xs text-gray-500 mt-1">
-                  Athletic competitions & fitness
-                </div>
-              </a>
-              <a
-                href="/societies/blood-donation"
-                class={`block px-4 py-3 rounded-lg transition-all duration-200 hover:bg-gradient-to-r hover:from-blue-500/10 hover:to-purple-500/10 text-gray-300 hover:text-blue-400 border-l-2 border-transparent hover:border-blue-400 ${
-                  currentPath === '/societies/blood-donation'
-                    ? 'text-blue-400 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-l-2 border-blue-400'
-                    : ''
-                }`}
-              >
-                <div class="font-medium">Blood Donation & Welfare Society</div>
-                <div class="text-xs text-gray-500 mt-1">
-                  Community service & welfare
-                </div>
+                <div class="font-medium">Final Year Projects</div>
+                <div class="text-xs text-gray-500 mt-1">Student project showcase</div>
               </a>
             </div>
           </div>
