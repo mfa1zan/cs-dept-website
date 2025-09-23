@@ -175,18 +175,6 @@ const isActive = (path: string): boolean => {
           </div>
         </div>
 
-        <!-- Societies Link -->
-        <a
-          href="/societies"
-          class={`bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-4 py-2 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg ${
-            isActive('/societies')
-              ? 'from-blue-600 to-purple-700'
-              : ''
-          }`}
-        >
-          Societies
-        </a>
-
         <!-- Academics Dropdown -->
         <div class="relative group">
           <button
@@ -223,11 +211,23 @@ const isActive = (path: string): boolean => {
                 }`}
               >
                 <div class="font-medium">Final Year Projects</div>
-                <div class="text-xs text-gray-500 mt-1">Student project showcase</div>
+                <div class="text-xs text-gray-500 mt-1">
+                  Student project showcase
+                </div>
               </a>
             </div>
           </div>
         </div>
+
+        <!-- Societies Link -->
+        <a
+          href="/societies"
+          class={`bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-4 py-2 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg ${
+            isActive('/societies') ? 'from-blue-600 to-purple-700' : ''
+          }`}
+        >
+          Societies
+        </a>
       </nav>
 
       <!-- Mobile menu button -->
