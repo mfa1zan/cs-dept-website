@@ -25,3 +25,6 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+
+# Ignore all files under src/content and its subdirectories
+src/content/**
