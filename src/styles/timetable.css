@@ -411,6 +411,14 @@
   color: #a7f3d0;
   opacity: 1;
 }
+
+/* Hide simplified switch on mobile */
+@media (max-width: 1023px) {
+  .simplified-switch {
+    display: none !important;
+  }
+}
+
 #mobile-filter-toggle {
   transition:
     background 0.2s,
